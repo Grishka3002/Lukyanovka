@@ -8,6 +8,8 @@ const dialogClose = document.querySelector(".dialog-close");
 const dialogOk = document.querySelector("#dialogOk");
 const houseButtons = document.querySelectorAll("[data-house]");
 
+document.documentElement.classList.add("motion-ready");
+
 const today = new Date();
 const tomorrow = new Date(today);
 tomorrow.setDate(today.getDate() + 1);
@@ -65,7 +67,7 @@ const openDialog = (data) => {
     Math.round((new Date(data.checkout) - new Date(data.checkin)) / 86_400_000)
   );
   const intro = data.name ? `${data.name}, заявка сохранена на странице.` : "Заявка сохранена на странице.";
-  dialogText.textContent = `${intro} ${formatDate(data.checkin)} - ${formatDate(data.checkout)}, ${nights} ноч., ${data.guests.toLowerCase()}, ${data.house}. Для реальной отправки осталось подключить контакт базы.`;
+  dialogText.textContent = `${intro} ${formatDate(data.checkin)} - ${formatDate(data.checkout)}, ${nights} ноч., ${data.guests.toLowerCase()}, комната: ${data.house}. Для реальной отправки осталось подключить контакт базы.`;
 
   if (typeof dialog.showModal === "function") {
     dialog.showModal();
@@ -83,6 +85,63 @@ const closeDialog = () => {
 window.addEventListener("scroll", () => {
   header.classList.toggle("is-scrolled", window.scrollY > 24);
 });
+
+const setupRevealAnimations = () => {
+  const revealGroups = [
+    [".intro .section-kicker", "reveal-left"],
+    [".intro h2", "reveal-right"],
+    [".intro p", "reveal"],
+    [".section-heading h2", "reveal-left"],
+    [".section-heading p", "reveal-right"],
+    [".house-card", "reveal"],
+    [".activities-image", "reveal-left"],
+    [".activities-content .script-word", "reveal"],
+    [".activities-content h2", "reveal"],
+    [".activity-list > div", "reveal"],
+    [".booking-copy .script-word", "reveal-left"],
+    [".booking-copy h2", "reveal-left"],
+    [".booking-copy p", "reveal-left"],
+    [".trust-list li", "reveal-left"],
+    [".booking-form", "reveal-right"],
+    [".contact-panel h2", "reveal-left"],
+    [".contact-panel p", "reveal-left"],
+    [".contact-actions", "reveal-left"],
+    [".map-card", "reveal-right"],
+  ];
+
+  let revealIndex = 0;
+  revealGroups.forEach(([selector, className]) => {
+    document.querySelectorAll(selector).forEach((element) => {
+      element.classList.add("reveal", className);
+      element.style.setProperty("--reveal-delay", `${Math.min((revealIndex % 4) * 90, 270)}ms`);
+      revealIndex += 1;
+    });
+  });
+
+  const revealElements = document.querySelectorAll(".reveal");
+
+  if (!("IntersectionObserver" in window)) {
+    revealElements.forEach((element) => element.classList.add("is-visible"));
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      rootMargin: "0px 0px -12% 0px",
+      threshold: 0.12,
+    }
+  );
+
+  revealElements.forEach((element) => observer.observe(element));
+};
 
 document.querySelectorAll("form").forEach((form) => {
   form.addEventListener("change", (event) => {
@@ -122,3 +181,4 @@ dialog.addEventListener("close", () => document.body.classList.remove("dialog-op
 setInitialDates();
 ensureCheckoutAfterCheckin(quickBooking);
 ensureCheckoutAfterCheckin(bookingForm);
+setupRevealAnimations();

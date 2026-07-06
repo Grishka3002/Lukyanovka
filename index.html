@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Маори Лукьяновка - уютный сайт бронирования домиков для отдыха в Приморском крае."
+      content="Маори Лукьяновка - уютный сайт бронирования комнат для отдыха в Приморском крае."
     />
     <title>Маори Лукьяновка - бронирование отдыха</title>
     <link rel="stylesheet" href="styles.css" />
@@ -17,7 +17,7 @@
         <span>Маори</span>
       </a>
       <nav class="nav-links" aria-label="Разделы сайта">
-        <a href="#houses">Домики</a>
+        <a href="#houses">Комнаты</a>
         <a href="#activities">Активности</a>
         <a href="#booking">Бронирование</a>
         <a href="#contacts">Контакты</a>
@@ -32,17 +32,17 @@
 
     <main id="top">
       <section class="hero" aria-labelledby="hero-title">
-        <img class="hero-image" src="assets/maori-hero.png" alt="Домики в лесу у сопок" />
+        <img class="hero-image" src="assets/maori-hero.png" alt="Дом для отдыха в лесу у сопок" />
         <div class="hero-scrim" aria-hidden="true"></div>
         <div class="hero-content">
           <p class="script-word">Лукьяновка</p>
           <h1 id="hero-title">Маори Лукьяновка</h1>
           <p class="hero-copy">
-            Тихий отдых у сопок в Приморском крае: домики для пары, семьи или небольшой
-            компании, лесной воздух и спокойные вечера вдали от города.
+            Тихий отдых у сопок в Приморском крае: один уютный дом, комнаты для пары,
+            семьи или небольшой компании, лесной воздух и спокойные вечера вдали от города.
           </p>
           <div class="hero-actions">
-            <a class="button button-primary" href="#booking">Найти домик</a>
+            <a class="button button-primary" href="#booking">Выбрать комнату</a>
             <a class="button button-ghost" href="#houses">Посмотреть варианты</a>
           </div>
         </div>
@@ -65,7 +65,7 @@
               <option>7+ гостей</option>
             </select>
           </label>
-          <button class="button button-dark" type="submit">Найти домик</button>
+          <button class="button button-dark" type="submit">Выбрать комнату</button>
         </form>
       </section>
 
@@ -82,44 +82,44 @@
 
       <section class="houses section-pad" id="houses" aria-labelledby="houses-title">
         <div class="section-heading">
-          <h2 id="houses-title">Домики</h2>
-          <p>Выберите формат отдыха. Цены и точные правила можно заменить после сверки с владельцем.</p>
+          <h2 id="houses-title">Комнаты в доме</h2>
+          <p>Дом один, а формат проживания выбирается по комнате. Цены и точные правила можно заменить после сверки с владельцем.</p>
         </div>
         <div class="house-grid">
           <article class="house-card">
             <div class="house-photo house-photo-a" aria-hidden="true"></div>
             <div class="house-body">
-              <h3>Домик для двоих</h3>
-              <p>Компактный вариант для выходных: спальня, теплая зона отдыха, место для вечернего чая.</p>
+              <h3>Комната для двоих</h3>
+              <p>Компактный вариант для выходных: спокойная спальня, теплая атмосфера и место для вечернего чая.</p>
               <div class="house-meta">
                 <span>2 гостя</span>
                 <span>Цена по запросу</span>
               </div>
-              <button class="link-button" type="button" data-house="Домик для двоих">Выбрать</button>
+              <button class="link-button" type="button" data-house="Комната для двоих">Выбрать</button>
             </div>
           </article>
           <article class="house-card">
             <div class="house-photo house-photo-b" aria-hidden="true"></div>
             <div class="house-body">
-              <h3>Семейный дом</h3>
-              <p>Больше пространства для семьи: отдельные спальные места, общая зона и спокойный двор.</p>
+              <h3>Семейная комната</h3>
+              <p>Больше пространства для семьи: удобные спальные места, общая зона дома и спокойный двор.</p>
               <div class="house-meta">
                 <span>3-5 гостей</span>
                 <span>Цена по запросу</span>
               </div>
-              <button class="link-button" type="button" data-house="Семейный дом">Выбрать</button>
+              <button class="link-button" type="button" data-house="Семейная комната">Выбрать</button>
             </div>
           </article>
           <article class="house-card">
             <div class="house-photo house-photo-c" aria-hidden="true"></div>
             <div class="house-body">
-              <h3>Дом для компании</h3>
+              <h3>Комната для компании</h3>
               <p>Для длинных вечеров, настольных игр и общего маршрута на следующий день.</p>
               <div class="house-meta">
                 <span>6+ гостей</span>
                 <span>Цена по запросу</span>
               </div>
-              <button class="link-button" type="button" data-house="Дом для компании">Выбрать</button>
+              <button class="link-button" type="button" data-house="Комната для компании">Выбрать</button>
             </div>
           </article>
         </div>
@@ -158,7 +158,7 @@
           <ul class="trust-list" aria-label="Что указать в заявке">
             <li>Даты заезда и выезда</li>
             <li>Количество гостей</li>
-            <li>Нужный формат домика</li>
+            <li>Нужная комната в доме</li>
           </ul>
         </div>
         <form class="booking-form" id="bookingForm">
@@ -183,11 +183,11 @@
               </select>
             </label>
             <label>
-              <span>Домик</span>
+              <span>Комната</span>
               <select name="house" id="houseSelect">
-                <option>Домик для двоих</option>
-                <option>Семейный дом</option>
-                <option>Дом для компании</option>
+                <option>Комната для двоих</option>
+                <option>Семейная комната</option>
+                <option>Комната для компании</option>
                 <option>Помогите выбрать</option>
               </select>
             </label>
