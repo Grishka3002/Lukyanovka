@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Маори Лукьяновка - уютный сайт бронирования домиков для отдыха в Приморском крае."
+    />
+    <title>Маори Лукьяновка - бронирование отдыха</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header" aria-label="Главная навигация">
+      <a class="brand" href="#top" aria-label="Маори Лукьяновка">
+        <span class="brand-mark">M</span>
+        <span>Маори</span>
+      </a>
+      <nav class="nav-links" aria-label="Разделы сайта">
+        <a href="#houses">Домики</a>
+        <a href="#activities">Активности</a>
+        <a href="#booking">Бронирование</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
+      <a class="header-action" href="#booking">
+        <span>Забронировать</span>
+        <svg aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M5 12h14M13 6l6 6-6 6" />
+        </svg>
+      </a>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <img class="hero-image" src="assets/maori-hero.png" alt="Домики в лесу у сопок" />
+        <div class="hero-scrim" aria-hidden="true"></div>
+        <div class="hero-content">
+          <p class="script-word">Лукьяновка</p>
+          <h1 id="hero-title">Маори Лукьяновка</h1>
+          <p class="hero-copy">
+            Тихий отдых у сопок в Приморском крае: домики для пары, семьи или небольшой
+            компании, лесной воздух и спокойные вечера вдали от города.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#booking">Найти домик</a>
+            <a class="button button-ghost" href="#houses">Посмотреть варианты</a>
+          </div>
+        </div>
+
+        <form class="quick-booking" id="quickBooking" aria-label="Быстрое бронирование">
+          <label>
+            <span>Заезд</span>
+            <input name="checkin" type="date" required />
+          </label>
+          <label>
+            <span>Выезд</span>
+            <input name="checkout" type="date" required />
+          </label>
+          <label>
+            <span>Гости</span>
+            <select name="guests">
+              <option>2 гостя</option>
+              <option>3-4 гостя</option>
+              <option>5-6 гостей</option>
+              <option>7+ гостей</option>
+            </select>
+          </label>
+          <button class="button button-dark" type="submit">Найти домик</button>
+        </form>
+      </section>
+
+      <section class="intro section-pad" aria-labelledby="intro-title">
+        <div class="section-kicker script-word">Тихо и близко к природе</div>
+        <h2 id="intro-title">Отдых без лишнего шума, с маршрутом к лесу прямо за днем</h2>
+        <p>
+          База находится в районе деревни Лукьяновка Шкотовского района. Это удобная точка
+          для спокойного загородного отдыха и поездок к природным маршрутам Приморья.
+          Публичные карточки базы дают мало подтвержденных деталей, поэтому сайт аккуратно
+          отделяет проверенную географию от редактируемых условий бронирования.
+        </p>
+      </section>
+
+      <section class="houses section-pad" id="houses" aria-labelledby="houses-title">
+        <div class="section-heading">
+          <h2 id="houses-title">Домики</h2>
+          <p>Выберите формат отдыха. Цены и точные правила можно заменить после сверки с владельцем.</p>
+        </div>
+        <div class="house-grid">
+          <article class="house-card">
+            <div class="house-photo house-photo-a" aria-hidden="true"></div>
+            <div class="house-body">
+              <h3>Домик для двоих</h3>
+              <p>Компактный вариант для выходных: спальня, теплая зона отдыха, место для вечернего чая.</p>
+              <div class="house-meta">
+                <span>2 гостя</span>
+                <span>Цена по запросу</span>
+              </div>
+              <button class="link-button" type="button" data-house="Домик для двоих">Выбрать</button>
+            </div>
+          </article>
+          <article class="house-card">
+            <div class="house-photo house-photo-b" aria-hidden="true"></div>
+            <div class="house-body">
+              <h3>Семейный дом</h3>
+              <p>Больше пространства для семьи: отдельные спальные места, общая зона и спокойный двор.</p>
+              <div class="house-meta">
+                <span>3-5 гостей</span>
+                <span>Цена по запросу</span>
+              </div>
+              <button class="link-button" type="button" data-house="Семейный дом">Выбрать</button>
+            </div>
+          </article>
+          <article class="house-card">
+            <div class="house-photo house-photo-c" aria-hidden="true"></div>
+            <div class="house-body">
+              <h3>Дом для компании</h3>
+              <p>Для длинных вечеров, настольных игр и общего маршрута на следующий день.</p>
+              <div class="house-meta">
+                <span>6+ гостей</span>
+                <span>Цена по запросу</span>
+              </div>
+              <button class="link-button" type="button" data-house="Дом для компании">Выбрать</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="activities" id="activities" aria-labelledby="activities-title">
+        <div class="activities-image" aria-hidden="true"></div>
+        <div class="activities-content">
+          <p class="script-word">рядом</p>
+          <h2 id="activities-title">Лес, сопки и медленный ритм Приморья</h2>
+          <div class="activity-list">
+            <div>
+              <h3>Прогулки у деревни</h3>
+              <p>Лукьяновка подходит для короткого загородного выезда без сложной логистики.</p>
+            </div>
+            <div>
+              <h3>Маршруты к Фалазе</h3>
+              <p>Район известен как отправная точка для природных маршрутов к Ливадийской.</p>
+            </div>
+            <div>
+              <h3>Вечер у огня</h3>
+              <p>Формат сайта оставляет место для мангальной зоны, бани или беседок после уточнения.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="booking section-pad" id="booking" aria-labelledby="booking-title">
+        <div class="booking-copy">
+          <p class="script-word">бронь</p>
+          <h2 id="booking-title">Оставьте заявку на свободные даты</h2>
+          <p>
+            Форма собирает основные пожелания и показывает аккуратное подтверждение на странице.
+            Для настоящей отправки можно подключить Telegram, почту, CRM или форму хостинга.
+          </p>
+          <ul class="trust-list" aria-label="Что указать в заявке">
+            <li>Даты заезда и выезда</li>
+            <li>Количество гостей</li>
+            <li>Нужный формат домика</li>
+          </ul>
+        </div>
+        <form class="booking-form" id="bookingForm">
+          <div class="form-row">
+            <label>
+              <span>Заезд</span>
+              <input name="checkin" type="date" required />
+            </label>
+            <label>
+              <span>Выезд</span>
+              <input name="checkout" type="date" required />
+            </label>
+          </div>
+          <div class="form-row">
+            <label>
+              <span>Гости</span>
+              <select name="guests">
+                <option>2 гостя</option>
+                <option>3-4 гостя</option>
+                <option>5-6 гостей</option>
+                <option>7+ гостей</option>
+              </select>
+            </label>
+            <label>
+              <span>Домик</span>
+              <select name="house" id="houseSelect">
+                <option>Домик для двоих</option>
+                <option>Семейный дом</option>
+                <option>Дом для компании</option>
+                <option>Помогите выбрать</option>
+              </select>
+            </label>
+          </div>
+          <label>
+            <span>Имя</span>
+            <input name="name" type="text" placeholder="Как к вам обращаться" required />
+          </label>
+          <label>
+            <span>Телефон</span>
+            <input name="phone" type="tel" placeholder="+7" required />
+          </label>
+          <label>
+            <span>Комментарий</span>
+            <textarea name="message" rows="4" placeholder="Пожелания по отдыху"></textarea>
+          </label>
+          <button class="button button-dark button-wide" type="submit">Отправить заявку</button>
+        </form>
+      </section>
+
+      <section class="contacts" id="contacts" aria-labelledby="contacts-title">
+        <div class="contact-panel">
+          <h2 id="contacts-title">Контакты и ориентир</h2>
+          <p>
+            Приморский край, Шкотовский район, деревня Лукьяновка. Точный адрес,
+            телефон и мессенджеры стоит добавить после подтверждения у владельца базы.
+          </p>
+          <div class="contact-actions">
+            <a class="button button-primary" href="#booking">Запросить даты</a>
+            <a class="button button-ghost-dark" href="https://yandex.ru/maps/?text=%D0%9B%D1%83%D0%BA%D1%8C%D1%8F%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0%20%D0%A8%D0%BA%D0%BE%D1%82%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9%20%D1%80%D0%B0%D0%B9%D0%BE%D0%BD" target="_blank" rel="noreferrer">
+              Открыть карту
+            </a>
+          </div>
+        </div>
+        <div class="map-card" aria-label="Схема расположения">
+          <div class="map-line"></div>
+          <span class="map-dot dot-a">Владивосток</span>
+          <span class="map-dot dot-b">Суходол</span>
+          <span class="map-dot dot-c">Лукьяновка</span>
+          <span class="map-script script-word">Маори</span>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>Маори Лукьяновка</span>
+      <span>Сайт бронирования, готовый к подключению реальных контактов</span>
+    </footer>
+
+    <dialog class="booking-dialog" id="bookingDialog" aria-labelledby="dialogTitle">
+      <button class="dialog-close" type="button" aria-label="Закрыть">
+        <svg aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M6 6l12 12M18 6 6 18" />
+        </svg>
+      </button>
+      <p class="script-word">готово</p>
+      <h2 id="dialogTitle">Заявка собрана</h2>
+      <p id="dialogText"></p>
+      <button class="button button-dark" type="button" id="dialogOk">Хорошо</button>
+    </dialog>
+
+    <script src="script.js"></script>
+  </body>
+</html>
