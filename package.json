@@ -1,0 +1,12 @@
+{
+  "name": "maori-lukyanovka",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static booking website for Maori Lukyanovka.",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
