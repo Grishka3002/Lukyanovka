@@ -5,24 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Маори Лукьяновка - уютный сайт бронирования комнат для отдыха в Приморском крае."
+      content="Маори Лукьяновка - частный дом в Приморском крае, где Катерина Геращенко принимает гостей как дома."
     />
-    <title>Маори Лукьяновка - бронирование отдыха</title>
+    <title>Маори Лукьяновка - дом, где встречают лично</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
+  <body data-page="home">
     <header class="site-header" aria-label="Главная навигация">
-      <a class="brand" href="#top" aria-label="Маори Лукьяновка">
+      <a class="brand" href="index.html" aria-label="Маори Лукьяновка">
         <span class="brand-mark">M</span>
         <span>Маори</span>
       </a>
       <nav class="nav-links" aria-label="Разделы сайта">
-        <a href="#houses">Комнаты</a>
-        <a href="#activities">Активности</a>
-        <a href="#booking">Бронирование</a>
-        <a href="#contacts">Контакты</a>
+        <a aria-current="page" href="index.html">Дом</a>
+        <a href="rooms.html">Комнаты</a>
+        <a href="host.html">Хозяйка</a>
+        <a href="location.html">Место</a>
+        <a href="booking.html">Бронь</a>
       </nav>
-      <a class="header-action" href="#booking">
+      <a class="header-action" href="booking.html">
         <span>Забронировать</span>
         <svg aria-hidden="true" viewBox="0 0 24 24">
           <path d="M5 12h14M13 6l6 6-6 6" />
@@ -30,224 +31,99 @@
       </a>
     </header>
 
-    <main id="top">
-      <section class="hero" aria-labelledby="hero-title">
-        <img class="hero-image" src="assets/maori-hero.png" alt="Дом для отдыха в лесу у сопок" />
-        <div class="hero-scrim" aria-hidden="true"></div>
-        <div class="hero-content">
-          <p class="script-word">Лукьяновка</p>
-          <h1 id="hero-title">Маори Лукьяновка</h1>
-          <p class="hero-copy">
-            Тихий отдых у сопок в Приморском крае: один уютный дом, комнаты для пары,
-            семьи или небольшой компании, лесной воздух и спокойные вечера вдали от города.
-          </p>
-          <div class="hero-actions">
-            <a class="button button-primary" href="#booking">Выбрать комнату</a>
-            <a class="button button-ghost" href="#houses">Посмотреть варианты</a>
+    <main>
+      <section class="home-hero" aria-labelledby="hero-title">
+        <img class="hero-image" src="assets/maori-hero.png" alt="Дом Маори среди леса и сопок" />
+        <div class="hero-shade" aria-hidden="true"></div>
+        <div class="hero-grid">
+          <div class="hero-copy-block">
+            <p class="script-word">Лукьяновка</p>
+            <h1 id="hero-title">Дом, где встречают лично</h1>
+            <p>
+              Маори - не безликая база отдыха, а частный дом у сопок. Его держит
+              Катерина Геращенко: встречает гостей, помогает устроиться и сохраняет
+              ощущение спокойного приезда к своим.
+            </p>
+            <div class="hero-actions">
+              <a class="button button-light" href="booking.html">Выбрать даты</a>
+              <a class="button button-outline-light" href="host.html">О Катерине</a>
+            </div>
           </div>
-        </div>
 
-        <form class="quick-booking" id="quickBooking" aria-label="Быстрое бронирование">
-          <label>
-            <span>Заезд</span>
-            <input name="checkin" type="date" required />
-          </label>
-          <label>
-            <span>Выезд</span>
-            <input name="checkout" type="date" required />
-          </label>
-          <label>
-            <span>Гости</span>
-            <select name="guests">
-              <option>2 гостя</option>
-              <option>3-4 гостя</option>
-              <option>5-6 гостей</option>
-              <option>7+ гостей</option>
-            </select>
-          </label>
-          <button class="button button-dark" type="submit">Выбрать комнату</button>
-        </form>
+          <aside class="host-note" aria-label="Заметка хозяйки">
+            <span>Хозяйка Маори</span>
+            <strong>Катерина Геращенко</strong>
+            <p>Дом держится на простых вещах: чистая комната, горячий чай, тишина и человек, который вас ждет.</p>
+          </aside>
+        </div>
       </section>
 
-      <section class="intro section-pad" aria-labelledby="intro-title">
-        <div class="section-kicker script-word">Тихо и близко к природе</div>
-        <h2 id="intro-title">Отдых без лишнего шума, с маршрутом к лесу прямо за днем</h2>
+      <section class="editorial-intro section-pad">
+        <div class="section-label">Частный дом</div>
+        <h2>Здесь бронируют не номер в системе, а спокойные дни в одном доме.</h2>
         <p>
-          База находится в районе деревни Лукьяновка Шкотовского района. Это удобная точка
-          для спокойного загородного отдыха и поездок к природным маршрутам Приморья.
-          Публичные карточки базы дают мало подтвержденных деталей, поэтому сайт аккуратно
-          отделяет проверенную географию от редактируемых условий бронирования.
+          В Маори гости выбирают комнату, а не отдельный домик. Общий смысл места -
+          камерность, внимание хозяйки и ощущение, что вечером можно выдохнуть без
+          расписания и лишнего шума.
         </p>
       </section>
 
-      <section class="houses section-pad" id="houses" aria-labelledby="houses-title">
+      <section class="split-feature section-pad">
+        <div class="feature-media reveal">
+          <img src="assets/host-table.png" alt="Чай и стол, подготовленные для гостей" />
+        </div>
+        <div class="feature-copy reveal">
+          <p class="script-word">лично</p>
+          <h2>Катерина принимает гостей так, будто дом уже знает ваш приезд.</h2>
+          <p>
+            На сайте теперь главный акцент не на аренде, а на хозяйском присутствии:
+            кто встретит, кто подскажет, где пройтись, где отдохнуть вечером и как
+            устроиться без суеты.
+          </p>
+          <a class="text-link" href="host.html">Познакомиться с хозяйкой</a>
+        </div>
+      </section>
+
+      <section class="page-cards section-pad dark-band" aria-label="Основные страницы">
         <div class="section-heading">
-          <h2 id="houses-title">Комнаты в доме</h2>
-          <p>Дом один, а формат проживания выбирается по комнате. Цены и точные правила можно заменить после сверки с владельцем.</p>
+          <h2>Выберите, с чего начать</h2>
+          <p>Сайт разделен на страницы, чтобы Маори ощущался как цельный дом, а не длинная витрина.</p>
         </div>
-        <div class="house-grid">
-          <article class="house-card">
-            <div class="house-photo house-photo-a" aria-hidden="true"></div>
-            <div class="house-body">
-              <h3>Комната для двоих</h3>
-              <p>Компактный вариант для выходных: спокойная спальня, теплая атмосфера и место для вечернего чая.</p>
-              <div class="house-meta">
-                <span>2 гостя</span>
-                <span>Цена по запросу</span>
-              </div>
-              <button class="link-button" type="button" data-house="Комната для двоих">Выбрать</button>
-            </div>
-          </article>
-          <article class="house-card">
-            <div class="house-photo house-photo-b" aria-hidden="true"></div>
-            <div class="house-body">
-              <h3>Семейная комната</h3>
-              <p>Больше пространства для семьи: удобные спальные места, общая зона дома и спокойный двор.</p>
-              <div class="house-meta">
-                <span>3-5 гостей</span>
-                <span>Цена по запросу</span>
-              </div>
-              <button class="link-button" type="button" data-house="Семейная комната">Выбрать</button>
-            </div>
-          </article>
-          <article class="house-card">
-            <div class="house-photo house-photo-c" aria-hidden="true"></div>
-            <div class="house-body">
-              <h3>Комната для компании</h3>
-              <p>Для длинных вечеров, настольных игр и общего маршрута на следующий день.</p>
-              <div class="house-meta">
-                <span>6+ гостей</span>
-                <span>Цена по запросу</span>
-              </div>
-              <button class="link-button" type="button" data-house="Комната для компании">Выбрать</button>
-            </div>
-          </article>
+        <div class="chapter-grid">
+          <a class="chapter-card reveal" href="rooms.html">
+            <span>01</span>
+            <h3>Комнаты</h3>
+            <p>Один дом, несколько форматов проживания для пары, семьи или компании.</p>
+          </a>
+          <a class="chapter-card reveal" href="host.html">
+            <span>02</span>
+            <h3>Хозяйка</h3>
+            <p>Катерина Геращенко и атмосфера личного приема гостей.</p>
+          </a>
+          <a class="chapter-card reveal" href="location.html">
+            <span>03</span>
+            <h3>Место</h3>
+            <p>Лукьяновка, лес, сопки и маршруты Приморья рядом с домом.</p>
+          </a>
         </div>
       </section>
 
-      <section class="activities" id="activities" aria-labelledby="activities-title">
-        <div class="activities-image" aria-hidden="true"></div>
-        <div class="activities-content">
-          <p class="script-word">рядом</p>
-          <h2 id="activities-title">Лес, сопки и медленный ритм Приморья</h2>
-          <div class="activity-list">
-            <div>
-              <h3>Прогулки у деревни</h3>
-              <p>Лукьяновка подходит для короткого загородного выезда без сложной логистики.</p>
-            </div>
-            <div>
-              <h3>Маршруты к Фалазе</h3>
-              <p>Район известен как отправная точка для природных маршрутов к Ливадийской.</p>
-            </div>
-            <div>
-              <h3>Вечер у огня</h3>
-              <p>Формат сайта оставляет место для мангальной зоны, бани или беседок после уточнения.</p>
-            </div>
-          </div>
+      <section class="booking-strip section-pad">
+        <div>
+          <p class="section-label">Бронь</p>
+          <h2>Расскажите Катерине, когда хотите приехать.</h2>
         </div>
-      </section>
-
-      <section class="booking section-pad" id="booking" aria-labelledby="booking-title">
-        <div class="booking-copy">
-          <p class="script-word">бронь</p>
-          <h2 id="booking-title">Оставьте заявку на свободные даты</h2>
-          <p>
-            Форма собирает основные пожелания и показывает аккуратное подтверждение на странице.
-            Для настоящей отправки можно подключить Telegram, почту, CRM или форму хостинга.
-          </p>
-          <ul class="trust-list" aria-label="Что указать в заявке">
-            <li>Даты заезда и выезда</li>
-            <li>Количество гостей</li>
-            <li>Нужная комната в доме</li>
-          </ul>
-        </div>
-        <form class="booking-form" id="bookingForm">
-          <div class="form-row">
-            <label>
-              <span>Заезд</span>
-              <input name="checkin" type="date" required />
-            </label>
-            <label>
-              <span>Выезд</span>
-              <input name="checkout" type="date" required />
-            </label>
-          </div>
-          <div class="form-row">
-            <label>
-              <span>Гости</span>
-              <select name="guests">
-                <option>2 гостя</option>
-                <option>3-4 гостя</option>
-                <option>5-6 гостей</option>
-                <option>7+ гостей</option>
-              </select>
-            </label>
-            <label>
-              <span>Комната</span>
-              <select name="house" id="houseSelect">
-                <option>Комната для двоих</option>
-                <option>Семейная комната</option>
-                <option>Комната для компании</option>
-                <option>Помогите выбрать</option>
-              </select>
-            </label>
-          </div>
-          <label>
-            <span>Имя</span>
-            <input name="name" type="text" placeholder="Как к вам обращаться" required />
-          </label>
-          <label>
-            <span>Телефон</span>
-            <input name="phone" type="tel" placeholder="+7" required />
-          </label>
-          <label>
-            <span>Комментарий</span>
-            <textarea name="message" rows="4" placeholder="Пожелания по отдыху"></textarea>
-          </label>
-          <button class="button button-dark button-wide" type="submit">Отправить заявку</button>
-        </form>
-      </section>
-
-      <section class="contacts" id="contacts" aria-labelledby="contacts-title">
-        <div class="contact-panel">
-          <h2 id="contacts-title">Контакты и ориентир</h2>
-          <p>
-            Приморский край, Шкотовский район, деревня Лукьяновка. Точный адрес,
-            телефон и мессенджеры стоит добавить после подтверждения у владельца базы.
-          </p>
-          <div class="contact-actions">
-            <a class="button button-primary" href="#booking">Запросить даты</a>
-            <a class="button button-ghost-dark" href="https://yandex.ru/maps/?text=%D0%9B%D1%83%D0%BA%D1%8C%D1%8F%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0%20%D0%A8%D0%BA%D0%BE%D1%82%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9%20%D1%80%D0%B0%D0%B9%D0%BE%D0%BD" target="_blank" rel="noreferrer">
-              Открыть карту
-            </a>
-          </div>
-        </div>
-        <div class="map-card" aria-label="Схема расположения">
-          <div class="map-line"></div>
-          <span class="map-dot dot-a">Владивосток</span>
-          <span class="map-dot dot-b">Суходол</span>
-          <span class="map-dot dot-c">Лукьяновка</span>
-          <span class="map-script script-word">Маори</span>
-        </div>
+        <a class="button button-dark" href="booking.html">Оставить заявку</a>
       </section>
     </main>
 
     <footer class="site-footer">
-      <span>Маори Лукьяновка</span>
-      <span>Сайт бронирования, готовый к подключению реальных контактов</span>
+      <a class="brand" href="index.html">
+        <span class="brand-mark">M</span>
+        <span>Маори Лукьяновка</span>
+      </a>
+      <span>Частный дом в Лукьяновке. Хозяйка - Катерина Геращенко.</span>
     </footer>
-
-    <dialog class="booking-dialog" id="bookingDialog" aria-labelledby="dialogTitle">
-      <button class="dialog-close" type="button" aria-label="Закрыть">
-        <svg aria-hidden="true" viewBox="0 0 24 24">
-          <path d="M6 6l12 12M18 6 6 18" />
-        </svg>
-      </button>
-      <p class="script-word">готово</p>
-      <h2 id="dialogTitle">Заявка собрана</h2>
-      <p id="dialogText"></p>
-      <button class="button button-dark" type="button" id="dialogOk">Хорошо</button>
-    </dialog>
 
     <script src="script.js"></script>
   </body>

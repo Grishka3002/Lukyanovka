@@ -19,7 +19,14 @@ const contentTypes = {
 const server = http.createServer((request, response) => {
   const urlPath = decodeURIComponent(request.url.split("?")[0]);
   const safePath = path.normalize(urlPath).replace(/^(\.\.[/\\])+/, "");
-  const requestedPath = safePath === "/" ? "/index.html" : safePath;
+  const pageRoutes = {
+    "/": "/index.html",
+    "/rooms": "/rooms.html",
+    "/host": "/host.html",
+    "/location": "/location.html",
+    "/booking": "/booking.html",
+  };
+  const requestedPath = pageRoutes[safePath] || safePath;
   const filePath = path.join(root, requestedPath);
 
   if (!filePath.startsWith(root)) {

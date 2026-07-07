@@ -1,12 +1,10 @@
 const header = document.querySelector(".site-header");
-const quickBooking = document.querySelector("#quickBooking");
 const bookingForm = document.querySelector("#bookingForm");
 const houseSelect = document.querySelector("#houseSelect");
 const dialog = document.querySelector("#bookingDialog");
 const dialogText = document.querySelector("#dialogText");
 const dialogClose = document.querySelector(".dialog-close");
 const dialogOk = document.querySelector("#dialogOk");
-const houseButtons = document.querySelectorAll("[data-house]");
 
 document.documentElement.classList.add("motion-ready");
 
@@ -24,11 +22,11 @@ const setInitialDates = () => {
   });
 
   document.querySelectorAll('input[name="checkin"]').forEach((input) => {
-    input.value = toDateInputValue(tomorrow);
+    if (!input.value) input.value = toDateInputValue(tomorrow);
   });
 
   document.querySelectorAll('input[name="checkout"]').forEach((input) => {
-    input.value = toDateInputValue(dayAfter);
+    if (!input.value) input.value = toDateInputValue(dayAfter);
   });
 };
 
@@ -39,8 +37,8 @@ const formatDate = (value) =>
   }).format(new Date(value));
 
 const ensureCheckoutAfterCheckin = (form) => {
-  const checkin = form.elements.checkin;
-  const checkout = form.elements.checkout;
+  const checkin = form?.elements?.checkin;
+  const checkout = form?.elements?.checkout;
   if (!checkin || !checkout || !checkin.value) return;
 
   const minCheckout = new Date(checkin.value);
@@ -52,22 +50,24 @@ const ensureCheckoutAfterCheckin = (form) => {
   }
 };
 
-const syncBookingForm = (sourceForm) => {
-  const source = new FormData(sourceForm);
-  ["checkin", "checkout", "guests"].forEach((name) => {
-    const target = bookingForm.elements[name];
-    if (target && source.get(name)) target.value = source.get(name);
-  });
-  ensureCheckoutAfterCheckin(bookingForm);
+const applyRoomFromUrl = () => {
+  if (!houseSelect) return;
+  const room = new URLSearchParams(window.location.search).get("room");
+  if (!room) return;
+
+  const option = [...houseSelect.options].find((item) => item.value === room || item.textContent === room);
+  if (option) houseSelect.value = option.value;
 };
 
 const openDialog = (data) => {
+  if (!dialog || !dialogText) return;
+
   const nights = Math.max(
     1,
     Math.round((new Date(data.checkout) - new Date(data.checkin)) / 86_400_000)
   );
-  const intro = data.name ? `${data.name}, заявка сохранена на странице.` : "Заявка сохранена на странице.";
-  dialogText.textContent = `${intro} ${formatDate(data.checkin)} - ${formatDate(data.checkout)}, ${nights} ноч., ${data.guests.toLowerCase()}, комната: ${data.house}. Для реальной отправки осталось подключить контакт базы.`;
+  const intro = data.name ? `${data.name}, заявка собрана.` : "Заявка собрана.";
+  dialogText.textContent = `${intro} ${formatDate(data.checkin)} - ${formatDate(data.checkout)}, ${nights} ноч., ${data.guests.toLowerCase()}, комната: ${data.house}. Осталось подключить реальную отправку Катерине.`;
 
   if (typeof dialog.showModal === "function") {
     dialog.showModal();
@@ -78,47 +78,23 @@ const openDialog = (data) => {
 };
 
 const closeDialog = () => {
-  dialog.close();
+  dialog?.close();
   document.body.classList.remove("dialog-open");
 };
 
 window.addEventListener("scroll", () => {
-  header.classList.toggle("is-scrolled", window.scrollY > 24);
+  header?.classList.toggle("is-scrolled", window.scrollY > 20);
 });
 
 const setupRevealAnimations = () => {
-  const revealGroups = [
-    [".intro .section-kicker", "reveal-left"],
-    [".intro h2", "reveal-right"],
-    [".intro p", "reveal"],
-    [".section-heading h2", "reveal-left"],
-    [".section-heading p", "reveal-right"],
-    [".house-card", "reveal"],
-    [".activities-image", "reveal-left"],
-    [".activities-content .script-word", "reveal"],
-    [".activities-content h2", "reveal"],
-    [".activity-list > div", "reveal"],
-    [".booking-copy .script-word", "reveal-left"],
-    [".booking-copy h2", "reveal-left"],
-    [".booking-copy p", "reveal-left"],
-    [".trust-list li", "reveal-left"],
-    [".booking-form", "reveal-right"],
-    [".contact-panel h2", "reveal-left"],
-    [".contact-panel p", "reveal-left"],
-    [".contact-actions", "reveal-left"],
-    [".map-card", "reveal-right"],
-  ];
+  const revealElements = document.querySelectorAll(
+    ".reveal, .editorial-intro > *, .chapter-card, .room-row, .value-card"
+  );
 
-  let revealIndex = 0;
-  revealGroups.forEach(([selector, className]) => {
-    document.querySelectorAll(selector).forEach((element) => {
-      element.classList.add("reveal", className);
-      element.style.setProperty("--reveal-delay", `${Math.min((revealIndex % 4) * 90, 270)}ms`);
-      revealIndex += 1;
-    });
+  revealElements.forEach((element, index) => {
+    element.classList.add("reveal");
+    element.style.setProperty("--reveal-delay", `${Math.min((index % 4) * 85, 255)}ms`);
   });
-
-  const revealElements = document.querySelectorAll(".reveal");
 
   if (!("IntersectionObserver" in window)) {
     revealElements.forEach((element) => element.classList.add("is-visible"));
@@ -128,14 +104,13 @@ const setupRevealAnimations = () => {
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        }
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
       });
     },
     {
-      rootMargin: "0px 0px -12% 0px",
+      rootMargin: "0px 0px -10% 0px",
       threshold: 0.12,
     }
   );
@@ -151,13 +126,7 @@ document.querySelectorAll("form").forEach((form) => {
   });
 });
 
-quickBooking.addEventListener("submit", (event) => {
-  event.preventDefault();
-  syncBookingForm(quickBooking);
-  document.querySelector("#booking").scrollIntoView({ behavior: "smooth", block: "start" });
-});
-
-bookingForm.addEventListener("submit", (event) => {
+bookingForm?.addEventListener("submit", (event) => {
   event.preventDefault();
   ensureCheckoutAfterCheckin(bookingForm);
 
@@ -165,20 +134,14 @@ bookingForm.addEventListener("submit", (event) => {
   openDialog(formData);
   bookingForm.reset();
   setInitialDates();
+  applyRoomFromUrl();
 });
 
-houseButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    houseSelect.value = button.dataset.house;
-    document.querySelector("#booking").scrollIntoView({ behavior: "smooth", block: "start" });
-  });
-});
-
-dialogClose.addEventListener("click", closeDialog);
-dialogOk.addEventListener("click", closeDialog);
-dialog.addEventListener("close", () => document.body.classList.remove("dialog-open"));
+dialogClose?.addEventListener("click", closeDialog);
+dialogOk?.addEventListener("click", closeDialog);
+dialog?.addEventListener("close", () => document.body.classList.remove("dialog-open"));
 
 setInitialDates();
-ensureCheckoutAfterCheckin(quickBooking);
 ensureCheckoutAfterCheckin(bookingForm);
+applyRoomFromUrl();
 setupRevealAnimations();
