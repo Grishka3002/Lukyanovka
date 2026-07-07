@@ -10,10 +10,7 @@
   <body>
     <main class="admin-shell">
       <aside class="admin-sidebar" aria-label="Разделы админ-панели">
-        <a class="admin-brand" href="admin.html" aria-label="Админ-панель Маори">
-          <span>M</span>
-          <strong>Маори</strong>
-        </a>
+        <a class="admin-brand" href="admin.html" aria-label="Админ-панель Маори"><span>M</span><strong>Маори</strong></a>
         <nav class="admin-nav" id="adminNav" aria-label="Страницы для редактирования"></nav>
         <div class="sidebar-note">
           <span>Важно</span>
@@ -23,10 +20,7 @@
 
       <section class="admin-workspace">
         <header class="admin-topbar">
-          <div>
-            <p class="eyebrow">Редактор сайта</p>
-            <h1 id="pageTitle">Контент Маори</h1>
-          </div>
+          <div><p class="eyebrow">Редактор сайта</p><h1 id="pageTitle">Контент Маори</h1></div>
           <div class="topbar-actions">
             <a class="ghost-button" href="index.html" target="_blank" rel="noreferrer">Открыть сайт</a>
             <button class="ghost-button" type="button" id="exportButton">Экспорт</button>
@@ -35,9 +29,8 @@
         </header>
 
         <div class="status-bar" id="statusBar" role="status" aria-live="polite">
-          Войдите с паролем администратора, чтобы менять текст и изображения.
+          Войдите с паролем администратора, чтобы менять текст, комнаты, фотографии и отзывы.
         </div>
-
         <section class="editor-grid" id="editorGrid" aria-label="Поля редактирования"></section>
       </section>
     </main>
@@ -48,10 +41,7 @@
         <p class="eyebrow">Админ-панель</p>
         <h2>Вход для редактирования сайта</h2>
         <p>Введите пароль из переменной Railway <code>ADMIN_PASSWORD</code>. Он нужен для сохранения контента.</p>
-        <label>
-          <span>Пароль</span>
-          <input id="passwordInput" name="password" type="password" autocomplete="current-password" required />
-        </label>
+        <label><span>Пароль</span><input id="passwordInput" name="password" type="password" autocomplete="current-password" required /></label>
         <button class="primary-button" type="submit">Войти</button>
         <p class="login-error" id="loginError" role="alert"></p>
       </form>

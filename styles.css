@@ -531,6 +531,93 @@ h2 {
   font-size: clamp(38px, 5vw, 78px);
 }
 
+.reviews-section {
+  background: var(--paper);
+}
+
+.review-controls {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.review-button {
+  display: grid;
+  width: 50px;
+  height: 50px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--black);
+  font-size: 22px;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.review-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.1);
+}
+
+.review-button:active {
+  transform: scale(0.96);
+}
+
+.review-slider {
+  position: relative;
+  min-height: 320px;
+  overflow: hidden;
+}
+
+.review-card {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-content: space-between;
+  gap: 36px;
+  border: 1px solid var(--line);
+  background: var(--white);
+  padding: clamp(30px, 5vw, 64px);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(28px);
+  transition:
+    opacity 360ms cubic-bezier(0.2, 0, 0, 1),
+    transform 360ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.review-card.is-active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+}
+
+.review-text {
+  max-width: 920px;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4.8vw, 72px);
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+.review-author {
+  display: grid;
+  gap: 6px;
+}
+
+.review-author strong {
+  font-size: 18px;
+}
+
+.review-author span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 820;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .detail-grid,
 .flow-grid,
 .note-grid,
@@ -1154,6 +1241,10 @@ textarea:focus {
   .booking-strip {
     display: grid;
     align-items: start;
+  }
+
+  .review-controls {
+    justify-content: flex-start;
   }
 }
 

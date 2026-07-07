@@ -314,6 +314,11 @@ textarea {
   gap: 14px;
 }
 
+.array-wrapper {
+  display: grid;
+  gap: 14px;
+}
+
 .array-item {
   padding: 14px;
   border-radius: 8px;
@@ -328,6 +333,34 @@ textarea {
   font-weight: 800;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+}
+
+.array-item-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.array-item-top .array-item-title {
+  margin: 0;
+}
+
+.mini-button {
+  min-height: 34px;
+  border: 1px solid rgba(178, 58, 58, 0.22);
+  border-radius: 8px;
+  background: rgba(178, 58, 58, 0.08);
+  color: var(--danger);
+  padding: 0 11px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.add-button {
+  justify-self: start;
 }
 
 .image-preview {

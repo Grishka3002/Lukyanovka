@@ -13,87 +13,58 @@ let content = null;
 let activePage = "home";
 let adminPassword = sessionStorage.getItem("maoriAdminPassword") || "";
 
+const textField = (label, path, type = "text") => ({ label, path, type });
+const itemField = (label, key, type = "text") => ({ label, key, type });
+const arrayField = (path, itemLabel, fields, template) => ({ type: "array", path, itemLabel, fields, template });
+
 const pageConfig = [
   {
     id: "home",
     label: "Главная",
     title: "Главная страница",
     blocks: [
-      {
-        title: "Первый экран",
-        fields: [
-          { label: "Рукописная подпись", path: "home.hero.script" },
-          { label: "Заголовок", path: "home.hero.title", type: "textarea" },
-          { label: "Текст", path: "home.hero.text", type: "textarea" },
-          { label: "Фото первого экрана", path: "home.hero.image", type: "image" }
-        ]
-      },
-      {
-        title: "Заметка про хозяйку",
-        fields: [
-          { label: "Маленький заголовок", path: "home.hostNote.label" },
-          { label: "Имя", path: "home.hostNote.name" },
-          { label: "Текст", path: "home.hostNote.text", type: "textarea" }
-        ]
-      },
-      {
-        title: "Вступление",
-        fields: [
-          { label: "Метка", path: "home.intro.label" },
-          { label: "Заголовок", path: "home.intro.title", type: "textarea" },
-          { label: "Текст", path: "home.intro.text", type: "textarea" }
-        ]
-      },
-      {
-        title: "Блок с фотографией",
-        fields: [
-          { label: "Фото", path: "home.feature.image", type: "image" },
-          { label: "Рукописная подпись", path: "home.feature.script" },
-          { label: "Заголовок", path: "home.feature.title", type: "textarea" },
-          { label: "Текст", path: "home.feature.text", type: "textarea" }
-        ]
-      },
-      {
-        title: "Три преимущества",
-        wide: true,
-        fields: [
-          {
-            type: "array",
-            path: "home.details",
-            itemLabel: "Карточка",
-            fields: [
-              { label: "Метка", key: "label" },
-              { label: "Заголовок", key: "title" },
-              { label: "Текст", key: "text", type: "textarea" }
-            ]
-          }
-        ]
-      },
-      {
-        title: "Как проходит приезд",
-        wide: true,
-        fields: [
-          { label: "Заголовок", path: "home.arrival.title" },
-          { label: "Текст", path: "home.arrival.text", type: "textarea" },
-          {
-            type: "array",
-            path: "home.arrival.steps",
-            itemLabel: "Шаг",
-            fields: [
-              { label: "Заголовок", key: "title" },
-              { label: "Текст", key: "text", type: "textarea" }
-            ]
-          }
-        ]
-      },
-      {
-        title: "Нижний призыв",
-        fields: [
-          { label: "Метка", path: "home.bookingStrip.label" },
-          { label: "Заголовок", path: "home.bookingStrip.title", type: "textarea" },
-          { label: "Кнопка", path: "home.bookingStrip.button" }
-        ]
-      }
+      { title: "Первый экран", fields: [
+        textField("Рукописная подпись", "home.hero.script"),
+        textField("Заголовок", "home.hero.title", "textarea"),
+        textField("Текст", "home.hero.text", "textarea"),
+        textField("Фото первого экрана", "home.hero.image", "image")
+      ] },
+      { title: "Заметка про хозяйку", fields: [
+        textField("Маленький заголовок", "home.hostNote.label"),
+        textField("Имя", "home.hostNote.name"),
+        textField("Текст", "home.hostNote.text", "textarea")
+      ] },
+      { title: "Вступление", fields: [
+        textField("Метка", "home.intro.label"),
+        textField("Заголовок", "home.intro.title", "textarea"),
+        textField("Текст", "home.intro.text", "textarea")
+      ] },
+      { title: "Блок с фотографией", fields: [
+        textField("Фото", "home.feature.image", "image"),
+        textField("Рукописная подпись", "home.feature.script"),
+        textField("Заголовок", "home.feature.title", "textarea"),
+        textField("Текст", "home.feature.text", "textarea")
+      ] },
+      { title: "Преимущества", wide: true, fields: [
+        arrayField("home.details", "Карточка", [
+          itemField("Метка", "label"),
+          itemField("Заголовок", "title"),
+          itemField("Текст", "text", "textarea")
+        ], { label: "Новое", title: "Новый блок", text: "Описание блока." })
+      ] },
+      { title: "Как проходит приезд", wide: true, fields: [
+        textField("Заголовок", "home.arrival.title"),
+        textField("Текст", "home.arrival.text", "textarea"),
+        arrayField("home.arrival.steps", "Шаг", [
+          itemField("Заголовок", "title"),
+          itemField("Текст", "text", "textarea")
+        ], { title: "Новый шаг", text: "Описание шага." })
+      ] },
+      { title: "Нижний призыв", fields: [
+        textField("Метка", "home.bookingStrip.label"),
+        textField("Заголовок", "home.bookingStrip.title", "textarea"),
+        textField("Кнопка", "home.bookingStrip.button")
+      ] }
     ]
   },
   {
@@ -101,56 +72,50 @@ const pageConfig = [
     label: "Комнаты",
     title: "Страница комнат",
     blocks: [
-      {
-        title: "Первый экран",
-        fields: [
-          { label: "Рукописная подпись", path: "rooms.hero.script" },
-          { label: "Заголовок", path: "rooms.hero.title", type: "textarea" },
-          { label: "Текст", path: "rooms.hero.text", type: "textarea" },
-          { label: "Фото комнат", path: "rooms.image", type: "image" }
-        ]
-      },
-      {
-        title: "Комнаты",
-        wide: true,
-        fields: [
-          {
-            type: "array",
-            path: "rooms.rooms",
-            itemLabel: "Комната",
-            fields: [
-              { label: "Название", key: "title" },
-              { label: "Описание", key: "text", type: "textarea" },
-              { label: "Факты через запятую", key: "facts", type: "textarea" }
-            ]
-          }
-        ]
-      },
-      {
-        title: "Что уточнить",
-        wide: true,
-        fields: [
-          { label: "Заголовок", path: "rooms.notes.title" },
-          { label: "Текст", path: "rooms.notes.text", type: "textarea" },
-          {
-            type: "array",
-            path: "rooms.notes.items",
-            itemLabel: "Пункт",
-            fields: [
-              { label: "Заголовок", key: "title" },
-              { label: "Текст", key: "text", type: "textarea" }
-            ]
-          }
-        ]
-      },
-      {
-        title: "Нижний призыв",
-        fields: [
-          { label: "Метка", path: "rooms.bookingStrip.label" },
-          { label: "Заголовок", path: "rooms.bookingStrip.title", type: "textarea" },
-          { label: "Кнопка", path: "rooms.bookingStrip.button" }
-        ]
-      }
+      { title: "Первый экран", fields: [
+        textField("Рукописная подпись", "rooms.hero.script"),
+        textField("Заголовок", "rooms.hero.title", "textarea"),
+        textField("Текст", "rooms.hero.text", "textarea"),
+        textField("Фото комнат", "rooms.image", "image")
+      ] },
+      { title: "Комнаты", wide: true, fields: [
+        arrayField("rooms.rooms", "Комната", [
+          itemField("Название", "title"),
+          itemField("Описание", "text", "textarea"),
+          itemField("Факты через запятую", "facts", "textarea")
+        ], { title: "Новая комната", text: "Описание комнаты.", facts: "2 гостя, по запросу" })
+      ] },
+      { title: "Что уточнить", wide: true, fields: [
+        textField("Заголовок", "rooms.notes.title"),
+        textField("Текст", "rooms.notes.text", "textarea"),
+        arrayField("rooms.notes.items", "Пункт", [
+          itemField("Заголовок", "title"),
+          itemField("Текст", "text", "textarea")
+        ], { title: "Новый пункт", text: "Описание пункта." })
+      ] },
+      { title: "Нижний призыв", fields: [
+        textField("Метка", "rooms.bookingStrip.label"),
+        textField("Заголовок", "rooms.bookingStrip.title", "textarea"),
+        textField("Кнопка", "rooms.bookingStrip.button")
+      ] }
+    ]
+  },
+  {
+    id: "reviews",
+    label: "Отзывы",
+    title: "Отзывы гостей",
+    blocks: [
+      { title: "Заголовок слайдера", fields: [
+        textField("Метка", "reviews.label"),
+        textField("Заголовок", "reviews.title", "textarea")
+      ] },
+      { title: "Отзывы", wide: true, fields: [
+        arrayField("reviews.items", "Отзыв", [
+          itemField("Имя", "name"),
+          itemField("Подпись", "meta"),
+          itemField("Текст отзыва", "text", "textarea")
+        ], { name: "Новый гость", meta: "поездка в Маори", text: "Текст нового отзыва." })
+      ] }
     ]
   },
   {
@@ -158,56 +123,34 @@ const pageConfig = [
     label: "Хозяйка",
     title: "Страница хозяйки",
     blocks: [
-      {
-        title: "Катерина",
-        fields: [
-          { label: "Рукописная подпись", path: "host.hero.script" },
-          { label: "Имя / заголовок", path: "host.hero.title" },
-          { label: "Текст", path: "host.hero.text", type: "textarea" },
-          { label: "Фото", path: "host.hero.image", type: "image" }
-        ]
-      },
-      {
-        title: "Смысл Маори",
-        fields: [
-          { label: "Фото", path: "host.feature.image", type: "image" },
-          { label: "Метка", path: "host.feature.label" },
-          { label: "Заголовок", path: "host.feature.title", type: "textarea" },
-          { label: "Текст 1", path: "host.feature.text", type: "textarea" },
-          { label: "Текст 2", path: "host.feature.extra", type: "textarea" }
-        ]
-      },
-      {
-        title: "Записка хозяйки",
-        fields: [
-          { label: "Рукописная подпись", path: "host.letter.script" },
-          { label: "Цитата", path: "host.letter.quote", type: "textarea" },
-          { label: "Подпись", path: "host.letter.signature" }
-        ]
-      },
-      {
-        title: "Помощь до приезда",
-        wide: true,
-        fields: [
-          { label: "Заголовок", path: "host.help.title", type: "textarea" },
-          { label: "Пункты списком", path: "host.help.items", type: "list" }
-        ]
-      },
-      {
-        title: "Ценности",
-        wide: true,
-        fields: [
-          {
-            type: "array",
-            path: "host.values",
-            itemLabel: "Ценность",
-            fields: [
-              { label: "Заголовок", key: "title" },
-              { label: "Текст", key: "text", type: "textarea" }
-            ]
-          }
-        ]
-      }
+      { title: "Катерина", fields: [
+        textField("Рукописная подпись", "host.hero.script"),
+        textField("Имя / заголовок", "host.hero.title"),
+        textField("Текст", "host.hero.text", "textarea"),
+        textField("Фото", "host.hero.image", "image")
+      ] },
+      { title: "Смысл Маори", fields: [
+        textField("Фото", "host.feature.image", "image"),
+        textField("Метка", "host.feature.label"),
+        textField("Заголовок", "host.feature.title", "textarea"),
+        textField("Текст 1", "host.feature.text", "textarea"),
+        textField("Текст 2", "host.feature.extra", "textarea")
+      ] },
+      { title: "Записка хозяйки", fields: [
+        textField("Рукописная подпись", "host.letter.script"),
+        textField("Цитата", "host.letter.quote", "textarea"),
+        textField("Подпись", "host.letter.signature")
+      ] },
+      { title: "Помощь до приезда", wide: true, fields: [
+        textField("Заголовок", "host.help.title", "textarea"),
+        textField("Пункты списком", "host.help.items", "list")
+      ] },
+      { title: "Ценности", wide: true, fields: [
+        arrayField("host.values", "Ценность", [
+          itemField("Заголовок", "title"),
+          itemField("Текст", "text", "textarea")
+        ], { title: "Новая ценность", text: "Описание ценности." })
+      ] }
     ]
   },
   {
@@ -215,47 +158,26 @@ const pageConfig = [
     label: "Место",
     title: "Страница места",
     blocks: [
-      {
-        title: "Первый экран",
-        fields: [
-          { label: "Рукописная подпись", path: "location.hero.script" },
-          { label: "Заголовок", path: "location.hero.title", type: "textarea" },
-          { label: "Текст", path: "location.hero.text", type: "textarea" }
-        ]
-      },
-      {
-        title: "Маршруты рядом",
-        wide: true,
-        fields: [
-          {
-            type: "array",
-            path: "location.routes",
-            itemLabel: "Маршрут",
-            fields: [
-              { label: "Заголовок", key: "title" },
-              { label: "Текст", key: "text", type: "textarea" }
-            ]
-          }
-        ]
-      },
-      {
-        title: "Перед поездкой",
-        wide: true,
-        fields: [
-          { label: "Заголовок", path: "location.guide.title" },
-          { label: "Текст", path: "location.guide.text", type: "textarea" },
-          {
-            type: "array",
-            path: "location.guide.items",
-            itemLabel: "Карточка",
-            fields: [
-              { label: "Метка", key: "label" },
-              { label: "Заголовок", key: "title" },
-              { label: "Текст", key: "text", type: "textarea" }
-            ]
-          }
-        ]
-      }
+      { title: "Первый экран", fields: [
+        textField("Рукописная подпись", "location.hero.script"),
+        textField("Заголовок", "location.hero.title", "textarea"),
+        textField("Текст", "location.hero.text", "textarea")
+      ] },
+      { title: "Маршруты рядом", wide: true, fields: [
+        arrayField("location.routes", "Маршрут", [
+          itemField("Заголовок", "title"),
+          itemField("Текст", "text", "textarea")
+        ], { title: "Новый маршрут", text: "Описание маршрута." })
+      ] },
+      { title: "Перед поездкой", wide: true, fields: [
+        textField("Заголовок", "location.guide.title"),
+        textField("Текст", "location.guide.text", "textarea"),
+        arrayField("location.guide.items", "Карточка", [
+          itemField("Метка", "label"),
+          itemField("Заголовок", "title"),
+          itemField("Текст", "text", "textarea")
+        ], { label: "Новое", title: "Новая карточка", text: "Описание карточки." })
+      ] }
     ]
   },
   {
@@ -263,56 +185,32 @@ const pageConfig = [
     label: "Бронь",
     title: "Страница бронирования",
     blocks: [
-      {
-        title: "Первый экран",
-        fields: [
-          { label: "Рукописная подпись", path: "booking.hero.script" },
-          { label: "Заголовок", path: "booking.hero.title", type: "textarea" },
-          { label: "Текст", path: "booking.hero.text", type: "textarea" }
-        ]
-      },
-      {
-        title: "После заявки",
-        wide: true,
-        fields: [
-          { label: "Заголовок", path: "booking.process.title" },
-          { label: "Текст", path: "booking.process.text", type: "textarea" },
-          {
-            type: "array",
-            path: "booking.process.steps",
-            itemLabel: "Шаг",
-            fields: [
-              { label: "Заголовок", key: "title" },
-              { label: "Текст", key: "text", type: "textarea" }
-            ]
-          }
-        ]
-      },
-      {
-        title: "FAQ",
-        wide: true,
-        fields: [
-          { label: "Заголовок", path: "booking.faq.title" },
-          { label: "Текст", path: "booking.faq.text", type: "textarea" },
-          {
-            type: "array",
-            path: "booking.faq.items",
-            itemLabel: "Вопрос",
-            fields: [
-              { label: "Вопрос", key: "question" },
-              { label: "Ответ", key: "answer", type: "textarea" }
-            ]
-          }
-        ]
-      },
-      {
-        title: "Заметка снизу",
-        fields: [
-          { label: "Фото", path: "booking.hostNote.image", type: "image" },
-          { label: "Метка", path: "booking.hostNote.label" },
-          { label: "Заголовок", path: "booking.hostNote.title", type: "textarea" }
-        ]
-      }
+      { title: "Первый экран", fields: [
+        textField("Рукописная подпись", "booking.hero.script"),
+        textField("Заголовок", "booking.hero.title", "textarea"),
+        textField("Текст", "booking.hero.text", "textarea")
+      ] },
+      { title: "После заявки", wide: true, fields: [
+        textField("Заголовок", "booking.process.title"),
+        textField("Текст", "booking.process.text", "textarea"),
+        arrayField("booking.process.steps", "Шаг", [
+          itemField("Заголовок", "title"),
+          itemField("Текст", "text", "textarea")
+        ], { title: "Новый шаг", text: "Описание шага." })
+      ] },
+      { title: "FAQ", wide: true, fields: [
+        textField("Заголовок", "booking.faq.title"),
+        textField("Текст", "booking.faq.text", "textarea"),
+        arrayField("booking.faq.items", "Вопрос", [
+          itemField("Вопрос", "question"),
+          itemField("Ответ", "answer", "textarea")
+        ], { question: "Новый вопрос?", answer: "Ответ на вопрос." })
+      ] },
+      { title: "Заметка снизу", fields: [
+        textField("Фото", "booking.hostNote.image", "image"),
+        textField("Метка", "booking.hostNote.label"),
+        textField("Заголовок", "booking.hostNote.title", "textarea")
+      ] }
     ]
   },
   {
@@ -320,19 +218,15 @@ const pageConfig = [
     label: "Настройки",
     title: "Общие настройки",
     blocks: [
-      {
-        title: "Название и подвал",
-        wide: true,
-        fields: [
-          { label: "Короткое название", path: "site.brandShort" },
-          { label: "Полное название", path: "site.brandFull" },
-          { label: "Подвал главной", path: "site.footerHome", type: "textarea" },
-          { label: "Подвал комнат", path: "site.footerRooms", type: "textarea" },
-          { label: "Подвал хозяйки", path: "site.footerHost", type: "textarea" },
-          { label: "Подвал места", path: "site.footerLocation", type: "textarea" },
-          { label: "Подвал брони", path: "site.footerBooking", type: "textarea" }
-        ]
-      }
+      { title: "Название и подвал", wide: true, fields: [
+        textField("Короткое название", "site.brandShort"),
+        textField("Полное название", "site.brandFull"),
+        textField("Подвал главной", "site.footerHome", "textarea"),
+        textField("Подвал комнат", "site.footerRooms", "textarea"),
+        textField("Подвал хозяйки", "site.footerHost", "textarea"),
+        textField("Подвал места", "site.footerLocation", "textarea"),
+        textField("Подвал брони", "site.footerBooking", "textarea")
+      ] }
     ]
   }
 ];
@@ -365,14 +259,14 @@ const createField = (field, path) => {
 
   const isTextarea = field.type === "textarea" || field.type === "list";
   const input = document.createElement(isTextarea ? "textarea" : "input");
-  input.value = field.type === "list" ? (getByPath(content, path) || []).join("\n") : getByPath(content, path) || "";
+  const value = getByPath(content, path);
+  input.value = field.type === "list" ? (Array.isArray(value) ? value.join("\n") : "") : value || "";
   if (!isTextarea) input.type = "text";
   if (isTextarea) input.rows = field.type === "list" ? 5 : 4;
 
   input.addEventListener("input", () => {
-    const value = field.type === "list" ? input.value.split("\n").filter(Boolean) : input.value;
-    setByPath(content, path, value);
-
+    const nextValue = field.type === "list" ? input.value.split("\n").filter(Boolean) : input.value;
+    setByPath(content, path, nextValue);
     if (field.type === "image") {
       const preview = label.querySelector("img");
       if (preview) preview.src = input.value;
@@ -400,6 +294,9 @@ const createField = (field, path) => {
 };
 
 const createArrayField = (field) => {
+  const wrapper = document.createElement("div");
+  wrapper.className = "array-wrapper";
+
   const group = document.createElement("div");
   group.className = "array-group";
   const items = getByPath(content, field.path) || [];
@@ -408,14 +305,29 @@ const createArrayField = (field) => {
     const itemCard = document.createElement("div");
     itemCard.className = "array-item";
 
+    const top = document.createElement("div");
+    top.className = "array-item-top";
+
     const title = document.createElement("p");
     title.className = "array-item-title";
     title.textContent = `${field.itemLabel} ${index + 1}`;
-    itemCard.append(title);
+
+    const removeButton = document.createElement("button");
+    removeButton.className = "mini-button";
+    removeButton.type = "button";
+    removeButton.textContent = "Удалить";
+    removeButton.addEventListener("click", () => {
+      const current = getByPath(content, field.path) || [];
+      current.splice(index, 1);
+      setByPath(content, field.path, current);
+      render();
+    });
+
+    top.append(title, removeButton);
+    itemCard.append(top);
 
     const stack = document.createElement("div");
     stack.className = "field-stack";
-
     field.fields.forEach((itemField) => {
       stack.append(createField(itemField, `${field.path}.${index}.${itemField.key}`));
     });
@@ -424,12 +336,23 @@ const createArrayField = (field) => {
     group.append(itemCard);
   });
 
-  return group;
+  const addButton = document.createElement("button");
+  addButton.className = "ghost-button add-button";
+  addButton.type = "button";
+  addButton.textContent = `Добавить: ${field.itemLabel.toLowerCase()}`;
+  addButton.addEventListener("click", () => {
+    const current = getByPath(content, field.path) || [];
+    current.push({ ...field.template });
+    setByPath(content, field.path, current);
+    render();
+  });
+
+  wrapper.append(group, addButton);
+  return wrapper;
 };
 
 const renderNav = () => {
   nav.innerHTML = "";
-
   pageConfig.forEach((page, index) => {
     const button = document.createElement("button");
     button.className = `nav-button${page.id === activePage ? " is-active" : ""}`;
@@ -459,14 +382,8 @@ const renderEditor = () => {
 
     const stack = document.createElement("div");
     stack.className = "field-stack";
-
     block.fields.forEach((field) => {
-      if (field.type === "array") {
-        stack.append(createArrayField(field));
-        return;
-      }
-
-      stack.append(createField(field, field.path));
+      stack.append(field.type === "array" ? createArrayField(field) : createField(field, field.path));
     });
 
     card.append(stack);
@@ -482,23 +399,19 @@ const render = () => {
 const loadContent = async () => {
   const response = await fetch("/api/admin/content", {
     headers: { "x-admin-password": adminPassword },
-    cache: "no-store"
+    cache: "no-store",
   });
   const result = await response.json().catch(() => ({}));
-
-  if (!response.ok || !result.ok) {
-    throw new Error(result.error || "Не удалось загрузить контент");
-  }
+  if (!response.ok || !result.ok) throw new Error(result.error || "Не удалось загрузить контент");
 
   content = result.content;
   render();
   loginLayer.classList.add("is-hidden");
-  setStatus("Контент загружен. Можно редактировать блоки и сохранять изменения.", "success");
+  setStatus("Контент загружен. Можно редактировать блоки, комнаты и отзывы.", "success");
 };
 
 const saveContent = async () => {
   if (!content) return;
-
   saveButton.disabled = true;
   setStatus("Сохраняю изменения...");
 
@@ -507,16 +420,12 @@ const saveContent = async () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-admin-password": adminPassword
+        "x-admin-password": adminPassword,
       },
-      body: JSON.stringify({ content })
+      body: JSON.stringify({ content }),
     });
     const result = await response.json().catch(() => ({}));
-
-    if (!response.ok || !result.ok) {
-      throw new Error(result.error || "Не удалось сохранить контент");
-    }
-
+    if (!response.ok || !result.ok) throw new Error(result.error || "Не удалось сохранить контент");
     setStatus("Готово. Изменения сохранены и уже доступны на сайте.", "success");
   } catch (error) {
     setStatus(error.message, "error");
@@ -527,7 +436,6 @@ const saveContent = async () => {
 
 const exportContent = () => {
   if (!content) return;
-
   const blob = new Blob([`${JSON.stringify(content, null, 2)}\n`], { type: "application/json" });
   const link = document.createElement("a");
   link.href = URL.createObjectURL(blob);
@@ -546,12 +454,10 @@ loginForm.addEventListener("submit", async (event) => {
     await loadContent();
     sessionStorage.setItem("maoriAdminPassword", adminPassword);
   } catch (error) {
-    if (error.message === "ADMIN_PASSWORD is not configured") {
-      loginError.textContent = "В Railway нужно добавить переменную ADMIN_PASSWORD и перезапустить деплой.";
-      return;
-    }
-
-    loginError.textContent = "Пароль не подошел или сервер не ответил.";
+    loginError.textContent =
+      error.message === "ADMIN_PASSWORD is not configured"
+        ? "В Railway нужно добавить переменную ADMIN_PASSWORD и перезапустить деплой."
+        : "Пароль не подошел или сервер не ответил.";
   }
 });
 

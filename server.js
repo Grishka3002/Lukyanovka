@@ -92,18 +92,12 @@ const authorizeAdmin = (request, response) => {
   const adminPassword = process.env.ADMIN_PASSWORD;
 
   if (!adminPassword) {
-    sendJson(response, 503, {
-      ok: false,
-      error: "ADMIN_PASSWORD is not configured",
-    });
+    sendJson(response, 503, { ok: false, error: "ADMIN_PASSWORD is not configured" });
     return false;
   }
 
   if (getAdminPasswordFromRequest(request) !== adminPassword) {
-    sendJson(response, 401, {
-      ok: false,
-      error: "Invalid admin password",
-    });
+    sendJson(response, 401, { ok: false, error: "Invalid admin password" });
     return false;
   }
 
@@ -146,13 +140,8 @@ const sendTelegramMessage = (text) =>
       return;
     }
 
-    const payload = JSON.stringify({
-      chat_id: chatId,
-      text,
-      parse_mode: "HTML",
-    });
-
-    const request = https.request(
+    const payload = JSON.stringify({ chat_id: chatId, text, parse_mode: "HTML" });
+    const telegramRequest = https.request(
       {
         hostname: "api.telegram.org",
         path: `/bot${token}/sendMessage`,
@@ -178,14 +167,12 @@ const sendTelegramMessage = (text) =>
       }
     );
 
-    request.on("error", reject);
-    request.write(payload);
-    request.end();
+    telegramRequest.on("error", reject);
+    telegramRequest.write(payload);
+    telegramRequest.end();
   });
 
-const server = http.createServer((request, response) => {
-  const routePath = request.url.split("?")[0];
-
+const handleContentRoutes = (request, response, routePath) => {
   if (request.method === "GET" && routePath === "/api/content") {
     readContentFile()
       .then((content) => sendJson(response, 200, { ok: true, content }))
@@ -193,29 +180,23 @@ const server = http.createServer((request, response) => {
         console.error(error);
         sendJson(response, 500, { ok: false, error: "Content is unavailable" });
       });
-    return;
+    return true;
   }
 
   if (request.method === "GET" && routePath === "/api/admin/content") {
-    if (!authorizeAdmin(request, response)) return;
+    if (!authorizeAdmin(request, response)) return true;
 
     readContentFile()
-      .then((content) =>
-        sendJson(response, 200, {
-          ok: true,
-          content,
-          updatedAt: new Date().toISOString(),
-        })
-      )
+      .then((content) => sendJson(response, 200, { ok: true, content, updatedAt: new Date().toISOString() }))
       .catch((error) => {
         console.error(error);
         sendJson(response, 500, { ok: false, error: "Content is unavailable" });
       });
-    return;
+    return true;
   }
 
   if (request.method === "POST" && routePath === "/api/admin/content") {
-    if (!authorizeAdmin(request, response)) return;
+    if (!authorizeAdmin(request, response)) return true;
 
     readJsonBody(request)
       .then(async (payload) => {
@@ -231,29 +212,40 @@ const server = http.createServer((request, response) => {
         console.error(error);
         sendJson(response, 500, { ok: false, error: "Could not save content" });
       });
-    return;
+    return true;
   }
 
-  if (request.method === "POST" && routePath === "/api/booking") {
-    readJsonBody(request)
-      .then(async (data) => {
-        const requiredFields = ["name", "phone", "checkin", "checkout", "guests", "house", "consent"];
-        const missingField = requiredFields.find((field) => !data[field]);
+  return false;
+};
 
-        if (missingField) {
-          sendJson(response, 400, { ok: false, error: "Заполните обязательные поля" });
-          return;
-        }
+const handleBookingRoute = (request, response, routePath) => {
+  if (request.method !== "POST" || routePath !== "/api/booking") return false;
 
-        const telegramResult = await sendTelegramMessage(buildBookingMessage(data));
-        sendJson(response, 200, { ok: true, ...telegramResult });
-      })
-      .catch((error) => {
-        console.error(error);
-        sendJson(response, 500, { ok: false, error: "Не удалось обработать заявку" });
-      });
-    return;
-  }
+  readJsonBody(request)
+    .then(async (data) => {
+      const requiredFields = ["name", "phone", "checkin", "checkout", "guests", "house", "consent"];
+      const missingField = requiredFields.find((field) => !data[field]);
+
+      if (missingField) {
+        sendJson(response, 400, { ok: false, error: "Заполните обязательные поля" });
+        return;
+      }
+
+      const telegramResult = await sendTelegramMessage(buildBookingMessage(data));
+      sendJson(response, 200, { ok: true, ...telegramResult });
+    })
+    .catch((error) => {
+      console.error(error);
+      sendJson(response, 500, { ok: false, error: "Не удалось обработать заявку" });
+    });
+
+  return true;
+};
+
+const server = http.createServer((request, response) => {
+  const routePath = request.url.split("?")[0];
+  if (handleContentRoutes(request, response, routePath)) return;
+  if (handleBookingRoute(request, response, routePath)) return;
 
   const urlPath = decodeURIComponent(routePath);
   const pageRoutes = {
@@ -293,9 +285,7 @@ const server = http.createServer((request, response) => {
     }
 
     const extension = path.extname(filePath).toLowerCase();
-    response.writeHead(200, {
-      "Content-Type": contentTypes[extension] || "application/octet-stream",
-    });
+    response.writeHead(200, { "Content-Type": contentTypes[extension] || "application/octet-stream" });
     response.end(content);
   });
 });

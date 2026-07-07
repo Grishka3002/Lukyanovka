@@ -7,6 +7,9 @@ const dialogClose = document.querySelector(".dialog-close");
 const dialogOk = document.querySelector("#dialogOk");
 const formStatus = document.querySelector("#formStatus");
 
+let reviewIndex = 0;
+let loadedContent = null;
+
 document.documentElement.classList.add("motion-ready");
 
 const today = new Date();
@@ -69,10 +72,7 @@ const setFormStatus = (message, tone = "neutral") => {
 const openDialog = (data, delivery) => {
   if (!dialog || !dialogText) return;
 
-  const nights = Math.max(
-    1,
-    Math.round((new Date(data.checkout) - new Date(data.checkin)) / 86_400_000)
-  );
+  const nights = Math.max(1, Math.round((new Date(data.checkout) - new Date(data.checkin)) / 86_400_000));
   const intro = data.name ? `${data.name}, заявка собрана.` : "Заявка собрана.";
   const deliveryText = delivery?.delivered
     ? "Заявка отправлена Катерине."
@@ -90,42 +90,6 @@ const openDialog = (data, delivery) => {
 const closeDialog = () => {
   dialog?.close();
   document.body.classList.remove("dialog-open");
-};
-
-window.addEventListener("scroll", () => {
-  header?.classList.toggle("is-scrolled", window.scrollY > 20);
-});
-
-const setupRevealAnimations = () => {
-  const revealElements = document.querySelectorAll(
-    ".reveal, .editorial-intro > *, .chapter-card, .room-row, .value-card"
-  );
-
-  revealElements.forEach((element, index) => {
-    element.classList.add("reveal");
-    element.style.setProperty("--reveal-delay", `${Math.min((index % 4) * 85, 255)}ms`);
-  });
-
-  if (!("IntersectionObserver" in window)) {
-    revealElements.forEach((element) => element.classList.add("is-visible"));
-    return;
-  }
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add("is-visible");
-        observer.unobserve(entry.target);
-      });
-    },
-    {
-      rootMargin: "0px 0px -10% 0px",
-      threshold: 0.12,
-    }
-  );
-
-  revealElements.forEach((element) => observer.observe(element));
 };
 
 const getContentValue = (object, path) =>
@@ -159,6 +123,93 @@ const renderCardArray = (selector, items, renderer) => {
   elements.forEach((element, index) => {
     if (items[index]) renderer(element, items[index], index);
   });
+};
+
+const setupRevealAnimations = () => {
+  const revealElements = document.querySelectorAll(
+    ".reveal, .editorial-intro > *, .chapter-card, .room-row, .value-card, .review-card"
+  );
+
+  revealElements.forEach((element, index) => {
+    element.classList.add("reveal");
+    element.style.setProperty("--reveal-delay", `${Math.min((index % 4) * 85, 255)}ms`);
+  });
+
+  if (!("IntersectionObserver" in window)) {
+    revealElements.forEach((element) => element.classList.add("is-visible"));
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      });
+    },
+    { rootMargin: "0px 0px -10% 0px", threshold: 0.12 }
+  );
+
+  revealElements.forEach((element) => observer.observe(element));
+};
+
+const renderRooms = (rooms = []) => {
+  const roomList = document.querySelector(".room-list");
+  if (!roomList || !Array.isArray(rooms)) return;
+
+  roomList.innerHTML = "";
+  rooms.forEach((room, index) => {
+    const article = document.createElement("article");
+    article.className = "room-row reveal";
+    article.innerHTML = `
+      <span>${String(index + 1).padStart(2, "0")}</span>
+      <div>
+        <h2></h2>
+        <p></p>
+        <ul class="room-facts"></ul>
+      </div>
+      <a class="text-link" href="booking.html?room=${encodeURIComponent(room.title)}">Выбрать</a>
+    `;
+    article.querySelector("h2").textContent = room.title;
+    article.querySelector("p").textContent = room.text;
+    setListItems(article.querySelector(".room-facts"), String(room.facts || "").split(",").map((fact) => fact.trim()).filter(Boolean));
+    roomList.append(article);
+  });
+};
+
+const renderReviews = (reviews = []) => {
+  const slider = document.querySelector("[data-review-slider]");
+  if (!slider || !Array.isArray(reviews)) return;
+
+  slider.innerHTML = "";
+  reviews.forEach((review, index) => {
+    const article = document.createElement("article");
+    article.className = `review-card${index === reviewIndex ? " is-active" : ""}`;
+    article.innerHTML = `
+      <p class="review-text"></p>
+      <div class="review-author">
+        <strong></strong>
+        <span></span>
+      </div>
+    `;
+    article.querySelector(".review-text").textContent = review.text;
+    article.querySelector("strong").textContent = review.name;
+    article.querySelector("span").textContent = review.meta;
+    slider.append(article);
+  });
+};
+
+const updateReviewIndex = (direction) => {
+  const reviews = loadedContent?.reviews?.items || [];
+  if (!reviews.length) return;
+  reviewIndex = (reviewIndex + direction + reviews.length) % reviews.length;
+  renderReviews(reviews);
+};
+
+const setupReviewSlider = () => {
+  document.querySelector("[data-review-prev]")?.addEventListener("click", () => updateReviewIndex(-1));
+  document.querySelector("[data-review-next]")?.addEventListener("click", () => updateReviewIndex(1));
 };
 
 const applySiteContent = (content) => {
@@ -228,6 +279,10 @@ const applyHomeContent = (content) => {
     element.querySelector("p").textContent = item.text;
   });
 
+  setTextContent(".reviews-section .section-label", content, "reviews.label");
+  setTextContent(".reviews-section .section-heading h2", content, "reviews.title");
+  renderReviews(content.reviews?.items);
+
   setTextContent(".booking-strip:not(.dark-band) .section-label", content, "home.bookingStrip.label");
   setTextContent(".booking-strip:not(.dark-band) h2", content, "home.bookingStrip.title");
   setTextContent(".booking-strip:not(.dark-band) .button", content, "home.bookingStrip.button");
@@ -238,14 +293,7 @@ const applyRoomsContent = (content) => {
   setTextContent(".page-hero h1", content, "rooms.hero.title");
   setTextContent(".page-hero > p:not(.script-word)", content, "rooms.hero.text");
   setImageSource(".image-led .wide-photo", content, "rooms.image");
-
-  renderCardArray(".room-list .room-row", content.rooms?.rooms, (element, item) => {
-    element.querySelector("h2").textContent = item.title;
-    element.querySelector("p").textContent = item.text;
-    setListItems(element.querySelector(".room-facts"), String(item.facts || "").split(",").map((fact) => fact.trim()).filter(Boolean));
-    const link = element.querySelector("a");
-    if (link) link.href = `booking.html?room=${encodeURIComponent(item.title)}`;
-  });
+  renderRooms(content.rooms?.rooms);
 
   setTextContent(".room-notes .section-heading h2", content, "rooms.notes.title");
   setTextContent(".room-notes .section-heading p", content, "rooms.notes.text");
@@ -324,7 +372,7 @@ const applyBookingContent = (content) => {
 };
 
 const applyEditableContent = (content) => {
-  const page = document.body.dataset.page;
+  loadedContent = content;
   applySiteContent(content);
 
   const pageRenderers = {
@@ -335,7 +383,8 @@ const applyEditableContent = (content) => {
     booking: applyBookingContent,
   };
 
-  pageRenderers[page]?.(content);
+  pageRenderers[document.body.dataset.page]?.(content);
+  setupRevealAnimations();
 };
 
 const loadEditableContent = async () => {
@@ -348,11 +397,13 @@ const loadEditableContent = async () => {
   }
 };
 
+window.addEventListener("scroll", () => {
+  header?.classList.toggle("is-scrolled", window.scrollY > 20);
+});
+
 document.querySelectorAll("form").forEach((form) => {
   form.addEventListener("change", (event) => {
-    if (event.target.matches('input[name="checkin"]')) {
-      ensureCheckoutAfterCheckin(form);
-    }
+    if (event.target.matches('input[name="checkin"]')) ensureCheckoutAfterCheckin(form);
   });
 });
 
@@ -368,16 +419,11 @@ bookingForm?.addEventListener("submit", async (event) => {
   try {
     const response = await fetch("/api/booking", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
     });
     const result = await response.json();
-
-    if (!response.ok || !result.ok) {
-      throw new Error(result.error || "Не удалось отправить заявку");
-    }
+    if (!response.ok || !result.ok) throw new Error(result.error || "Не удалось отправить заявку");
 
     setFormStatus(
       result.delivered
@@ -401,6 +447,7 @@ dialogClose?.addEventListener("click", closeDialog);
 dialogOk?.addEventListener("click", closeDialog);
 dialog?.addEventListener("close", () => document.body.classList.remove("dialog-open"));
 
+setupReviewSlider();
 loadEditableContent();
 setInitialDates();
 ensureCheckoutAfterCheckin(bookingForm);

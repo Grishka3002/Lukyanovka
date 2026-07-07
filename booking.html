@@ -9,10 +9,7 @@
   </head>
   <body data-page="booking">
     <header class="site-header solid" aria-label="Главная навигация">
-      <a class="brand" href="index.html" aria-label="Маори Лукьяновка">
-        <span class="brand-mark">M</span>
-        <span>Маори</span>
-      </a>
+      <a class="brand" href="index.html" aria-label="Маори Лукьяновка"><span class="brand-mark">M</span><span>Маори</span></a>
       <nav class="nav-links" aria-label="Разделы сайта">
         <a href="index.html">Дом</a>
         <a href="rooms.html">Комнаты</a>
@@ -20,10 +17,7 @@
         <a href="location.html">Место</a>
         <a aria-current="page" href="booking.html">Бронь</a>
       </nav>
-      <a class="header-action" href="booking.html">
-        <span>Забронировать</span>
-        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
-      </a>
+      <a class="header-action" href="booking.html"><span>Забронировать</span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" /></svg></a>
     </header>
 
     <main class="page-main">
@@ -31,23 +25,13 @@
         <div class="booking-intro reveal">
           <p class="script-word">бронь</p>
           <h1>Заявка уходит не в пустоту: ее читает хозяйка дома.</h1>
-          <p>
-            Укажите даты, гостей и комнату. Если в Railway заданы Telegram-переменные,
-            заявка сразу уйдет хозяйке; если нет, сайт покажет подтверждение и подскажет,
-            что доставка еще не подключена.
-          </p>
+          <p>Укажите даты, гостей и комнату. Если в Railway заданы Telegram-переменные, заявка сразу уйдет хозяйке; если нет, сайт покажет подтверждение и подскажет, что доставка еще не подключена.</p>
         </div>
 
         <form class="booking-form premium-form reveal" id="bookingForm">
           <div class="form-row">
-            <label>
-              <span>Заезд</span>
-              <input name="checkin" type="date" required />
-            </label>
-            <label>
-              <span>Выезд</span>
-              <input name="checkout" type="date" required />
-            </label>
+            <label><span>Заезд</span><input name="checkin" type="date" required /></label>
+            <label><span>Выезд</span><input name="checkout" type="date" required /></label>
           </div>
           <div class="form-row">
             <label>
@@ -65,18 +49,14 @@
                 <option>Комната для двоих</option>
                 <option>Семейная комната</option>
                 <option>Комната для компании</option>
+                <option>Тихая комната</option>
+                <option>Гостевая комната</option>
                 <option>Помогите выбрать</option>
               </select>
             </label>
           </div>
-          <label>
-            <span>Имя</span>
-            <input name="name" type="text" placeholder="Как к вам обращаться" required />
-          </label>
-          <label>
-            <span>Телефон</span>
-            <input name="phone" type="tel" placeholder="+7" required />
-          </label>
+          <label><span>Имя</span><input name="name" type="text" placeholder="Как к вам обращаться" required /></label>
+          <label><span>Телефон</span><input name="phone" type="tel" placeholder="+7" required /></label>
           <label>
             <span>Где удобнее ответить</span>
             <select name="messenger">
@@ -86,74 +66,35 @@
               <option>SMS</option>
             </select>
           </label>
-          <label>
-            <span>Комментарий для Катерины</span>
-            <textarea name="message" rows="5" placeholder="Например: нужен тихий вариант, приезжаем с ребенком, хотим подсказку по маршруту"></textarea>
-          </label>
-          <label class="consent-row">
-            <input name="consent" type="checkbox" required />
-            <span>Согласен на обработку данных для ответа по заявке</span>
-          </label>
+          <label><span>Комментарий для Катерины</span><textarea name="message" rows="5" placeholder="Например: нужен тихий вариант, приезжаем с ребенком, хотим подсказку по маршруту"></textarea></label>
+          <label class="consent-row"><input name="consent" type="checkbox" required /><span>Согласен на обработку данных для ответа по заявке</span></label>
           <button class="button button-dark button-wide" type="submit">Отправить заявку</button>
           <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
         </form>
       </section>
 
       <section class="booking-process section-pad">
-        <div class="section-heading light-heading">
-          <h2>После заявки</h2>
-          <p>Простая последовательность вместо ощущения, что форма ушла неизвестно куда.</p>
-        </div>
+        <div class="section-heading light-heading"><h2>После заявки</h2><p>Простая последовательность вместо ощущения, что форма ушла неизвестно куда.</p></div>
         <div class="flow-grid">
-          <article class="flow-step reveal">
-            <span>01</span>
-            <h3>Катерина видит запрос</h3>
-            <p>Если подключены Telegram-переменные Railway, заявка приходит хозяйке автоматически.</p>
-          </article>
-          <article class="flow-step reveal">
-            <span>02</span>
-            <h3>Уточняются детали</h3>
-            <p>Свободные даты, комната, состав гостей, дорога и бытовые пожелания.</p>
-          </article>
-          <article class="flow-step reveal">
-            <span>03</span>
-            <h3>Вы подтверждаете бронь</h3>
-            <p>После согласования условий вы едете не “на объект”, а в понятный дом.</p>
-          </article>
+          <article class="flow-step reveal"><span>01</span><h3>Катерина видит запрос</h3><p>Если подключены Telegram-переменные Railway, заявка приходит хозяйке автоматически.</p></article>
+          <article class="flow-step reveal"><span>02</span><h3>Уточняются детали</h3><p>Свободные даты, комната, состав гостей, дорога и бытовые пожелания.</p></article>
+          <article class="flow-step reveal"><span>03</span><h3>Вы подтверждаете бронь</h3><p>После согласования условий вы едете не на объект, а в понятный дом.</p></article>
         </div>
       </section>
 
       <section class="faq-section section-pad dark-band">
-        <div class="section-heading">
-          <h2>Частые вопросы</h2>
-          <p>Пока точные правила не подтверждены, сайт честно отправляет спорные детали в личное уточнение.</p>
-        </div>
+        <div class="section-heading"><h2>Частые вопросы</h2><p>Пока точные правила не подтверждены, сайт честно отправляет спорные детали в личное уточнение.</p></div>
         <div class="faq-list">
-          <details class="faq-item reveal">
-            <summary>Можно ли приехать с детьми?</summary>
-            <p>Да, семейный формат предусмотрен. Возраст детей и удобную комнату лучше указать в заявке.</p>
-          </details>
-          <details class="faq-item reveal">
-            <summary>Есть ли точные цены на сайте?</summary>
-            <p>Пока цены оставлены “по запросу”, чтобы не публиковать неподтвержденные условия.</p>
-          </details>
-          <details class="faq-item reveal">
-            <summary>Можно ли с животными?</summary>
-            <p>Этот вопрос лучше уточнять у Катерины под конкретные даты и состав гостей.</p>
-          </details>
-          <details class="faq-item reveal">
-            <summary>Как быстро ответят?</summary>
-            <p>Форма готова к Telegram-уведомлениям. После подключения переменных заявка будет приходить сразу.</p>
-          </details>
+          <details class="faq-item reveal"><summary>Можно ли приехать с детьми?</summary><p>Да, семейный формат предусмотрен. Возраст детей и удобную комнату лучше указать в заявке.</p></details>
+          <details class="faq-item reveal"><summary>Есть ли точные цены на сайте?</summary><p>Пока цены оставлены по запросу, чтобы не публиковать неподтвержденные условия.</p></details>
+          <details class="faq-item reveal"><summary>Можно ли с животными?</summary><p>Этот вопрос лучше уточнять у Катерины под конкретные даты и состав гостей.</p></details>
+          <details class="faq-item reveal"><summary>Как быстро ответят?</summary><p>Форма готова к Telegram-уведомлениям. После подключения переменных заявка будет приходить сразу.</p></details>
         </div>
       </section>
 
       <section class="host-booking-note section-pad dark-band">
         <img src="assets/host-table.png" alt="Хозяйский чай для гостей" />
-        <div>
-          <p class="section-label">Катерина Геращенко</p>
-          <h2>Маори начинается с простого вопроса: как вам будет удобнее приехать?</h2>
-        </div>
+        <div><p class="section-label">Катерина Геращенко</p><h2>Маори начинается с простого вопроса: как вам будет удобнее приехать?</h2></div>
       </section>
     </main>
 
@@ -163,15 +104,12 @@
     </footer>
 
     <dialog class="booking-dialog" id="bookingDialog" aria-labelledby="dialogTitle">
-      <button class="dialog-close" type="button" aria-label="Закрыть">
-        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" /></svg>
-      </button>
+      <button class="dialog-close" type="button" aria-label="Закрыть"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" /></svg></button>
       <p class="script-word">готово</p>
       <h2 id="dialogTitle">Заявка собрана</h2>
       <p id="dialogText"></p>
       <button class="button button-dark" type="button" id="dialogOk">Хорошо</button>
     </dialog>
-
     <script src="script.js"></script>
   </body>
 </html>
