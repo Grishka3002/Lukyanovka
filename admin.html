@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>Админ-панель - Маори Лукьяновка</title>
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+  <body>
+    <main class="admin-shell">
+      <aside class="admin-sidebar" aria-label="Разделы админ-панели">
+        <a class="admin-brand" href="admin.html" aria-label="Админ-панель Маори">
+          <span>M</span>
+          <strong>Маори</strong>
+        </a>
+        <nav class="admin-nav" id="adminNav" aria-label="Страницы для редактирования"></nav>
+        <div class="sidebar-note">
+          <span>Важно</span>
+          <p>После редеплоя Railway файл может откатиться к версии из GitHub. Перед крупными правками делайте экспорт JSON.</p>
+        </div>
+      </aside>
+
+      <section class="admin-workspace">
+        <header class="admin-topbar">
+          <div>
+            <p class="eyebrow">Редактор сайта</p>
+            <h1 id="pageTitle">Контент Маори</h1>
+          </div>
+          <div class="topbar-actions">
+            <a class="ghost-button" href="index.html" target="_blank" rel="noreferrer">Открыть сайт</a>
+            <button class="ghost-button" type="button" id="exportButton">Экспорт</button>
+            <button class="primary-button" type="button" id="saveButton">Сохранить</button>
+          </div>
+        </header>
+
+        <div class="status-bar" id="statusBar" role="status" aria-live="polite">
+          Войдите с паролем администратора, чтобы менять текст и изображения.
+        </div>
+
+        <section class="editor-grid" id="editorGrid" aria-label="Поля редактирования"></section>
+      </section>
+    </main>
+
+    <div class="login-layer" id="loginLayer">
+      <form class="login-card" id="loginForm">
+        <span class="login-mark">M</span>
+        <p class="eyebrow">Админ-панель</p>
+        <h2>Вход для редактирования сайта</h2>
+        <p>Введите пароль из переменной Railway <code>ADMIN_PASSWORD</code>. Он нужен для сохранения контента.</p>
+        <label>
+          <span>Пароль</span>
+          <input id="passwordInput" name="password" type="password" autocomplete="current-password" required />
+        </label>
+        <button class="primary-button" type="submit">Войти</button>
+        <p class="login-error" id="loginError" role="alert"></p>
+      </form>
+    </div>
+
+    <script src="admin.js"></script>
+  </body>
+</html>

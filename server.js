@@ -5,6 +5,7 @@ const path = require("path");
 
 const root = __dirname;
 const port = process.env.PORT || 8080;
+const contentFilePath = path.join(root, "data", "content.json");
 
 const contentTypes = {
   ".html": "text/html; charset=utf-8",
@@ -15,6 +16,7 @@ const contentTypes = {
   ".jpeg": "image/jpeg",
   ".svg": "image/svg+xml",
   ".ico": "image/x-icon",
+  ".json": "application/json; charset=utf-8",
 };
 
 const sendJson = (response, status, payload) => {
@@ -41,6 +43,72 @@ const readJsonBody = (request) =>
     });
     request.on("error", reject);
   });
+
+const readContentFile = () =>
+  new Promise((resolve, reject) => {
+    fs.readFile(contentFilePath, "utf8", (error, content) => {
+      if (error) {
+        reject(error);
+        return;
+      }
+
+      try {
+        resolve(JSON.parse(content));
+      } catch (parseError) {
+        reject(parseError);
+      }
+    });
+  });
+
+const writeContentFile = (content) =>
+  new Promise((resolve, reject) => {
+    fs.mkdir(path.dirname(contentFilePath), { recursive: true }, (mkdirError) => {
+      if (mkdirError) {
+        reject(mkdirError);
+        return;
+      }
+
+      fs.writeFile(contentFilePath, `${JSON.stringify(content, null, 2)}\n`, "utf8", (writeError) => {
+        if (writeError) {
+          reject(writeError);
+          return;
+        }
+
+        resolve();
+      });
+    });
+  });
+
+const getAdminPasswordFromRequest = (request) => {
+  const bearer = request.headers.authorization || "";
+  if (bearer.toLowerCase().startsWith("bearer ")) {
+    return bearer.slice(7);
+  }
+
+  return request.headers["x-admin-password"];
+};
+
+const authorizeAdmin = (request, response) => {
+  const adminPassword = process.env.ADMIN_PASSWORD;
+
+  if (!adminPassword) {
+    sendJson(response, 503, {
+      ok: false,
+      error: "ADMIN_PASSWORD is not configured",
+    });
+    return false;
+  }
+
+  if (getAdminPasswordFromRequest(request) !== adminPassword) {
+    sendJson(response, 401, {
+      ok: false,
+      error: "Invalid admin password",
+    });
+    return false;
+  }
+
+  return true;
+};
 
 const escapeTelegram = (value = "") =>
   String(value)
@@ -116,7 +184,57 @@ const sendTelegramMessage = (text) =>
   });
 
 const server = http.createServer((request, response) => {
-  if (request.method === "POST" && request.url.split("?")[0] === "/api/booking") {
+  const routePath = request.url.split("?")[0];
+
+  if (request.method === "GET" && routePath === "/api/content") {
+    readContentFile()
+      .then((content) => sendJson(response, 200, { ok: true, content }))
+      .catch((error) => {
+        console.error(error);
+        sendJson(response, 500, { ok: false, error: "Content is unavailable" });
+      });
+    return;
+  }
+
+  if (request.method === "GET" && routePath === "/api/admin/content") {
+    if (!authorizeAdmin(request, response)) return;
+
+    readContentFile()
+      .then((content) =>
+        sendJson(response, 200, {
+          ok: true,
+          content,
+          updatedAt: new Date().toISOString(),
+        })
+      )
+      .catch((error) => {
+        console.error(error);
+        sendJson(response, 500, { ok: false, error: "Content is unavailable" });
+      });
+    return;
+  }
+
+  if (request.method === "POST" && routePath === "/api/admin/content") {
+    if (!authorizeAdmin(request, response)) return;
+
+    readJsonBody(request)
+      .then(async (payload) => {
+        if (!payload || typeof payload.content !== "object" || Array.isArray(payload.content)) {
+          sendJson(response, 400, { ok: false, error: "Invalid content payload" });
+          return;
+        }
+
+        await writeContentFile(payload.content);
+        sendJson(response, 200, { ok: true, savedAt: new Date().toISOString() });
+      })
+      .catch((error) => {
+        console.error(error);
+        sendJson(response, 500, { ok: false, error: "Could not save content" });
+      });
+    return;
+  }
+
+  if (request.method === "POST" && routePath === "/api/booking") {
     readJsonBody(request)
       .then(async (data) => {
         const requiredFields = ["name", "phone", "checkin", "checkout", "guests", "house", "consent"];
@@ -137,17 +255,21 @@ const server = http.createServer((request, response) => {
     return;
   }
 
-  const urlPath = decodeURIComponent(request.url.split("?")[0]);
-  const safePath = path.normalize(urlPath).replace(/^(\.\.[/\\])+/, "");
+  const urlPath = decodeURIComponent(routePath);
   const pageRoutes = {
     "/": "/index.html",
     "/rooms": "/rooms.html",
     "/host": "/host.html",
     "/location": "/location.html",
     "/booking": "/booking.html",
+    "/admin": "/admin.html",
   };
-  const requestedPath = pageRoutes[safePath] || safePath;
-  const filePath = path.join(root, requestedPath);
+  const requestedPath = pageRoutes[urlPath] || urlPath;
+  const safePath = path
+    .normalize(requestedPath)
+    .replace(/^(\.\.[/\\])+/, "")
+    .replace(/^[/\\]+/, "");
+  const filePath = path.join(root, safePath);
 
   if (!filePath.startsWith(root)) {
     response.writeHead(403);
