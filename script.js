@@ -5,6 +5,7 @@ const dialog = document.querySelector("#bookingDialog");
 const dialogText = document.querySelector("#dialogText");
 const dialogClose = document.querySelector(".dialog-close");
 const dialogOk = document.querySelector("#dialogOk");
+const formStatus = document.querySelector("#formStatus");
 
 document.documentElement.classList.add("motion-ready");
 
@@ -59,7 +60,13 @@ const applyRoomFromUrl = () => {
   if (option) houseSelect.value = option.value;
 };
 
-const openDialog = (data) => {
+const setFormStatus = (message, tone = "neutral") => {
+  if (!formStatus) return;
+  formStatus.textContent = message;
+  formStatus.dataset.tone = tone;
+};
+
+const openDialog = (data, delivery) => {
   if (!dialog || !dialogText) return;
 
   const nights = Math.max(
@@ -67,7 +74,10 @@ const openDialog = (data) => {
     Math.round((new Date(data.checkout) - new Date(data.checkin)) / 86_400_000)
   );
   const intro = data.name ? `${data.name}, заявка собрана.` : "Заявка собрана.";
-  dialogText.textContent = `${intro} ${formatDate(data.checkin)} - ${formatDate(data.checkout)}, ${nights} ноч., ${data.guests.toLowerCase()}, комната: ${data.house}. Осталось подключить реальную отправку Катерине.`;
+  const deliveryText = delivery?.delivered
+    ? "Заявка отправлена Катерине."
+    : "Заявка показана на сайте; для реальной отправки нужно подключить Telegram в Railway.";
+  dialogText.textContent = `${intro} ${formatDate(data.checkin)} - ${formatDate(data.checkout)}, ${nights} ноч., ${data.guests.toLowerCase()}, комната: ${data.house}. ${deliveryText}`;
 
   if (typeof dialog.showModal === "function") {
     dialog.showModal();
@@ -126,15 +136,45 @@ document.querySelectorAll("form").forEach((form) => {
   });
 });
 
-bookingForm?.addEventListener("submit", (event) => {
+bookingForm?.addEventListener("submit", async (event) => {
   event.preventDefault();
   ensureCheckoutAfterCheckin(bookingForm);
 
   const formData = Object.fromEntries(new FormData(bookingForm).entries());
-  openDialog(formData);
-  bookingForm.reset();
-  setInitialDates();
-  applyRoomFromUrl();
+  const submitButton = bookingForm.querySelector('button[type="submit"]');
+  submitButton.disabled = true;
+  setFormStatus("Отправляем заявку...", "neutral");
+
+  try {
+    const response = await fetch("/api/booking", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+    const result = await response.json();
+
+    if (!response.ok || !result.ok) {
+      throw new Error(result.error || "Не удалось отправить заявку");
+    }
+
+    setFormStatus(
+      result.delivered
+        ? "Заявка отправлена Катерине."
+        : "Заявка собрана. Telegram-отправка пока не подключена в Railway.",
+      result.delivered ? "success" : "neutral"
+    );
+    openDialog(formData, result);
+    bookingForm.reset();
+    setInitialDates();
+    applyRoomFromUrl();
+  } catch (error) {
+    setFormStatus("Не получилось отправить автоматически. Проверьте связь или попробуйте позже.", "error");
+    openDialog(formData, { delivered: false });
+  } finally {
+    submitButton.disabled = false;
+  }
 });
 
 dialogClose?.addEventListener("click", closeDialog);
