@@ -3,68 +3,68 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Катерина Геращенко - хозяйка дома Маори Лукьяновка." />
-    <title>Хозяйка - Маори Лукьяновка</title>
+    <meta name="description" content="Катерина Геращенко - хозяйка гостевого дома Маори Лукьяновка. Домашняя кухня, фестивали и личная забота о гостях." />
+    <meta name="theme-color" content="#2c1b12" />
+    <title>Катерина Геращенко - хозяйка Маори</title>
+    <link rel="preload" href="assets/warm-host-kitchen.png" as="image" fetchpriority="high" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body data-page="host">
-    <header class="site-header solid" aria-label="Главная навигация">
-      <a class="brand" href="index.html" aria-label="Маори Лукьяновка"><span class="brand-mark">M</span><span>Маори</span></a>
-      <nav class="nav-links" aria-label="Разделы сайта">
-        <a href="index.html">Дом</a>
-        <a href="rooms.html">Комнаты</a>
-        <a aria-current="page" href="host.html">Хозяйка</a>
-        <a href="location.html">Место</a>
-        <a href="booking.html">Бронь</a>
+    <a class="skip-link" href="#main">К содержанию</a>
+    <header class="site-header" data-header>
+      <a class="brand" href="index.html" aria-label="Маори Лукьяновка, главная"><span class="brand-mark">M</span><span><strong data-brand-short>Маори</strong><small data-site-tagline>Дом у подножия Пидана</small></span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Открыть меню" data-nav-toggle><span></span><span></span><span></span></button>
+      <nav class="nav-links" id="siteNav" aria-label="Разделы сайта" data-nav>
+        <a href="index.html">Дом</a><a href="rooms.html">Комнаты</a><a aria-current="page" href="host.html">Катерина</a><a href="location.html">Отдых</a><a class="nav-booking" href="booking.html">Бронирование</a>
       </nav>
-      <a class="header-action" href="booking.html"><span>Забронировать</span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" /></svg></a>
     </header>
 
-    <main class="page-main">
-      <section class="host-hero section-pad">
-        <div class="host-title reveal"><p class="script-word">хозяйка Маори</p><h1>Катерина Геращенко</h1></div>
-        <div class="host-statement reveal"><p>Маори держится на личном присутствии: вас не просто заселяют в комнату, вас встречают, помогают освоиться и оставляют пространство для отдыха.</p></div>
-        <div class="host-visual reveal" aria-hidden="true"><img src="assets/host-table.png" alt="" /></div>
+    <main id="main">
+      <section class="host-hero">
+        <div class="host-hero-copy reveal is-visible"><p class="script-word" data-bind="host.hero.script">хозяйка Маори</p><h1 data-bind="host.hero.title">Катерина Геращенко</h1><p data-bind="host.hero.text">Человек, к которому возвращаются за радушием, домашней едой и ощущением, что тебя действительно ждали.</p><a class="button button-dark" href="booking.html">Связаться с Катериной</a></div>
+        <figure class="host-hero-image"><img src="assets/warm-host-kitchen.png" alt="Хозяйская кухня Маори" fetchpriority="high" data-bind-image="host.hero.image" /><figcaption>Сначала чай. Остальное обсудим.</figcaption></figure>
       </section>
 
-      <section class="split-feature section-pad">
-        <div class="feature-media reveal"><img src="assets/host-table.png" alt="Хозяйский стол с чаем" /></div>
-        <div class="feature-copy reveal">
-          <p class="section-label">Не гостиница</p>
-          <h2>Смысл Маори - в хозяйском внимании, а не в одинаковых номерах.</h2>
-          <p>Катерина держит дом так, чтобы у гостей было ощущение простого и теплого приезда: где оставить вещи, где выпить чай, куда пройтись утром, как провести вечер без суеты.</p>
-          <p>Поэтому сайт говорит о человеке за домом. Это делает Маори ближе, честнее и дороже по ощущению.</p>
-        </div>
+      <section class="host-story section-pad">
+        <div class="section-kicker reveal"><span data-bind="host.story.label">Знакомство</span><i></i></div>
+        <div class="story-title reveal"><h2 data-bind="host.story.title">Маори вырос не из гостиничной идеи, а из любви принимать людей.</h2><span class="hand-note">по-домашнему</span></div>
+        <div class="story-body" data-host-story></div>
+        <aside class="host-help reveal"><h3 data-bind="host.help.title">Катерина помогает собрать поездку до приезда</h3><ul data-host-help></ul></aside>
       </section>
 
-      <section class="host-letter section-pad">
-        <div class="letter-card reveal">
-          <p class="script-word">записка хозяйки</p>
-          <blockquote>Мне важно, чтобы человек приехал не в незнакомый объект, а в дом, где ему спокойно. Комнату можно выбрать заранее, а остальное я помогу уточнить по дороге.</blockquote>
-          <span>Катерина Геращенко</span>
-        </div>
-        <div class="host-help reveal">
-          <h2>Что Катерина помогает решить до приезда</h2>
-          <ul class="clean-list">
-            <li>какая комната лучше подойдет под состав гостей;</li>
-            <li>какие даты свободны и как удобнее спланировать заезд;</li>
-            <li>что взять с собой для прогулок и отдыха у дома;</li>
-            <li>какие бытовые условия важно уточнить именно вашей компании.</li>
-          </ul>
-        </div>
+      <section class="food-section section-pad">
+        <div class="food-media reveal"><img src="assets/warm-table.png" alt="Домашний стол с блюдами для гостей" loading="lazy" data-bind-image="host.food.image" /></div>
+        <div class="food-copy reveal"><p class="section-label" data-bind="host.food.label">Питание</p><h2 data-bind="host.food.title">Локальная кухня без ресторанной дистанции.</h2><p data-bind="host.food.text">Еду обсуждают заранее: от завтрака перед маршрутом до общего застолья.</p><ul class="check-list" data-food-items></ul><a class="text-link" href="booking.html">Обсудить питание <span aria-hidden="true">→</span></a></div>
       </section>
 
-      <section class="values section-pad dark-band">
-        <article class="value-card reveal"><span>01</span><h2>Встретить</h2><p>Гость должен понимать, что его ждут, а не просто выдали ключ.</p></article>
-        <article class="value-card reveal"><span>02</span><h2>Устроить</h2><p>Комната, чай, бытовые мелочи и понятный порядок в доме.</p></article>
-        <article class="value-card reveal"><span>03</span><h2>Оставить тишину</h2><p>Теплое присутствие без навязчивости: вы отдыхаете в своем ритме.</p></article>
+      <section class="festivals-section section-pad wood-band" aria-labelledby="festivals-title">
+        <div class="section-heading reveal"><div><p class="section-label light-label" data-bind="host.festivals.label">События Катерины</p><h2 id="festivals-title" data-bind="host.festivals.title">Фестивали, которые собирают Лукьяновку за одним столом.</h2></div><p data-bind="host.festivals.text">Прошедшие даты оставлены как часть истории; следующую программу лучше уточнять лично.</p></div>
+        <div class="festival-grid" data-festivals></div>
+      </section>
+
+      <section class="quote-callout section-pad">
+        <p class="script-word reveal">отзывы гостей</p>
+        <blockquote class="reveal">«Хозяйка Катя - отдельный вид искусства»</blockquote>
+        <a class="text-link reveal" href="index.html#reviews-title">Читать реальные отзывы <span aria-hidden="true">→</span></a>
+      </section>
+
+      <section class="booking-callout section-pad ink-band">
+        <div class="reveal"><p class="section-label light-label">Личное сообщение</p><h2>Расскажите Катерине, зачем вы едете. Она поможет собрать остальное.</h2></div>
+        <a class="button button-honey reveal" href="booking.html">Начать разговор</a>
       </section>
     </main>
 
     <footer class="site-footer">
-      <a class="brand" href="index.html"><span class="brand-mark">M</span><span>Маори Лукьяновка</span></a>
-      <span>Хозяйка дома - Катерина Геращенко.</span>
+      <div class="footer-main">
+        <a class="brand footer-brand" href="index.html"><span class="brand-mark">M</span><span><strong data-brand-short>Маори</strong><small>Лукьяновка</small></span></a>
+        <p class="footer-note" data-footer-note>Дом держит и встречает гостей Катерина Геращенко.</p>
+        <div class="footer-column"><span>Разделы</span><a href="rooms.html">Комнаты</a><a href="host.html">Катерина</a><a href="location.html">Отдых</a><a href="booking.html">Бронирование</a></div>
+        <div class="footer-column"><span>Связь</span><a data-phone-link href="tel:+79147925826">+7 914 792-58-26</a><a data-whatsapp-link href="https://wa.me/79147925826" target="_blank" rel="noreferrer">WhatsApp</a><a href="booking.html#map">Адрес и карта</a></div>
+        <div class="footer-column"><span>Условия</span><p data-site-payment>Наличные или перевод с карты на карту.</p><button class="footer-link" type="button" data-policy-open>Политика бронирования</button></div>
+      </div>
+      <div class="footer-bottom"><span>© <span data-current-year></span> Маори Лукьяновка</span><span data-site-address>Приморский край, д. Лукьяновка, ул. Школьная, 11Б</span></div>
     </footer>
+    <dialog class="policy-dialog" data-policy-dialog><button class="dialog-close" type="button" aria-label="Закрыть" data-policy-close>×</button><p class="section-label">Условия</p><h2 data-policy-title>Политика бронирования</h2><p data-policy-text></p></dialog>
     <script src="script.js"></script>
   </body>
 </html>

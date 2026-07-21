@@ -3,62 +3,64 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Маори Лукьяновка: лес, сопки и маршруты рядом с домом." />
-    <title>Место - Маори Лукьяновка</title>
+    <meta name="description" content="Ретриты, камерные группы, экскурсии и природные маршруты рядом с гостевым домом Маори в Лукьяновке." />
+    <meta name="theme-color" content="#2c1b12" />
+    <title>Отдых, ретриты и маршруты - Маори Лукьяновка</title>
+    <link rel="preload" href="assets/warm-house-exterior.png" as="image" fetchpriority="high" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body data-page="location">
-    <header class="site-header solid" aria-label="Главная навигация">
-      <a class="brand" href="index.html" aria-label="Маори Лукьяновка"><span class="brand-mark">M</span><span>Маори</span></a>
-      <nav class="nav-links" aria-label="Разделы сайта">
-        <a href="index.html">Дом</a>
-        <a href="rooms.html">Комнаты</a>
-        <a href="host.html">Хозяйка</a>
-        <a aria-current="page" href="location.html">Место</a>
-        <a href="booking.html">Бронь</a>
+    <a class="skip-link" href="#main">К содержанию</a>
+    <header class="site-header" data-header>
+      <a class="brand" href="index.html" aria-label="Маори Лукьяновка, главная"><span class="brand-mark">M</span><span><strong data-brand-short>Маори</strong><small data-site-tagline>Дом у подножия Пидана</small></span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Открыть меню" data-nav-toggle><span></span><span></span><span></span></button>
+      <nav class="nav-links" id="siteNav" aria-label="Разделы сайта" data-nav>
+        <a href="index.html">Дом</a><a href="rooms.html">Комнаты</a><a href="host.html">Катерина</a><a aria-current="page" href="location.html">Отдых</a><a class="nav-booking" href="booking.html">Бронирование</a>
       </nav>
-      <a class="header-action" href="booking.html"><span>Забронировать</span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" /></svg></a>
     </header>
 
-    <main class="page-main">
-      <section class="page-hero section-pad">
-        <p class="script-word">Приморье</p>
-        <h1>Лукьяновка нужна тем, кто едет за тишиной, лесом и сопками.</h1>
-        <p>Дом находится в районе деревни Лукьяновка Шкотовского района. Это спокойная точка для загородного отдыха и выездов к природным маршрутам Приморья.</p>
+    <main id="main">
+      <section class="inner-hero image-hero nature-hero">
+        <img src="assets/warm-house-exterior.png" alt="Дом у лесных сопок Лукьяновки" fetchpriority="high" data-bind-image="location.hero.image" />
+        <div class="inner-hero-shade"></div>
+        <div class="inner-hero-content reveal is-visible"><p class="script-word" data-bind="location.hero.script">Лукьяновка и Пидан</p><h1 data-bind="location.hero.title">Место для тех, кому нужен воздух, маршрут и пауза.</h1><p data-bind="location.hero.text">Маори стоит рядом с известными природными маршрутами Приморья.</p></div>
+        <div class="location-stamp"><strong>43.1636°</strong><span>132.7027°</span></div>
       </section>
 
-      <section class="location-layout section-pad">
-        <div class="map-card-premium reveal" aria-label="Схема расположения">
-          <div class="map-line"></div>
-          <span class="map-dot dot-a">Владивосток</span>
-          <span class="map-dot dot-b">Суходол</span>
-          <span class="map-dot dot-c">Лукьяновка</span>
-          <span class="map-script script-word">Маори</span>
-        </div>
-        <div class="route-list">
-          <article class="room-row reveal"><span>01</span><div><h2>Прогулки у деревни</h2><p>Короткие маршруты, лесной воздух и ощущение, что город остался далеко.</p></div></article>
-          <article class="room-row reveal"><span>02</span><div><h2>Фалаза и Ливадийская</h2><p>Район известен как удобная точка для маршрутов к сопкам Приморья.</p></div></article>
-          <article class="room-row reveal"><span>03</span><div><h2>Вечер в доме</h2><p>Главная роскошь после маршрута - вернуться туда, где вас ждут тепло и тишина.</p></div></article>
-        </div>
+      <section class="groups-section section-pad">
+        <div class="groups-copy reveal"><p class="section-label" data-bind="location.groups.label">Ретриты и группы</p><h2 data-bind="location.groups.title">Дом можно собрать под общий замысел.</h2><p data-bind="location.groups.text">Пять комнат, зал 60 м², кухня, баня и общее застолье подходят для камерных групп до десяти человек.</p></div>
+        <figure class="groups-image reveal"><img src="assets/warm-table.png" alt="Камерная группа за общим столом" loading="lazy" data-bind-image="location.groups.image" /></figure>
+        <div class="audience-list" data-group-audiences></div>
+        <aside class="organize-panel reveal"><span>Можно организовать</span><ul data-group-organize></ul><a class="text-link" href="booking.html?message=Планируем%20групповой%20выезд">Обсудить группу <span aria-hidden="true">→</span></a></aside>
       </section>
 
-      <section class="place-guide section-pad dark-band">
-        <div class="section-heading">
-          <h2>Перед поездкой</h2>
-          <p>Несколько практичных деталей помогают гостям приехать спокойнее и не собираться вслепую.</p>
-        </div>
-        <div class="guide-grid">
-          <article class="guide-card reveal"><span>Ориентир</span><h3>Лукьяновка, Шкотовский район</h3><p>Точный адрес и удобную точку встречи лучше подтвердить у Катерины после заявки.</p></article>
-          <article class="guide-card reveal"><span>С собой</span><h3>Одежда для леса и сопок</h3><p>Даже короткая прогулка приятнее, когда есть удобная обувь, теплая вещь и фонарик.</p></article>
-          <article class="guide-card reveal"><span>Сезон</span><h3>Каждый месяц разный</h3><p>Летом больше прогулок, осенью красивый лес, зимой особенно важны тепло и дорога.</p></article>
-        </div>
+      <section class="activities-section section-pad wood-band">
+        <div class="section-heading reveal"><div><p class="section-label light-label" data-bind="location.activities.label">Рядом</p><h2 data-bind="location.activities.title">Природа, которую лучше открывать с человеком, знающим место.</h2></div><p data-bind="location.activities.text">Сложность, сезонность и доступность маршрутов меняются.</p></div>
+        <div class="activity-list" data-activities></div>
+      </section>
+
+      <section class="guide-section section-pad">
+        <div class="section-heading reveal"><div><p class="section-label">Поездка без суеты</p><h2 data-bind="location.guide.title">Катерина помогает организовать</h2></div><p data-bind="location.guide.text">Не каталог развлечений, а личный подбор под сезон, погоду и силы гостей.</p></div>
+        <div class="guide-grid" data-guide-items></div>
+      </section>
+
+      <section class="booking-callout section-pad ink-band">
+        <div class="reveal"><p class="section-label light-label">Собрать программу</p><h2>Дом, маршрут, баня и ужин могут стать одной цельной поездкой.</h2></div>
+        <a class="button button-honey reveal" href="booking.html">Написать Катерине</a>
       </section>
     </main>
 
     <footer class="site-footer">
-      <a class="brand" href="index.html"><span class="brand-mark">M</span><span>Маори Лукьяновка</span></a>
-      <span>Приморский край, Шкотовский район, деревня Лукьяновка.</span>
+      <div class="footer-main">
+        <a class="brand footer-brand" href="index.html"><span class="brand-mark">M</span><span><strong data-brand-short>Маори</strong><small>Лукьяновка</small></span></a>
+        <p class="footer-note" data-footer-note>Лукьяновка, Пидан и маршруты южного Приморья.</p>
+        <div class="footer-column"><span>Разделы</span><a href="rooms.html">Комнаты</a><a href="host.html">Катерина</a><a href="location.html">Отдых</a><a href="booking.html">Бронирование</a></div>
+        <div class="footer-column"><span>Связь</span><a data-phone-link href="tel:+79147925826">+7 914 792-58-26</a><a data-whatsapp-link href="https://wa.me/79147925826" target="_blank" rel="noreferrer">WhatsApp</a><a href="booking.html#map">Адрес и карта</a></div>
+        <div class="footer-column"><span>Условия</span><p data-site-payment>Наличные или перевод с карты на карту.</p><button class="footer-link" type="button" data-policy-open>Политика бронирования</button></div>
+      </div>
+      <div class="footer-bottom"><span>© <span data-current-year></span> Маори Лукьяновка</span><span data-site-address>Приморский край, д. Лукьяновка, ул. Школьная, 11Б</span></div>
     </footer>
+    <dialog class="policy-dialog" data-policy-dialog><button class="dialog-close" type="button" aria-label="Закрыть" data-policy-close>×</button><p class="section-label">Условия</p><h2 data-policy-title>Политика бронирования</h2><p data-policy-text></p></dialog>
     <script src="script.js"></script>
   </body>
 </html>

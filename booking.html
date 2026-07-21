@@ -3,113 +3,92 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Заявка на бронирование комнаты в доме Маори Лукьяновка." />
-    <title>Бронирование - Маори Лукьяновка</title>
+    <meta name="description" content="Связаться с Катериной и забронировать комнату в гостевом доме Маори Лукьяновка. Телефон, WhatsApp, адрес и карта." />
+    <meta name="theme-color" content="#2c1b12" />
+    <title>Контакты и бронирование - Маори Лукьяновка</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body data-page="booking">
-    <header class="site-header solid" aria-label="Главная навигация">
-      <a class="brand" href="index.html" aria-label="Маори Лукьяновка"><span class="brand-mark">M</span><span>Маори</span></a>
-      <nav class="nav-links" aria-label="Разделы сайта">
-        <a href="index.html">Дом</a>
-        <a href="rooms.html">Комнаты</a>
-        <a href="host.html">Хозяйка</a>
-        <a href="location.html">Место</a>
-        <a aria-current="page" href="booking.html">Бронь</a>
+    <a class="skip-link" href="#main">К содержанию</a>
+    <header class="site-header" data-header>
+      <a class="brand" href="index.html" aria-label="Маори Лукьяновка, главная"><span class="brand-mark">M</span><span><strong data-brand-short>Маори</strong><small data-site-tagline>Дом у подножия Пидана</small></span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Открыть меню" data-nav-toggle><span></span><span></span><span></span></button>
+      <nav class="nav-links" id="siteNav" aria-label="Разделы сайта" data-nav>
+        <a href="index.html">Дом</a><a href="rooms.html">Комнаты</a><a href="host.html">Катерина</a><a href="location.html">Отдых</a><a class="nav-booking" aria-current="page" href="booking.html">Бронирование</a>
       </nav>
-      <a class="header-action" href="booking.html"><span>Забронировать</span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" /></svg></a>
     </header>
 
-    <main class="page-main">
-      <section class="booking-page section-pad">
-        <div class="booking-intro reveal">
-          <p class="script-word">бронь</p>
-          <h1>Заявка уходит не в пустоту: ее читает хозяйка дома.</h1>
-          <p>Укажите даты, гостей и комнату. Если в Railway заданы Telegram-переменные, заявка сразу уйдет хозяйке; если нет, сайт покажет подтверждение и подскажет, что доставка еще не подключена.</p>
-        </div>
+    <main id="main">
+      <section class="booking-hero section-pad wood-band">
+        <div class="reveal is-visible"><p class="script-word" data-bind="booking.hero.script">бронирование через диалог</p><h1 data-bind="booking.hero.title">Расскажите Катерине, какой отдых вам нужен.</h1><p data-bind="booking.hero.text">Вы оставляете даты и пожелания, Катерина проверяет комнаты, отвечает лично и только после этого подтверждает бронь.</p></div>
+        <div class="booking-hero-contact reveal is-visible"><span>Позвонить</span><a data-phone-link href="tel:+79147925826">+7 914 792-58-26</a><small>Время Владивостока, UTC+10</small></div>
+      </section>
 
-        <form class="booking-form premium-form reveal" id="bookingForm">
-          <div class="form-row">
-            <label><span>Заезд</span><input name="checkin" type="date" required /></label>
-            <label><span>Выезд</span><input name="checkout" type="date" required /></label>
+      <section class="booking-layout section-pad" id="form">
+        <aside class="contact-panel reveal">
+          <p class="section-label" data-bind="booking.contact.label">Связаться напрямую</p>
+          <h2 data-bind="booking.contact.title">Можно написать или позвонить.</h2>
+          <p data-bind="booking.contact.text">Для быстрого ответа используйте WhatsApp или телефон.</p>
+          <div class="contact-actions">
+            <a class="contact-action" data-whatsapp-link href="https://wa.me/79147925826" target="_blank" rel="noreferrer"><span>WhatsApp</span><strong>Написать Катерине</strong><i aria-hidden="true">↗</i></a>
+            <a class="contact-action" data-phone-link href="tel:+79147925826"><span>Телефон</span><strong>+7 914 792-58-26</strong><i aria-hidden="true">↗</i></a>
+            <a class="contact-action" data-telegram-link href="tg://resolve?phone=79147925826"><span>Telegram</span><strong>Открыть мессенджер</strong><i aria-hidden="true">↗</i></a>
           </div>
-          <div class="form-row">
-            <label>
-              <span>Гости</span>
-              <select name="guests">
-                <option>2 гостя</option>
-                <option>3-4 гостя</option>
-                <option>5-6 гостей</option>
-                <option>7+ гостей</option>
-              </select>
-            </label>
-            <label>
-              <span>Комната</span>
-              <select name="house" id="houseSelect">
-                <option>Комната для двоих</option>
-                <option>Семейная комната</option>
-                <option>Комната для компании</option>
-                <option>Тихая комната</option>
-                <option>Гостевая комната</option>
-                <option>Помогите выбрать</option>
-              </select>
-            </label>
-          </div>
-          <label><span>Имя</span><input name="name" type="text" placeholder="Как к вам обращаться" required /></label>
-          <label><span>Телефон</span><input name="phone" type="tel" placeholder="+7" required /></label>
-          <label>
-            <span>Где удобнее ответить</span>
-            <select name="messenger">
-              <option>Позвонить</option>
-              <option>WhatsApp</option>
-              <option>Telegram</option>
-              <option>SMS</option>
-            </select>
-          </label>
-          <label><span>Комментарий для Катерины</span><textarea name="message" rows="5" placeholder="Например: нужен тихий вариант, приезжаем с ребенком, хотим подсказку по маршруту"></textarea></label>
-          <label class="consent-row"><input name="consent" type="checkbox" required /><span>Согласен на обработку данных для ответа по заявке</span></label>
-          <button class="button button-dark button-wide" type="submit">Отправить заявку</button>
-          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
-        </form>
-      </section>
+          <p class="contact-tip">В сообщении полезно сразу указать даты, количество гостей, питание, баню и планы на маршруты.</p>
+        </aside>
 
-      <section class="booking-process section-pad">
-        <div class="section-heading light-heading"><h2>После заявки</h2><p>Простая последовательность вместо ощущения, что форма ушла неизвестно куда.</p></div>
-        <div class="flow-grid">
-          <article class="flow-step reveal"><span>01</span><h3>Катерина видит запрос</h3><p>Если подключены Telegram-переменные Railway, заявка приходит хозяйке автоматически.</p></article>
-          <article class="flow-step reveal"><span>02</span><h3>Уточняются детали</h3><p>Свободные даты, комната, состав гостей, дорога и бытовые пожелания.</p></article>
-          <article class="flow-step reveal"><span>03</span><h3>Вы подтверждаете бронь</h3><p>После согласования условий вы едете не на объект, а в понятный дом.</p></article>
+        <div class="booking-form-wrap reveal">
+          <div class="form-heading"><span>Заявка на проживание</span><strong>Ответит Катерина</strong></div>
+          <form class="booking-form" id="bookingForm">
+            <label class="field full"><span>Имя *</span><input name="name" autocomplete="name" required placeholder="Как к вам обращаться" /></label>
+            <label class="field"><span>Телефон *</span><input name="phone" type="tel" autocomplete="tel" required placeholder="+7 900 000-00-00" /></label>
+            <label class="field"><span>Удобно ответить</span><select name="messenger"><option value="WhatsApp">WhatsApp</option><option value="Telegram">Telegram</option><option value="Звонок">Звонок</option></select></label>
+            <label class="field"><span>Заезд *</span><input name="checkin" type="date" required /></label>
+            <label class="field"><span>Выезд *</span><input name="checkout" type="date" required /></label>
+            <label class="field"><span>Гости *</span><select name="guests" required><option value="" selected disabled>Выберите</option><option>1 гость</option><option>2 гостя</option><option>3-4 гостя</option><option>5-6 гостей</option><option>7-8 гостей</option><option>9-10 гостей</option></select></label>
+            <label class="field"><span>Комната *</span><select name="room" id="roomSelect" required><option value="Нужна помощь с выбором">Нужна помощь с выбором</option></select></label>
+            <label class="field full"><span>О поездке</span><textarea name="message" rows="5" placeholder="Например: хотим подняться на Пидан, заказать баню и ужин"></textarea></label>
+            <label class="consent full"><input name="consent" type="checkbox" value="yes" required /><span>Согласен на обработку данных для ответа на заявку и принимаю <button type="button" data-policy-open>условия бронирования</button>.</span></label>
+            <button class="button button-dark submit-button full" type="submit"><span>Отправить Катерине</span><i aria-hidden="true">→</i></button>
+            <p class="form-status full" id="formStatus" role="status" aria-live="polite"></p>
+          </form>
         </div>
       </section>
 
-      <section class="faq-section section-pad dark-band">
-        <div class="section-heading"><h2>Частые вопросы</h2><p>Пока точные правила не подтверждены, сайт честно отправляет спорные детали в личное уточнение.</p></div>
-        <div class="faq-list">
-          <details class="faq-item reveal"><summary>Можно ли приехать с детьми?</summary><p>Да, семейный формат предусмотрен. Возраст детей и удобную комнату лучше указать в заявке.</p></details>
-          <details class="faq-item reveal"><summary>Есть ли точные цены на сайте?</summary><p>Пока цены оставлены по запросу, чтобы не публиковать неподтвержденные условия.</p></details>
-          <details class="faq-item reveal"><summary>Можно ли с животными?</summary><p>Этот вопрос лучше уточнять у Катерины под конкретные даты и состав гостей.</p></details>
-          <details class="faq-item reveal"><summary>Как быстро ответят?</summary><p>Форма готова к Telegram-уведомлениям. После подключения переменных заявка будет приходить сразу.</p></details>
-        </div>
+      <section class="process-section section-pad ink-band">
+        <div class="section-heading reveal"><div><p class="section-label light-label">Без автоподтверждений</p><h2 data-bind="booking.process.title">Как забронировать</h2></div><p data-bind="booking.process.text">Три понятных шага от первого сообщения до подтвержденного приезда.</p></div>
+        <div class="process-list" data-booking-steps></div>
       </section>
 
-      <section class="host-booking-note section-pad dark-band">
-        <img src="assets/host-table.png" alt="Хозяйский чай для гостей" />
-        <div><p class="section-label">Катерина Геращенко</p><h2>Маори начинается с простого вопроса: как вам будет удобнее приехать?</h2></div>
+      <section class="map-section section-pad" id="map">
+        <div class="map-copy reveal"><p class="section-label">Адрес и дорога</p><h2>Лукьяновка, ул. Школьная, 11Б</h2><p>Перед выездом свяжитесь с Катериной: она подтвердит точку, состояние дороги и удобное время приезда.</p><dl><div><dt>Адрес</dt><dd data-site-address>Приморский край, д. Лукьяновка, ул. Школьная, 11Б</dd></div><div><dt>Координаты</dt><dd>43.163616, 132.702698</dd></div><div><dt>Оплата</dt><dd data-site-payment>Наличные или перевод с карты на карту.</dd></div></dl><a class="text-link" data-map-link href="https://www.openstreetmap.org/?mlat=43.163616&mlon=132.702698#map=15/43.163616/132.702698" target="_blank" rel="noreferrer">Открыть большую карту <span aria-hidden="true">↗</span></a></div>
+        <div class="map-frame reveal"><iframe title="Маори Лукьяновка на карте" loading="lazy" referrerpolicy="no-referrer" src="https://www.openstreetmap.org/export/embed.html?bbox=132.682698%2C43.153616%2C132.722698%2C43.173616&layer=mapnik&marker=43.163616%2C132.702698" data-map-embed></iframe></div>
+      </section>
+
+      <section class="faq-section section-pad">
+        <div class="section-heading reveal"><div><p class="section-label">FAQ</p><h2 data-bind="booking.faq.title">Коротко о важном</h2></div><p data-bind="booking.faq.text">То, что чаще всего хочется узнать до первого сообщения.</p></div>
+        <div class="faq-list" data-faq-list></div>
+      </section>
+
+      <section class="host-booking-note">
+        <img src="assets/warm-host-kitchen.png" alt="Теплый прием в Маори" loading="lazy" data-bind-image="booking.hostNote.image" />
+        <div class="reveal"><p class="section-label light-label" data-bind="booking.hostNote.label">Катерина Геращенко</p><h2 data-bind="booking.hostNote.title">Хорошая поездка начинается не с оплаты, а с разговора.</h2><a class="button button-honey" data-whatsapp-link href="https://wa.me/79147925826" target="_blank" rel="noreferrer">Написать в WhatsApp</a></div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <a class="brand" href="index.html"><span class="brand-mark">M</span><span>Маори Лукьяновка</span></a>
-      <span>Заявка на комнату в одном доме.</span>
+      <div class="footer-main">
+        <a class="brand footer-brand" href="index.html"><span class="brand-mark">M</span><span><strong data-brand-short>Маори</strong><small>Лукьяновка</small></span></a>
+        <p class="footer-note" data-footer-note>Бронирование через спокойный личный диалог.</p>
+        <div class="footer-column"><span>Разделы</span><a href="rooms.html">Комнаты</a><a href="host.html">Катерина</a><a href="location.html">Отдых</a><a href="booking.html">Бронирование</a></div>
+        <div class="footer-column"><span>Связь</span><a data-phone-link href="tel:+79147925826">+7 914 792-58-26</a><a data-whatsapp-link href="https://wa.me/79147925826" target="_blank" rel="noreferrer">WhatsApp</a><a href="#map">Адрес и карта</a></div>
+        <div class="footer-column"><span>Условия</span><p data-site-payment>Наличные или перевод с карты на карту.</p><button class="footer-link" type="button" data-policy-open>Политика бронирования</button></div>
+      </div>
+      <div class="footer-bottom"><span>© <span data-current-year></span> Маори Лукьяновка</span><span data-site-address>Приморский край, д. Лукьяновка, ул. Школьная, 11Б</span></div>
     </footer>
 
-    <dialog class="booking-dialog" id="bookingDialog" aria-labelledby="dialogTitle">
-      <button class="dialog-close" type="button" aria-label="Закрыть"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" /></svg></button>
-      <p class="script-word">готово</p>
-      <h2 id="dialogTitle">Заявка собрана</h2>
-      <p id="dialogText"></p>
-      <button class="button button-dark" type="button" id="dialogOk">Хорошо</button>
-    </dialog>
+    <dialog class="confirmation-dialog" id="confirmationDialog"><button class="dialog-close" type="button" aria-label="Закрыть" data-confirmation-close>×</button><span class="confirmation-mark">M</span><p class="section-label">Заявка обработана</p><h2 id="dialogTitle">Спасибо. Катерина получила ваш запрос.</h2><p id="dialogText"></p><button class="button button-dark" type="button" data-confirmation-close>Хорошо</button></dialog>
+    <dialog class="policy-dialog" data-policy-dialog><button class="dialog-close" type="button" aria-label="Закрыть" data-policy-close>×</button><p class="section-label">Условия</p><h2 data-policy-title>Политика бронирования</h2><p data-policy-text></p></dialog>
     <script src="script.js"></script>
   </body>
 </html>

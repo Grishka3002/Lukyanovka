@@ -3,57 +3,66 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Пять комнат в одном частном доме Маори Лукьяновка." />
-    <title>Комнаты - Маори Лукьяновка</title>
+    <meta name="description" content="Пять двухместных комнат в одном гостевом доме Маори Лукьяновка. Баня, кухня, барбекю и общий зал." />
+    <meta name="theme-color" content="#2c1b12" />
+    <title>Комнаты и дом - Маори Лукьяновка</title>
+    <link rel="preload" href="assets/warm-room.png" as="image" fetchpriority="high" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body data-page="rooms">
-    <header class="site-header solid" aria-label="Главная навигация">
-      <a class="brand" href="index.html" aria-label="Маори Лукьяновка"><span class="brand-mark">M</span><span>Маори</span></a>
-      <nav class="nav-links" aria-label="Разделы сайта">
-        <a href="index.html">Дом</a>
-        <a aria-current="page" href="rooms.html">Комнаты</a>
-        <a href="host.html">Хозяйка</a>
-        <a href="location.html">Место</a>
-        <a href="booking.html">Бронь</a>
+    <a class="skip-link" href="#main">К содержанию</a>
+    <header class="site-header" data-header>
+      <a class="brand" href="index.html" aria-label="Маори Лукьяновка, главная"><span class="brand-mark">M</span><span><strong data-brand-short>Маори</strong><small data-site-tagline>Дом у подножия Пидана</small></span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Открыть меню" data-nav-toggle><span></span><span></span><span></span></button>
+      <nav class="nav-links" id="siteNav" aria-label="Разделы сайта" data-nav>
+        <a href="index.html">Дом</a><a aria-current="page" href="rooms.html">Комнаты</a><a href="host.html">Катерина</a><a href="location.html">Отдых</a><a class="nav-booking" href="booking.html">Бронирование</a>
       </nav>
-      <a class="header-action" href="booking.html"><span>Забронировать</span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" /></svg></a>
     </header>
 
-    <main class="page-main">
-      <section class="page-hero section-pad">
-        <p class="script-word">один дом</p>
-        <h1>Пять комнат, которые выбирают по настроению поездки.</h1>
-        <p>В Маори один дом и пять комнат, поэтому важен не номер корпуса, а то, как вы хотите провести время: вдвоем, семьей, с друзьями или в очень спокойном формате.</p>
+    <main id="main">
+      <section class="inner-hero image-hero">
+        <img src="assets/warm-room.png" alt="Теплая комната с деревянными стенами" fetchpriority="high" data-bind-image="rooms.hero.image" />
+        <div class="inner-hero-shade"></div>
+        <div class="inner-hero-content reveal is-visible"><p class="script-word" data-bind="rooms.hero.script">один дом</p><h1 data-bind="rooms.hero.title">Пять комнат. Один общий ритм.</h1><p data-bind="rooms.hero.text">Все комнаты двухместные и находятся на втором этаже.</p></div>
+        <a class="inner-hero-link" href="#room-list">Смотреть комнаты <span aria-hidden="true">↓</span></a>
       </section>
 
-      <section class="image-led section-pad">
-        <img class="wide-photo reveal" src="assets/room-interior.png" alt="Комната в доме Маори" />
-        <div class="room-list" aria-label="Список комнат"></div>
+      <section class="rooms-intro section-pad" id="room-list">
+        <div class="section-kicker reveal"><span data-bind="rooms.intro.label">Размещение</span><i></i></div>
+        <div class="rooms-intro-copy reveal"><h2 data-bind="rooms.intro.title">Камерный формат до десяти гостей.</h2><p data-bind="rooms.intro.text">Комнаты не разделены на безличные категории. Точный вариант подтверждается в разговоре с Катериной.</p></div>
+        <div class="room-list" data-room-list></div>
       </section>
 
-      <section class="room-notes section-pad">
-        <div class="section-heading light-heading">
-          <h2>Что важно уточнить перед бронью</h2>
-          <p>Чтобы не обещать лишнего на сайте, спорные бытовые детали лучше подтверждать у Катерины под конкретные даты.</p>
+      <section class="zones-section section-pad wood-band">
+        <div class="section-heading reveal">
+          <div><p class="section-label light-label" data-bind="rooms.zones.label">Пространства дома</p><h2 data-bind="rooms.zones.title">Все, что собирает людей вместе.</h2></div>
+          <p data-bind="rooms.zones.text">Комнаты нужны для отдыха, а характер Маори раскрывается в общих пространствах.</p>
         </div>
-        <div class="note-grid">
-          <article class="note-card reveal"><h3>Состав гостей</h3><p>Укажите взрослых, детей и общий формат поездки, чтобы подобрать комнату без лишних компромиссов.</p></article>
-          <article class="note-card reveal"><h3>Бытовые условия</h3><p>Кухня, общие зоны, парковка, животные и особые пожелания фиксируются в заявке и уточняются лично.</p></article>
-          <article class="note-card reveal"><h3>Время заезда</h3><p>Удобное время приезда и выезда лучше согласовать заранее, особенно если вы едете издалека.</p></article>
-        </div>
+        <div class="large-zone-list" data-room-zones></div>
       </section>
 
-      <section class="booking-strip section-pad dark-band">
-        <div><p class="section-label">Совет хозяйки</p><h2>Если сомневаетесь, какую комнату выбрать, оставьте заявку с пожеланиями.</h2></div>
-        <a class="button button-light" href="booking.html">Написать Катерине</a>
+      <section class="practical-section section-pad">
+        <div class="section-heading reveal"><div><p class="section-label">Перед поездкой</p><h2 data-bind="rooms.notes.title">Перед подтверждением</h2></div><p data-bind="rooms.notes.text">Стоимость и детали проживания зависят от дат и формата поездки.</p></div>
+        <div class="practical-grid" data-room-notes></div>
+      </section>
+
+      <section class="booking-callout section-pad ink-band">
+        <div class="reveal"><p class="section-label light-label" data-bind="rooms.bookingStrip.label">Выбор комнаты</p><h2 data-bind="rooms.bookingStrip.title">Расскажите, как вы едете, и Катерина предложит вариант.</h2></div>
+        <a class="button button-honey reveal" href="booking.html?room=Нужна%20помощь%20с%20выбором" data-bind="rooms.bookingStrip.button">Подобрать комнату</a>
       </section>
     </main>
 
     <footer class="site-footer">
-      <a class="brand" href="index.html"><span class="brand-mark">M</span><span>Маори Лукьяновка</span></a>
-      <span>Один дом, пять комнат, личный прием гостей.</span>
+      <div class="footer-main">
+        <a class="brand footer-brand" href="index.html"><span class="brand-mark">M</span><span><strong data-brand-short>Маори</strong><small>Лукьяновка</small></span></a>
+        <p class="footer-note" data-footer-note>Пять двухместных комнат на втором этаже дома.</p>
+        <div class="footer-column"><span>Разделы</span><a href="rooms.html">Комнаты</a><a href="host.html">Катерина</a><a href="location.html">Отдых</a><a href="booking.html">Бронирование</a></div>
+        <div class="footer-column"><span>Связь</span><a data-phone-link href="tel:+79147925826">+7 914 792-58-26</a><a data-whatsapp-link href="https://wa.me/79147925826" target="_blank" rel="noreferrer">WhatsApp</a><a href="booking.html#map">Адрес и карта</a></div>
+        <div class="footer-column"><span>Условия</span><p data-site-payment>Наличные или перевод с карты на карту.</p><button class="footer-link" type="button" data-policy-open>Политика бронирования</button></div>
+      </div>
+      <div class="footer-bottom"><span>© <span data-current-year></span> Маори Лукьяновка</span><span data-site-address>Приморский край, д. Лукьяновка, ул. Школьная, 11Б</span></div>
     </footer>
+    <dialog class="policy-dialog" data-policy-dialog><button class="dialog-close" type="button" aria-label="Закрыть" data-policy-close>×</button><p class="section-label">Условия</p><h2 data-policy-title>Политика бронирования</h2><p data-policy-text></p></dialog>
     <script src="script.js"></script>
   </body>
 </html>

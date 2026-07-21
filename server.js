@@ -120,7 +120,7 @@ const buildBookingMessage = (data) => {
     `<b>Заезд:</b> ${escapeTelegram(data.checkin)}`,
     `<b>Выезд:</b> ${escapeTelegram(data.checkout)}`,
     `<b>Гости:</b> ${escapeTelegram(data.guests)}`,
-    `<b>Комната:</b> ${escapeTelegram(data.house)}`,
+    `<b>Комната:</b> ${escapeTelegram(data.room || data.house)}`,
   ];
 
   if (data.message) {
@@ -223,7 +223,8 @@ const handleBookingRoute = (request, response, routePath) => {
 
   readJsonBody(request)
     .then(async (data) => {
-      const requiredFields = ["name", "phone", "checkin", "checkout", "guests", "house", "consent"];
+      if (!data.room && data.house) data.room = data.house;
+      const requiredFields = ["name", "phone", "checkin", "checkout", "guests", "room", "consent"];
       const missingField = requiredFields.find((field) => !data[field]);
 
       if (missingField) {
