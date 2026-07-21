@@ -155,13 +155,22 @@ h3 {
 
 .brand-mark {
   display: grid;
-  width: 42px;
-  height: 42px;
+  width: 50px;
+  height: 50px;
   place-items: center;
-  border: 1px solid currentColor;
-  color: var(--walnut);
-  font-family: var(--serif);
-  font-size: 1.5rem;
+  flex: 0 0 auto;
+  transition: transform 240ms ease;
+}
+
+.brand-mark img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.brand:hover .brand-mark {
+  transform: rotate(-3deg) scale(1.035);
 }
 
 .brand > span:last-child {
@@ -575,6 +584,10 @@ h3 {
   font-size: 0.9rem;
 }
 
+.zone-item:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
 .host-preview {
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(340px, 0.72fr);
@@ -962,6 +975,11 @@ h3 {
 .large-zone-item p {
   max-width: 46ch;
   color: rgba(255, 253, 248, 0.68);
+}
+
+.large-zone-item:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+  min-height: 180px;
 }
 
 .practical-grid {
@@ -1787,7 +1805,9 @@ h3 {
 }
 
 .footer-brand .brand-mark {
-  color: var(--honey-light);
+  padding: 3px;
+  border-radius: 50%;
+  background: var(--paper);
 }
 
 .footer-brand small,
@@ -2029,8 +2049,8 @@ dialog::backdrop {
   }
 
   .brand-mark {
-    width: 38px;
-    height: 38px;
+    width: 42px;
+    height: 42px;
   }
 
   .nav-toggle {
