@@ -3,42 +3,44 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Маори Лукьяновка - теплый гостевой дом у подножия Пидана. Пять комнат, домашняя кухня, баня, маршруты и личный прием Катерины Геращенко." />
-    <meta name="theme-color" content="#2c1b12" />
-    <meta property="og:title" content="Маори Лукьяновка" />
-    <meta property="og:description" content="Гостевой дом у подножия Пидана, где встречают лично." />
-    <meta property="og:image" content="assets/warm-house-exterior.png" />
-    <title>Маори Лукьяновка - гостевой дом у Пидана</title>
+    <meta name="description" content="Гостевой дом Маори в Лукьяновке, Приморский край. Знакомство с хозяйкой Катериной, комнаты и домашняя еда. Обсудите даты поездки и размещение." />
+    <meta name="theme-color" content="#f7f3eb" />
+    <title>Маори Лукьяновка | Гостевой дом у Пидана</title>
     <link rel="preload" href="assets/warm-house-exterior.png" as="image" fetchpriority="high" />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="canonical" href="https://lukyanovka-production-f80a.up.railway.app/" />
+    <meta property="og:title" content="Маори Лукьяновка | Гостевой дом у Пидана" />
+    <meta property="og:description" content="Гостевой дом Маори в Лукьяновке, Приморский край. Знакомство с хозяйкой Катериной, комнаты и домашняя еда. Обсудите даты поездки и размещение." />
+    <meta property="og:url" content="https://lukyanovka-production-f80a.up.railway.app/" />
+    <meta property="og:type" content="website" />
   </head>
   <body data-page="home">
     <a class="skip-link" href="#main">К содержанию</a>
     <header class="site-header" data-header>
-      <a class="brand" href="index.html" aria-label="Маори Лукьяновка, главная">
-        <span class="brand-mark" aria-hidden="true"><img src="assets/maori-brand-mark.png" alt="" /></span>
+      <a class="brand" href="/" aria-label="Маори Лукьяновка, главная">
+        <span class="brand-mark" aria-hidden="true"><img width="512" height="512" src="assets/maori-brand-mark.png" alt="" /></span>
         <span><strong data-brand-short>Маори</strong><small data-site-tagline>Дом у подножия Пидана</small></span>
       </a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Открыть меню" data-nav-toggle><span></span><span></span><span></span></button>
       <nav class="nav-links" id="siteNav" aria-label="Разделы сайта" data-nav>
-        <a aria-current="page" href="index.html">Дом</a>
-        <a href="rooms.html">Комнаты</a>
-        <a href="host.html">Катерина</a>
-        <a href="location.html">Отдых</a>
-        <a class="nav-booking" href="booking.html">Бронирование</a>
+        <a aria-current="page" href="/">Дом</a>
+        <a href="/rooms">Комнаты</a>
+        <a href="/host">Катерина</a>
+        <a href="/location">Отдых</a>
+        <a class="nav-booking" href="/booking">Бронирование</a>
       </nav>
     </header>
 
     <main id="main">
       <section class="home-hero" aria-labelledby="hero-title">
-        <img class="hero-backdrop" src="assets/warm-house-exterior.png" alt="Теплый деревянный дом среди сопок" fetchpriority="high" data-bind-image="home.hero.image" />
+        <img width="1672" height="941" class="hero-backdrop" src="assets/warm-house-exterior.png" alt="Теплый деревянный дом среди сопок" fetchpriority="high" data-bind-image="home.hero.image" />
         <div class="hero-shade"></div>
         <div class="hero-content reveal is-visible">
           <p class="script-word" data-bind="home.hero.script">Лукьяновка, Приморье</p>
           <h1 id="hero-title" data-bind="home.hero.title">Маори Лукьяновка</h1>
-          <p class="hero-lead" data-bind="home.hero.text">Гостевой дом у Пидана. Катерина встречает гостей, готовит домашнюю еду и помогает спланировать поездку.</p>
+          <p class="hero-lead" data-bind="home.hero.text">В Лукьяновке вас встретит Катерина, хозяйка Маори. С ней можно заранее обсудить комнату, домашнюю еду и планы на Пидан.</p>
           <div class="hero-actions">
-            <a class="button button-honey" href="booking.html" data-bind="home.hero.button">Узнать свободные даты</a>
+            <a class="button button-honey" href="/booking" data-bind="home.hero.button">Узнать свободные даты</a>
             <a class="text-link light-link" href="#about">Посмотреть дом <span aria-hidden="true">↓</span></a>
           </div>
         </div>
@@ -48,7 +50,7 @@
         <div class="section-kicker reveal"><span data-bind="home.about.label">О доме</span><i></i></div>
         <div class="about-copy reveal">
           <h2 data-bind="home.about.title">Один дом. Пять комнат.</h2>
-          <p data-bind="home.about.text">На втором этаже — пять двухместных комнат, на первом — общий зал. Можно приехать вдвоём или обсудить размещение своей группы с Катериной.</p>
+          <p data-bind="home.about.text">Пять двухместных комнат на втором этаже и общий зал на первом. Расскажите Катерине, едете вы вдвоём или своей компанией. Она уточнит размещение на ваши даты.</p>
         </div>
         <div class="stat-row" data-stats></div>
         <div class="zone-list" data-home-zones></div>
@@ -56,14 +58,14 @@
 
       <section class="host-preview section-pad">
         <figure class="host-preview-media reveal">
-          <img src="assets/warm-host-kitchen.png" alt="Хозяйская кухня и домашняя подача" loading="lazy" data-bind-image="home.hostPreview.image" />
+          <img width="1536" height="1024" src="assets/warm-host-kitchen.png" alt="Хозяйская кухня и домашняя подача" loading="lazy" data-bind-image="home.hostPreview.image" />
           
         </figure>
         <div class="host-preview-copy reveal">
           <p class="section-label" data-bind="home.hostPreview.label">Хозяйка дома</p>
           <h2 data-bind="home.hostPreview.title">Знакомьтесь, Катерина.</h2>
-          <p data-bind="home.hostPreview.text">Хозяйка Маори. С ней вы обсудите комнату, питание и дорогу. Если собираетесь на маршрут, расскажите о своих планах до приезда.</p>
-          <a class="text-link" href="host.html"><span data-bind="home.hostPreview.button">Познакомиться с Катериной</span> <span aria-hidden="true">→</span></a>
+          <p data-bind="home.hostPreview.text">С Катериной вы познакомитесь ещё до приезда. Напишите, когда собираетесь в Лукьяновку и сколько вас будет. Она поможет уточнить комнату, питание и дорогу.</p>
+          <a class="text-link" href="/host"><span data-bind="home.hostPreview.button">Познакомиться с Катериной</span> <span aria-hidden="true">→</span></a>
         </div>
       </section>
 
@@ -90,16 +92,16 @@
 
       <section class="booking-callout section-pad wood-band">
         <div class="reveal"><p class="section-label light-label" data-bind="home.bookingStrip.label">Приехать в Маори</p><h2 data-bind="home.bookingStrip.title">Когда хотите приехать?</h2><p data-bind="home.bookingStrip.text">Укажите даты и количество гостей. Катерина уточнит свободные комнаты и стоимость.</p></div>
-        <a class="button button-honey reveal" href="booking.html" data-bind="home.bookingStrip.button">Узнать свободные даты</a>
+        <a class="button button-honey reveal" href="/booking" data-bind="home.bookingStrip.button">Узнать свободные даты</a>
       </section>
     </main>
 
     <footer class="site-footer">
       <div class="footer-main">
-        <a class="brand footer-brand" href="index.html"><span class="brand-mark" aria-hidden="true"><img src="assets/maori-brand-mark.png" alt="" /></span><span><strong data-brand-short>Маори</strong><small>Лукьяновка</small></span></a>
+        <a class="brand footer-brand" href="/"><span class="brand-mark" aria-hidden="true"><img width="512" height="512" src="assets/maori-brand-mark.png" alt="" /></span><span><strong data-brand-short>Маори</strong><small>Лукьяновка</small></span></a>
         <p class="footer-note" data-footer-note>Один гостевой дом, пять комнат и личный прием гостей.</p>
-        <div class="footer-column"><span>Разделы</span><a href="rooms.html">Комнаты</a><a href="host.html">Катерина</a><a href="location.html">Отдых</a><a href="booking.html">Бронирование</a></div>
-        <div class="footer-column"><span>Связь</span><a data-phone-link href="tel:+79147925826">+7 914 792-58-26</a><a data-whatsapp-link href="https://wa.me/79147925826" target="_blank" rel="noreferrer">WhatsApp</a><a href="booking.html#map">Адрес и карта</a></div>
+        <div class="footer-column"><span>Разделы</span><a href="/rooms">Комнаты</a><a href="/host">Катерина</a><a href="/location">Отдых</a><a href="/booking">Бронирование</a></div>
+        <div class="footer-column"><span>Связь</span><a data-phone-link href="tel:+79147925826">+7 914 792-58-26</a><a data-whatsapp-link href="https://wa.me/79147925826" target="_blank" rel="noreferrer">WhatsApp</a><a href="/booking#map">Адрес и карта</a></div>
         <div class="footer-column"><span>Условия</span><p data-site-payment>Наличные или перевод с карты на карту.</p><button class="footer-link" type="button" data-policy-open>Политика бронирования</button></div>
       </div>
       <div class="footer-bottom"><span>© <span data-current-year></span> Маори Лукьяновка</span><span data-site-address>Приморский край, д. Лукьяновка, ул. Школьная, 11Б</span></div>

@@ -1,5 +1,17 @@
 # Проверка изменений — 2026-11-10
 
+## Дополнительная проверка по навыкам
+
+База второго прохода: d15daef16d77595ebf6d385d459adbb02da3ebdf. См. SKILL-REVIEW.md и SEO-AUDIT.md.
+
+- node tools/build-content.cjs: exit0.
+- node --test: 15 PASS,0 FAIL. Добавлены проверки реальных404, canonical redirects с сохранением query, MIME robots/sitemap и уникальных title/canonical.
+- node --check script.js/server.js/admin.js/content-defaults.js: exit0.
+- python -m py_compile tests/browser-check.py: exit0. Это только синтаксис, НЕ выполнение браузерных проверок.
+- Python playwright отсутствует, playwright-cli не обнаружен; npx --no-install playwright --version завершился ENOTFOUND registry.npmjs.org. Прогон390/820/1440 НЕ выполнен.
+- На базовой опубликованной странице браузером подтверждены отсутствие canonical и JSON-LD, известные naturalWidth/Height изображений и корректный перевод фокуса на телефон при попытке отправить пустую форму. Ничего хозяйке не отправлялось.
+- Core Web Vitals, поисковые позиции, трафик и индексация в панелях не измерены. Возможность индексации после исправлений не равна фактической индексации.
+
 База: cc9f5c6d250e17f1fe85e2112840f482b99621aa.
 
 ## Выполнено

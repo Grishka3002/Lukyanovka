@@ -3,18 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Обсудить поездку и забронировать комнату в гостевом доме Маори Лукьяновка. Телефон, WhatsApp, адрес и карта." />
-    <meta name="theme-color" content="#2c1b12" />
-    <title>Контакты и бронирование - Маори Лукьяновка</title>
+    <meta name="description" content="Свяжитесь с Катериной или оставьте запрос на размещение в Маори. Укажите даты и количество гостей. Наличие комнат и стоимость подтверждаются лично." />
+    <meta name="theme-color" content="#f7f3eb" />
+    <title>Даты поездки и контакты | Маори Лукьяновка</title>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="canonical" href="https://lukyanovka-production-f80a.up.railway.app/booking" />
+    <meta property="og:title" content="Даты поездки и контакты | Маори Лукьяновка" />
+    <meta property="og:description" content="Свяжитесь с Катериной или оставьте запрос на размещение в Маори. Укажите даты и количество гостей. Наличие комнат и стоимость подтверждаются лично." />
+    <meta property="og:url" content="https://lukyanovka-production-f80a.up.railway.app/booking" />
+    <meta property="og:type" content="website" />
   </head>
   <body data-page="booking">
     <a class="skip-link" href="#main">К содержанию</a>
     <header class="site-header" data-header>
-      <a class="brand" href="index.html" aria-label="Маори Лукьяновка, главная"><span class="brand-mark" aria-hidden="true"><img src="assets/maori-brand-mark.png" alt="" /></span><span><strong data-brand-short>Маори</strong><small data-site-tagline>Дом у подножия Пидана</small></span></a>
+      <a class="brand" href="/" aria-label="Маори Лукьяновка, главная"><span class="brand-mark" aria-hidden="true"><img width="512" height="512" src="assets/maori-brand-mark.png" alt="" /></span><span><strong data-brand-short>Маори</strong><small data-site-tagline>Дом у подножия Пидана</small></span></a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Открыть меню" data-nav-toggle><span></span><span></span><span></span></button>
       <nav class="nav-links" id="siteNav" aria-label="Разделы сайта" data-nav>
-        <a href="index.html">Дом</a><a href="rooms.html">Комнаты</a><a href="host.html">Катерина</a><a href="location.html">Отдых</a><a class="nav-booking" aria-current="page" href="booking.html">Бронирование</a>
+        <a href="/">Дом</a><a href="/rooms">Комнаты</a><a href="/host">Катерина</a><a href="/location">Отдых</a><a class="nav-booking" aria-current="page" href="/booking">Бронирование</a>
       </nav>
     </header>
 
@@ -28,7 +33,7 @@
         <aside class="contact-panel reveal">
           <p class="section-label" data-bind="booking.contact.label">Связаться напрямую</p>
           <h2 data-bind="booking.contact.title">Написать напрямую</h2>
-          <p data-bind="booking.contact.text">Можно отправить заявку на сайте или связаться с Катериной удобным способом.</p>
+          <p data-bind="booking.contact.text">Если удобнее поговорить, позвоните Катерине. В сообщении сразу укажите даты и количество гостей.</p>
           <div class="contact-actions">
             <a class="contact-action" data-whatsapp-link href="https://wa.me/79147925826" target="_blank" rel="noreferrer"><span>WhatsApp</span><strong>Написать Катерине</strong><i aria-hidden="true">↗</i></a>
             <a class="contact-action" href="tel:+79147925826"><span>Телефон</span><strong data-phone-link>+7 914 792-58-26</strong><i aria-hidden="true">↗</i></a>
@@ -41,7 +46,7 @@
           <div class="form-heading"><span>Заявка на проживание</span><strong>Ответит Катерина</strong></div>
           <form class="booking-form" id="bookingForm">
             <label class="field full"><span>Как к вам обращаться</span><input name="name" autocomplete="name" maxlength="100" placeholder="Как к вам обращаться" /></label>
-            <label class="field"><span>Телефон *</span><input name="phone" type="tel" maxlength="40" autocomplete="tel" required placeholder="Ваш номер телефона" /></label>
+            <label class="field"><span>Телефон *</span><input name="phone" type="tel" inputmode="tel" minlength="7" maxlength="40" autocomplete="tel" required placeholder="Например, +7 914 000-00-00…" /></label>
             <label class="field"><span>Удобно ответить</span><select name="messenger"><option value="WhatsApp">WhatsApp</option><option value="Telegram">Telegram</option><option value="Звонок">Звонок</option></select></label>
             <label class="field"><span>Заезд *</span><input name="checkin" type="date" required /></label>
             <label class="field"><span>Выезд *</span><input name="checkout" type="date" required /></label>
@@ -73,16 +78,16 @@
       </section>
 
       <section class="host-booking-note">
-        <img src="assets/warm-host-kitchen.png" alt="Теплый прием в Маори" loading="lazy" data-bind-image="booking.hostNote.image" />
+        <img width="1536" height="1024" src="assets/warm-host-kitchen.png" alt="Теплый прием в Маори" loading="lazy" data-bind-image="booking.hostNote.image" />
         <div class="reveal"><p class="section-label light-label" data-bind="booking.hostNote.label">Катерина Геращенко</p><h2 data-bind="booking.hostNote.title">Остались вопросы о поездке?</h2><a class="button button-honey" data-whatsapp-link href="https://wa.me/79147925826" target="_blank" rel="noreferrer">Написать в WhatsApp</a></div>
       </section>
     </main>
 
     <footer class="site-footer">
       <div class="footer-main">
-        <a class="brand footer-brand" href="index.html"><span class="brand-mark" aria-hidden="true"><img src="assets/maori-brand-mark.png" alt="" /></span><span><strong data-brand-short>Маори</strong><small>Лукьяновка</small></span></a>
+        <a class="brand footer-brand" href="/"><span class="brand-mark" aria-hidden="true"><img width="512" height="512" src="assets/maori-brand-mark.png" alt="" /></span><span><strong data-brand-short>Маори</strong><small>Лукьяновка</small></span></a>
         <p class="footer-note" data-footer-note>Бронирование через спокойный личный диалог.</p>
-        <div class="footer-column"><span>Разделы</span><a href="rooms.html">Комнаты</a><a href="host.html">Катерина</a><a href="location.html">Отдых</a><a href="booking.html">Бронирование</a></div>
+        <div class="footer-column"><span>Разделы</span><a href="/rooms">Комнаты</a><a href="/host">Катерина</a><a href="/location">Отдых</a><a href="/booking">Бронирование</a></div>
         <div class="footer-column"><span>Связь</span><a data-phone-link href="tel:+79147925826">+7 914 792-58-26</a><a data-whatsapp-link href="https://wa.me/79147925826" target="_blank" rel="noreferrer">WhatsApp</a><a href="#map">Адрес и карта</a></div>
         <div class="footer-column"><span>Условия</span><p data-site-payment>Наличные или перевод с карты на карту.</p><button class="footer-link" type="button" data-policy-open>Политика бронирования</button></div>
       </div>

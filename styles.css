@@ -1596,10 +1596,26 @@ h3 {
   border: 0;
   border-bottom: 1px solid var(--line);
   border-radius: 0;
-  outline: 0;
+  color: var(--ink);
   background: transparent;
   transition: border-color 180ms ease, background-color 180ms ease;
 }
+
+.field input:focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible {
+  outline: 3px solid var(--brick);
+  outline-offset: 4px;
+}
+
+.field select { background-color: var(--white); color: var(--ink); }
+.field-error, .field .field-error { color: #9b3028; font-size: 0.82rem; }
+[aria-invalid="true"] { border-color: #9b3028 !important; }
+:where(a, button, input, select, textarea, summary) { touch-action: manipulation; scroll-margin-top: calc(var(--header-height) + 24px); }
+dialog { overscroll-behavior: contain; }
+main :where(p, h1, h2, h3, a), .booking-form-wrap, .field { min-width: 0; overflow-wrap: anywhere; }
+.form-status { min-height: 1.7em; }
+.submit-button[aria-busy="true"] { opacity: 0.75; cursor: progress; }
 
 .field textarea {
   min-height: 120px;
@@ -1616,8 +1632,12 @@ h3 {
 
 .field input::placeholder,
 .field textarea::placeholder {
-  color: #9c9389;
+  color: #756b61;
 }
+
+.host-hero .script-word { color: var(--brick); }
+.footer-bottom { color: rgba(255, 253, 248, 0.76); }
+.stat-item strong, .slider-count { font-variant-numeric: tabular-nums; }
 
 .full {
   grid-column: 1 / -1;

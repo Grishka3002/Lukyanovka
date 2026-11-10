@@ -63,3 +63,37 @@ test("all pages load bundled content before the application script", async () =>
   vm.runInNewContext(response.body, sandbox);
   assert.equal(JSON.stringify(sandbox.window.MAORI_DEFAULT_CONTENT), JSON.stringify(JSON.parse(fs.readFileSync(path.join(root, "data/content.json"), "utf8"))));
 });
+
+test("unknown resources return genuine 404 responses", async () => {
+  for (const url of ["/missing-page", "/missing.png", "/api/missing"]) {
+    const response = await request("GET", url);
+    assert.equal(response.status, 404);
+    assert.equal(response.headers["X-Robots-Tag"], "noindex");
+  }
+});
+test("legacy HTML links redirect to canonical routes and preserve selection", async () => {
+  const response = await request("GET", "/booking.html?room=example");
+  assert.equal(response.status, 301);
+  assert.equal(response.headers.Location, "/booking?room=example");
+  assert.equal((await request("GET", "/index.html")).headers.Location, "/");
+});
+test("crawler files have correct formats and canonical page lists", async () => {
+  const robots = await request("GET", "/robots.txt");
+  assert.equal(robots.status, 200);
+  assert.match(robots.headers["Content-Type"], /text\/plain/);
+  assert.match(robots.body, /Sitemap:/);
+  const sitemap = await request("GET", "/sitemap.xml");
+  assert.equal(sitemap.status, 200);
+  assert.match(sitemap.headers["Content-Type"], /application\/xml/);
+  assert.equal((sitemap.body.match(/<loc>/g) || []).length, 5);
+});
+test("pages have distinct titles and self-referencing canonical links", async () => {
+  const titles = new Set();
+  for (const url of ["/", "/rooms", "/host", "/location", "/booking"]) {
+    const response = await request("GET", url);
+    const title = response.body.match(/<title>(.*?)<\/title>/)[1];
+    assert.ok(!titles.has(title));
+    titles.add(title);
+    assert.ok(response.body.includes(`rel="canonical" href="https://lukyanovka-production-f80a.up.railway.app${url}"`));
+  }
+});

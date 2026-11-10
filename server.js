@@ -18,6 +18,8 @@ const contentTypes = {
   ".svg": "image/svg+xml",
   ".ico": "image/x-icon",
   ".json": "application/json; charset=utf-8",
+  ".txt": "text/plain; charset=utf-8",
+  ".xml": "application/xml; charset=utf-8",
 };
 
 const sendJson = (response, status, payload) => {
@@ -248,7 +250,19 @@ const server = http.createServer((request, response) => {
   if (handleContentRoutes(request, response, routePath)) return;
   if (handleBookingRoute(request, response, routePath)) return;
 
-  const urlPath = decodeURIComponent(routePath);
+  let urlPath;
+  try { urlPath = decodeURIComponent(routePath); }
+  catch { response.writeHead(400); response.end("Bad request"); return; }
+  const canonicalPages = {
+    "/index.html": "/", "/rooms.html": "/rooms", "/host.html": "/host",
+    "/location.html": "/location", "/booking.html": "/booking"
+  };
+  if (canonicalPages[urlPath]) {
+    const query = request.url.includes("?") ? request.url.slice(request.url.indexOf("?")) : "";
+    response.writeHead(301, { Location: canonicalPages[urlPath] + query });
+    response.end();
+    return;
+  }
   const pageRoutes = {
     "/": "/index.html",
     "/rooms": "/rooms.html",
@@ -264,7 +278,8 @@ const server = http.createServer((request, response) => {
     .replace(/^[/\\]+/, "");
   const filePath = path.join(root, safePath);
 
-  if (!filePath.startsWith(root)) {
+  const relativePath = path.relative(root, filePath);
+  if (relativePath.startsWith("..") || path.isAbsolute(relativePath)) {
     response.writeHead(403);
     response.end("Forbidden");
     return;
@@ -272,16 +287,8 @@ const server = http.createServer((request, response) => {
 
   fs.readFile(filePath, (error, content) => {
     if (error) {
-      fs.readFile(path.join(root, "index.html"), (fallbackError, fallback) => {
-        if (fallbackError) {
-          response.writeHead(404);
-          response.end("Not found");
-          return;
-        }
-
-        response.writeHead(200, { "Content-Type": contentTypes[".html"] });
-        response.end(fallback);
-      });
+      response.writeHead(404, { "Content-Type": "text/html; charset=utf-8", "X-Robots-Tag": "noindex" });
+      response.end('<!doctype html><html lang="ru"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Страница не найдена — Маори</title><main style="max-width:650px;margin:12vh auto;padding:24px;font:18px/1.6 Arial,sans-serif"><h1>Страница не найдена</h1><p>Проверьте адрес или вернитесь на главную.</p><a href="/">На главную Маори</a></main></html>');
       return;
     }
 

@@ -19,6 +19,19 @@ const createElement = (tag, className, text) => {
   return element;
 };
 
+const reserveImageSpace = (image) => {
+  const dimensions = {
+    "maori-brand-mark.png": [512, 512],
+    "warm-house-exterior.png": [1672, 941],
+    "warm-host-kitchen.png": [1536, 1024],
+    "warm-room.png": [1536, 1024],
+    "warm-table.png": [1672, 941],
+  };
+  const name = (image.getAttribute("src") || "").split("/").at(-1);
+  const size = dimensions[name];
+  if (size) { image.width = size[0]; image.height = size[1]; }
+};
+
 const bindEditableContent = (content) => {
   document.querySelectorAll("[data-bind]").forEach((element) => {
     const value = getByPath(content, element.dataset.bind);
@@ -125,6 +138,7 @@ const openLightbox = (item) => {
   const image = dialog.querySelector("[data-lightbox-image]");
   image.src = item.image;
   image.alt = item.alt || item.title;
+  reserveImageSpace(image);
   dialog.querySelector("[data-lightbox-category]").textContent = item.category || "";
   dialog.querySelector("[data-lightbox-title]").textContent = item.title || "";
   dialog.showModal();
@@ -138,7 +152,7 @@ const renderRooms = (items = []) => {
       const article = createElement("article", "room-row reveal");
       article.style.setProperty("--delay", `${index * 60}ms`);
       const link = createElement("a", "room-select-link", "→");
-      link.href = `booking.html?room=${encodeURIComponent(item.title)}`;
+      link.href = `/booking?room=${encodeURIComponent(item.title)}`;
       link.setAttribute("aria-label", `Выбрать: ${item.title}`);
       article.append(
         createElement("span", "room-number", String(index + 1).padStart(2, "0")),
@@ -431,6 +445,7 @@ const applyPageContent = (content) => {
     renderFaq(content.booking?.faq?.items);
     populateRoomSelect(content.rooms?.rooms);
   }
+  document.querySelectorAll("img").forEach(reserveImageSpace);
 };
 
 const setupNavigation = () => {
@@ -505,6 +520,24 @@ const setupBookingForm = () => {
   const dialogText = document.querySelector("#dialogText");
   const checkin = form.elements.checkin;
   const checkout = form.elements.checkout;
+  const showFieldError = (input, message) => {
+    const id = `${input.name}-error`;
+    let error = document.getElementById(id);
+    if (!error) {
+      error = createElement("span", "field-error");
+      error.id = id;
+      input.closest("label")?.append(error);
+    }
+    error.textContent = message;
+    input.setAttribute("aria-invalid", String(Boolean(message)));
+    input.setAttribute("aria-describedby", id);
+  };
+  form.addEventListener("invalid", (event) => {
+    if (event.target.name) showFieldError(event.target, event.target.validationMessage);
+  }, true);
+  form.addEventListener("input", (event) => {
+    if (event.target.name) showFieldError(event.target, "");
+  });
   const localDate = (date = new Date()) => new Intl.DateTimeFormat("en-CA", {
     timeZone: "Asia/Vladivostok", year: "numeric", month: "2-digit", day: "2-digit"
   }).format(date);
@@ -527,15 +560,19 @@ const setupBookingForm = () => {
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
-    status.textContent = "Отправляем заявку...";
+    status.textContent = "Отправляем заявку…";
     const submit = form.querySelector("[type='submit']");
     submit.disabled = true;
+    submit.setAttribute("aria-busy", "true");
     const data = Object.fromEntries(new FormData(form).entries());
 
     if (data.checkin < localDate() || data.checkout <= data.checkin) {
       status.textContent = data.checkin < localDate() ? "Выберите дату заезда сегодня или позже." : "Дата выезда должна быть позже даты заезда.";
       submit.disabled = false;
-      (data.checkin < localDate() ? checkin : checkout).focus();
+      submit.removeAttribute("aria-busy");
+      const invalid = data.checkin < localDate() ? checkin : checkout;
+      showFieldError(invalid, status.textContent);
+      invalid.focus();
       return;
     }
 
@@ -568,6 +605,7 @@ const setupBookingForm = () => {
       status.textContent = "Не удалось передать заявку. Данные сохранены в форме. Напишите Катерине в мессенджере или позвоните.";
     } finally {
       submit.disabled = false;
+      submit.removeAttribute("aria-busy");
     }
   });
 };

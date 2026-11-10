@@ -3,25 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Пять двухместных комнат в одном гостевом доме Маори Лукьяновка. Баня, кухня, барбекю и общий зал." />
-    <meta name="theme-color" content="#2c1b12" />
-    <title>Комнаты и дом - Маори Лукьяновка</title>
+    <meta name="description" content="Пять двухместных комнат в доме Маори в Лукьяновке. Посмотрите условия размещения и общие пространства. Наличие комнат и стоимость уточнит Катерина." />
+    <meta name="theme-color" content="#f7f3eb" />
+    <title>Комнаты в Маори | Гостевой дом в Лукьяновке</title>
     <link rel="preload" href="assets/warm-room.png" as="image" fetchpriority="high" />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="canonical" href="https://lukyanovka-production-f80a.up.railway.app/rooms" />
+    <meta property="og:title" content="Комнаты в Маори | Гостевой дом в Лукьяновке" />
+    <meta property="og:description" content="Пять двухместных комнат в доме Маори в Лукьяновке. Посмотрите условия размещения и общие пространства. Наличие комнат и стоимость уточнит Катерина." />
+    <meta property="og:url" content="https://lukyanovka-production-f80a.up.railway.app/rooms" />
+    <meta property="og:type" content="website" />
   </head>
   <body data-page="rooms">
     <a class="skip-link" href="#main">К содержанию</a>
     <header class="site-header" data-header>
-      <a class="brand" href="index.html" aria-label="Маори Лукьяновка, главная"><span class="brand-mark" aria-hidden="true"><img src="assets/maori-brand-mark.png" alt="" /></span><span><strong data-brand-short>Маори</strong><small data-site-tagline>Дом у подножия Пидана</small></span></a>
+      <a class="brand" href="/" aria-label="Маори Лукьяновка, главная"><span class="brand-mark" aria-hidden="true"><img width="512" height="512" src="assets/maori-brand-mark.png" alt="" /></span><span><strong data-brand-short>Маори</strong><small data-site-tagline>Дом у подножия Пидана</small></span></a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Открыть меню" data-nav-toggle><span></span><span></span><span></span></button>
       <nav class="nav-links" id="siteNav" aria-label="Разделы сайта" data-nav>
-        <a href="index.html">Дом</a><a aria-current="page" href="rooms.html">Комнаты</a><a href="host.html">Катерина</a><a href="location.html">Отдых</a><a class="nav-booking" href="booking.html">Бронирование</a>
+        <a href="/">Дом</a><a aria-current="page" href="/rooms">Комнаты</a><a href="/host">Катерина</a><a href="/location">Отдых</a><a class="nav-booking" href="/booking">Бронирование</a>
       </nav>
     </header>
 
     <main id="main">
       <section class="inner-hero image-hero">
-        <img src="assets/warm-room.png" alt="Теплая комната с деревянными стенами" fetchpriority="high" data-bind-image="rooms.hero.image" />
+        <img width="1536" height="1024" src="assets/warm-room.png" alt="Теплая комната с деревянными стенами" fetchpriority="high" data-bind-image="rooms.hero.image" />
         <div class="inner-hero-shade"></div>
         <div class="inner-hero-content reveal is-visible"><p class="script-word" data-bind="rooms.hero.script">один дом</p><h1 data-bind="rooms.hero.title">Комнаты в Маори</h1><p data-bind="rooms.hero.text">Пять двухместных комнат на втором этаже. До десяти гостей в доме.</p></div>
         <a class="inner-hero-link" href="#room-list">Смотреть комнаты <span aria-hidden="true">↓</span></a>
@@ -31,7 +36,7 @@
         <div class="section-kicker reveal"><span data-bind="rooms.intro.label">Размещение</span><i></i></div>
         <div class="rooms-intro-copy reveal"><h2 data-bind="rooms.intro.title">Как разместиться</h2><p data-bind="rooms.intro.text">Выберите отдельную комнату или обсудите поездку всей группой. Конкретную комнату, свободные даты и стоимость Катерина подтвердит лично.</p></div>
         <div class="room-overview">
-          <div><h3>Комната для двоих</h3><p>Все пять комнат находятся на втором этаже. Конкретную комнату Катерина предложит на ваши даты.</p><a class="button button-dark" href="booking.html">Узнать свободные даты</a></div>
+          <div><h3>Комната для двоих</h3><p>Все пять комнат находятся на втором этаже. Конкретную комнату Катерина предложит на ваши даты.</p><a class="button button-dark" href="/booking">Узнать свободные даты</a></div>
           <dl class="room-facts"><div><dt>В комнате</dt><dd>До двух гостей</dd></div><div><dt>В доме</dt><dd>Пять комнат, до десяти гостей</dd></div><div><dt>Стоимость и условия</dt><dd>Уточняются перед подтверждением</dd></div></dl>
         </div>
         <details class="room-options"><summary>Указать конкретную комнату в заявке</summary><div class="room-list" data-room-list></div></details>
@@ -40,7 +45,7 @@
       <section class="zones-section section-pad wood-band">
         <div class="section-heading reveal">
           <div><p class="section-label light-label" data-bind="rooms.zones.label">Пространства дома</p><h2 data-bind="rooms.zones.title">Что есть в доме</h2></div>
-          <p data-bind="rooms.zones.text">Общие пространства для гостей. Питание и баню обсудите заранее.</p>
+          <p data-bind="rooms.zones.text">В доме есть общие пространства для гостей. Питание и баню обсудите с Катериной до поездки.</p>
         </div>
         <div class="large-zone-list" data-room-zones></div>
       </section>
@@ -52,16 +57,16 @@
 
       <section class="booking-callout section-pad ink-band">
         <div class="reveal"><p class="section-label light-label" data-bind="rooms.bookingStrip.label">Выбор комнаты</p><h2 data-bind="rooms.bookingStrip.title">Помочь с размещением?</h2></div>
-        <a class="button button-honey reveal" href="booking.html?room=Нужна%20помощь%20с%20выбором" data-bind="rooms.bookingStrip.button">Подобрать комнату</a>
+        <a class="button button-honey reveal" href="/booking?room=Нужна%20помощь%20с%20выбором" data-bind="rooms.bookingStrip.button">Подобрать комнату</a>
       </section>
     </main>
 
     <footer class="site-footer">
       <div class="footer-main">
-        <a class="brand footer-brand" href="index.html"><span class="brand-mark" aria-hidden="true"><img src="assets/maori-brand-mark.png" alt="" /></span><span><strong data-brand-short>Маори</strong><small>Лукьяновка</small></span></a>
+        <a class="brand footer-brand" href="/"><span class="brand-mark" aria-hidden="true"><img width="512" height="512" src="assets/maori-brand-mark.png" alt="" /></span><span><strong data-brand-short>Маори</strong><small>Лукьяновка</small></span></a>
         <p class="footer-note" data-footer-note>Пять двухместных комнат на втором этаже дома.</p>
-        <div class="footer-column"><span>Разделы</span><a href="rooms.html">Комнаты</a><a href="host.html">Катерина</a><a href="location.html">Отдых</a><a href="booking.html">Бронирование</a></div>
-        <div class="footer-column"><span>Связь</span><a data-phone-link href="tel:+79147925826">+7 914 792-58-26</a><a data-whatsapp-link href="https://wa.me/79147925826" target="_blank" rel="noreferrer">WhatsApp</a><a href="booking.html#map">Адрес и карта</a></div>
+        <div class="footer-column"><span>Разделы</span><a href="/rooms">Комнаты</a><a href="/host">Катерина</a><a href="/location">Отдых</a><a href="/booking">Бронирование</a></div>
+        <div class="footer-column"><span>Связь</span><a data-phone-link href="tel:+79147925826">+7 914 792-58-26</a><a data-whatsapp-link href="https://wa.me/79147925826" target="_blank" rel="noreferrer">WhatsApp</a><a href="/booking#map">Адрес и карта</a></div>
         <div class="footer-column"><span>Условия</span><p data-site-payment>Наличные или перевод с карты на карту.</p><button class="footer-link" type="button" data-policy-open>Политика бронирования</button></div>
       </div>
       <div class="footer-bottom"><span>© <span data-current-year></span> Маори Лукьяновка</span><span data-site-address>Приморский край, д. Лукьяновка, ул. Школьная, 11Б</span></div>
