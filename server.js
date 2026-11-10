@@ -2,6 +2,7 @@ const http = require("http");
 const https = require("https");
 const fs = require("fs");
 const path = require("path");
+const { validateBooking } = require("./booking-validation.cjs");
 
 const root = __dirname;
 const port = process.env.PORT || 8080;
@@ -168,6 +169,7 @@ const sendTelegramMessage = (text) =>
     );
 
     telegramRequest.on("error", reject);
+    telegramRequest.setTimeout(12000, () => telegramRequest.destroy(new Error("Telegram timeout")));
     telegramRequest.write(payload);
     telegramRequest.end();
   });
@@ -223,16 +225,14 @@ const handleBookingRoute = (request, response, routePath) => {
 
   readJsonBody(request)
     .then(async (data) => {
-      if (!data.room && data.house) data.room = data.house;
-      const requiredFields = ["name", "phone", "checkin", "checkout", "guests", "room", "consent"];
-      const missingField = requiredFields.find((field) => !data[field]);
-
-      if (missingField) {
-        sendJson(response, 400, { ok: false, error: "Заполните обязательные поля" });
+      if (data && !data.room && typeof data.house === "string") data.room = data.house;
+      const validated = validateBooking(data);
+      if (validated.error) {
+        sendJson(response, 400, { ok: false, error: validated.error });
         return;
       }
 
-      const telegramResult = await sendTelegramMessage(buildBookingMessage(data));
+      const telegramResult = await sendTelegramMessage(buildBookingMessage(validated.data));
       sendJson(response, 200, { ok: true, ...telegramResult });
     })
     .catch((error) => {
@@ -294,3 +294,4 @@ const server = http.createServer((request, response) => {
 server.listen(port, () => {
   console.log(`Maori Lukyanovka site is running on port ${port}`);
 });
+

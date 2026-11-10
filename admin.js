@@ -139,6 +139,8 @@ const pageConfig = [
               itemField("Название", "title"),
               itemField("Описание", "text", "textarea"),
               itemField("Короткие факты", "facts", "textarea"),
+              itemField("Фото этой комнаты (необязательно)", "image", "image"),
+              itemField("Описание фотографии", "imageAlt"),
             ],
             { title: "Новая комната", text: "Описание комнаты.", facts: "2 гостя, цена по запросу" }
           ),
@@ -703,3 +705,4 @@ if (adminPassword) {
     loginLayer.classList.remove("is-hidden");
   });
 }
+

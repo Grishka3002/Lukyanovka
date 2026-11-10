@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Связаться с Катериной и забронировать комнату в гостевом доме Маори Лукьяновка. Телефон, WhatsApp, адрес и карта." />
+    <meta name="description" content="Обсудить поездку и забронировать комнату в гостевом доме Маори Лукьяновка. Телефон, WhatsApp, адрес и карта." />
     <meta name="theme-color" content="#2c1b12" />
     <title>Контакты и бронирование - Маори Лукьяновка</title>
     <link rel="stylesheet" href="styles.css" />
@@ -20,18 +20,18 @@
 
     <main id="main">
       <section class="booking-hero section-pad wood-band">
-        <div class="reveal is-visible"><p class="script-word" data-bind="booking.hero.script">бронирование через диалог</p><h1 data-bind="booking.hero.title">Расскажите Катерине, какой отдых вам нужен.</h1><p data-bind="booking.hero.text">Вы оставляете даты и пожелания, Катерина проверяет комнаты, отвечает лично и только после этого подтверждает бронь.</p></div>
+        <div class="reveal is-visible"><p class="script-word" data-bind="booking.hero.script">бронирование через диалог</p><h1 data-bind="booking.hero.title">Давайте обсудим поездку.</h1><p data-bind="booking.hero.text">Укажите даты, количество гостей и контакт для ответа. Катерина уточнит наличие комнат и стоимость. Заявка не подтверждает бронь автоматически.</p></div>
         <div class="booking-hero-contact reveal is-visible"><span>Позвонить</span><a data-phone-link href="tel:+79147925826">+7 914 792-58-26</a><small>Время Владивостока, UTC+10</small></div>
       </section>
 
       <section class="booking-layout section-pad" id="form">
         <aside class="contact-panel reveal">
           <p class="section-label" data-bind="booking.contact.label">Связаться напрямую</p>
-          <h2 data-bind="booking.contact.title">Можно написать или позвонить.</h2>
-          <p data-bind="booking.contact.text">Для быстрого ответа используйте WhatsApp или телефон.</p>
+          <h2 data-bind="booking.contact.title">Написать напрямую</h2>
+          <p data-bind="booking.contact.text">Можно отправить заявку на сайте или связаться с Катериной удобным способом.</p>
           <div class="contact-actions">
             <a class="contact-action" data-whatsapp-link href="https://wa.me/79147925826" target="_blank" rel="noreferrer"><span>WhatsApp</span><strong>Написать Катерине</strong><i aria-hidden="true">↗</i></a>
-            <a class="contact-action" data-phone-link href="tel:+79147925826"><span>Телефон</span><strong>+7 914 792-58-26</strong><i aria-hidden="true">↗</i></a>
+            <a class="contact-action" href="tel:+79147925826"><span>Телефон</span><strong data-phone-link>+7 914 792-58-26</strong><i aria-hidden="true">↗</i></a>
             <a class="contact-action" data-telegram-link href="tg://resolve?phone=79147925826"><span>Telegram</span><strong>Открыть мессенджер</strong><i aria-hidden="true">↗</i></a>
           </div>
           <p class="contact-tip">В сообщении полезно сразу указать даты, количество гостей, питание, баню и планы на маршруты.</p>
@@ -40,14 +40,16 @@
         <div class="booking-form-wrap reveal">
           <div class="form-heading"><span>Заявка на проживание</span><strong>Ответит Катерина</strong></div>
           <form class="booking-form" id="bookingForm">
-            <label class="field full"><span>Имя *</span><input name="name" autocomplete="name" required placeholder="Как к вам обращаться" /></label>
-            <label class="field"><span>Телефон *</span><input name="phone" type="tel" autocomplete="tel" required placeholder="+7 900 000-00-00" /></label>
+            <label class="field full"><span>Как к вам обращаться</span><input name="name" autocomplete="name" maxlength="100" placeholder="Как к вам обращаться" /></label>
+            <label class="field"><span>Телефон *</span><input name="phone" type="tel" maxlength="40" autocomplete="tel" required placeholder="Ваш номер телефона" /></label>
             <label class="field"><span>Удобно ответить</span><select name="messenger"><option value="WhatsApp">WhatsApp</option><option value="Telegram">Telegram</option><option value="Звонок">Звонок</option></select></label>
             <label class="field"><span>Заезд *</span><input name="checkin" type="date" required /></label>
             <label class="field"><span>Выезд *</span><input name="checkout" type="date" required /></label>
             <label class="field"><span>Гости *</span><select name="guests" required><option value="" selected disabled>Выберите</option><option>1 гость</option><option>2 гостя</option><option>3-4 гостя</option><option>5-6 гостей</option><option>7-8 гостей</option><option>9-10 гостей</option></select></label>
-            <label class="field"><span>Комната *</span><select name="room" id="roomSelect" required><option value="Нужна помощь с выбором">Нужна помощь с выбором</option></select></label>
-            <label class="field full"><span>О поездке</span><textarea name="message" rows="5" placeholder="Например: хотим подняться на Пидан, заказать баню и ужин"></textarea></label>
+            <details class="booking-details full"><summary>Пожелания к комнате, питанию и отдыху</summary><div class="booking-details-fields">
+            <label class="field"><span>Комната — по желанию</span><select name="room" id="roomSelect"><option value="Нужна помощь с выбором">Нужна помощь с выбором</option></select></label>
+            <label class="field full"><span>О поездке</span><textarea name="message" rows="3" maxlength="1200" placeholder="Например: хотим подняться на Пидан, заказать баню и ужин"></textarea></label>
+            </div></details>
             <label class="consent full"><input name="consent" type="checkbox" value="yes" required /><span>Согласен на обработку данных для ответа на заявку и принимаю <button type="button" data-policy-open>условия бронирования</button>.</span></label>
             <button class="button button-dark submit-button full" type="submit"><span>Отправить Катерине</span><i aria-hidden="true">→</i></button>
             <p class="form-status full" id="formStatus" role="status" aria-live="polite"></p>
@@ -72,7 +74,7 @@
 
       <section class="host-booking-note">
         <img src="assets/warm-host-kitchen.png" alt="Теплый прием в Маори" loading="lazy" data-bind-image="booking.hostNote.image" />
-        <div class="reveal"><p class="section-label light-label" data-bind="booking.hostNote.label">Катерина Геращенко</p><h2 data-bind="booking.hostNote.title">Хорошая поездка начинается не с оплаты, а с разговора.</h2><a class="button button-honey" data-whatsapp-link href="https://wa.me/79147925826" target="_blank" rel="noreferrer">Написать в WhatsApp</a></div>
+        <div class="reveal"><p class="section-label light-label" data-bind="booking.hostNote.label">Катерина Геращенко</p><h2 data-bind="booking.hostNote.title">Остались вопросы о поездке?</h2><a class="button button-honey" data-whatsapp-link href="https://wa.me/79147925826" target="_blank" rel="noreferrer">Написать в WhatsApp</a></div>
       </section>
     </main>
 
@@ -89,6 +91,8 @@
 
     <dialog class="confirmation-dialog" id="confirmationDialog"><button class="dialog-close" type="button" aria-label="Закрыть" data-confirmation-close>×</button><span class="confirmation-mark">M</span><p class="section-label">Заявка обработана</p><h2 id="dialogTitle">Спасибо. Катерина получила ваш запрос.</h2><p id="dialogText"></p><button class="button button-dark" type="button" data-confirmation-close>Хорошо</button></dialog>
     <dialog class="policy-dialog" data-policy-dialog><button class="dialog-close" type="button" aria-label="Закрыть" data-policy-close>×</button><p class="section-label">Условия</p><h2 data-policy-title>Политика бронирования</h2><p data-policy-text></p></dialog>
+    <script src="content-defaults.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
+

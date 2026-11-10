@@ -4,9 +4,12 @@
   "private": true,
   "description": "Static booking website for Maori Lukyanovka.",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "build": "node tools/build-content.cjs",
+    "test": "node --test"
   },
   "engines": {
     "node": ">=18"
   }
 }
+

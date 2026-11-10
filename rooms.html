@@ -23,20 +23,24 @@
       <section class="inner-hero image-hero">
         <img src="assets/warm-room.png" alt="Теплая комната с деревянными стенами" fetchpriority="high" data-bind-image="rooms.hero.image" />
         <div class="inner-hero-shade"></div>
-        <div class="inner-hero-content reveal is-visible"><p class="script-word" data-bind="rooms.hero.script">один дом</p><h1 data-bind="rooms.hero.title">Пять комнат. Один общий ритм.</h1><p data-bind="rooms.hero.text">Все комнаты двухместные и находятся на втором этаже.</p></div>
+        <div class="inner-hero-content reveal is-visible"><p class="script-word" data-bind="rooms.hero.script">один дом</p><h1 data-bind="rooms.hero.title">Комнаты в Маори</h1><p data-bind="rooms.hero.text">Пять двухместных комнат на втором этаже. До десяти гостей в доме.</p></div>
         <a class="inner-hero-link" href="#room-list">Смотреть комнаты <span aria-hidden="true">↓</span></a>
       </section>
 
       <section class="rooms-intro section-pad" id="room-list">
         <div class="section-kicker reveal"><span data-bind="rooms.intro.label">Размещение</span><i></i></div>
-        <div class="rooms-intro-copy reveal"><h2 data-bind="rooms.intro.title">Камерный формат до десяти гостей.</h2><p data-bind="rooms.intro.text">Комнаты не разделены на безличные категории. Точный вариант подтверждается в разговоре с Катериной.</p></div>
-        <div class="room-list" data-room-list></div>
+        <div class="rooms-intro-copy reveal"><h2 data-bind="rooms.intro.title">Как разместиться</h2><p data-bind="rooms.intro.text">Выберите отдельную комнату или обсудите поездку всей группой. Конкретную комнату, свободные даты и стоимость Катерина подтвердит лично.</p></div>
+        <div class="room-overview">
+          <div><h3>Комната для двоих</h3><p>Все пять комнат находятся на втором этаже. Конкретную комнату Катерина предложит на ваши даты.</p><a class="button button-dark" href="booking.html">Узнать свободные даты</a></div>
+          <dl class="room-facts"><div><dt>В комнате</dt><dd>До двух гостей</dd></div><div><dt>В доме</dt><dd>Пять комнат, до десяти гостей</dd></div><div><dt>Стоимость и условия</dt><dd>Уточняются перед подтверждением</dd></div></dl>
+        </div>
+        <details class="room-options"><summary>Указать конкретную комнату в заявке</summary><div class="room-list" data-room-list></div></details>
       </section>
 
       <section class="zones-section section-pad wood-band">
         <div class="section-heading reveal">
-          <div><p class="section-label light-label" data-bind="rooms.zones.label">Пространства дома</p><h2 data-bind="rooms.zones.title">Все, что собирает людей вместе.</h2></div>
-          <p data-bind="rooms.zones.text">Комнаты нужны для отдыха, а характер Маори раскрывается в общих пространствах.</p>
+          <div><p class="section-label light-label" data-bind="rooms.zones.label">Пространства дома</p><h2 data-bind="rooms.zones.title">Что есть в доме</h2></div>
+          <p data-bind="rooms.zones.text">Общие пространства для гостей. Питание и баню обсудите заранее.</p>
         </div>
         <div class="large-zone-list" data-room-zones></div>
       </section>
@@ -47,7 +51,7 @@
       </section>
 
       <section class="booking-callout section-pad ink-band">
-        <div class="reveal"><p class="section-label light-label" data-bind="rooms.bookingStrip.label">Выбор комнаты</p><h2 data-bind="rooms.bookingStrip.title">Расскажите, как вы едете, и Катерина предложит вариант.</h2></div>
+        <div class="reveal"><p class="section-label light-label" data-bind="rooms.bookingStrip.label">Выбор комнаты</p><h2 data-bind="rooms.bookingStrip.title">Помочь с размещением?</h2></div>
         <a class="button button-honey reveal" href="booking.html?room=Нужна%20помощь%20с%20выбором" data-bind="rooms.bookingStrip.button">Подобрать комнату</a>
       </section>
     </main>
@@ -63,6 +67,8 @@
       <div class="footer-bottom"><span>© <span data-current-year></span> Маори Лукьяновка</span><span data-site-address>Приморский край, д. Лукьяновка, ул. Школьная, 11Б</span></div>
     </footer>
     <dialog class="policy-dialog" data-policy-dialog><button class="dialog-close" type="button" aria-label="Закрыть" data-policy-close>×</button><p class="section-label">Условия</p><h2 data-policy-title>Политика бронирования</h2><p data-policy-text></p></dialog>
+    <script src="content-defaults.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
+

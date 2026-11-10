@@ -1,7 +1,6 @@
 const page = document.body.dataset.page || "home";
 let loadedContent = null;
 let reviewIndex = 0;
-let reviewTimer = null;
 
 const getByPath = (object, path) =>
   path.split(".").reduce((value, key) => (value == null ? undefined : value[key]), object);
@@ -44,7 +43,8 @@ const applySiteContent = (content) => {
   setText("[data-current-year]", new Date().getFullYear());
 
   document.querySelectorAll("[data-phone-link]").forEach((link) => {
-    link.href = `tel:${site.phone || ""}`;
+    const anchor = link.closest("a");
+    if (anchor) anchor.href = `tel:${site.phone || ""}`;
   });
   document.querySelectorAll("[data-whatsapp-link]").forEach((link) => {
     link.href = site.whatsapp || "#";
@@ -147,6 +147,14 @@ const renderRooms = (items = []) => {
         createElement("small", "", item.facts),
         link
       );
+      if (item.image) {
+        const image = createElement("img", "room-thumbnail");
+        image.src = item.image;
+        image.alt = item.imageAlt || item.title;
+        image.loading = "lazy";
+        article.classList.add("has-photo");
+        article.prepend(image);
+      }
       return article;
     })
   );
@@ -349,27 +357,22 @@ const setupReviews = () => {
       return dot;
     })
   );
-  document.querySelector("[data-review-prev]")?.addEventListener("click", () => {
+  document.querySelector("[data-review-prev]").onclick = () => {
     reviewIndex -= 1;
     renderReview();
     restartReviewTimer();
-  });
-  document.querySelector("[data-review-next]")?.addEventListener("click", () => {
+  };
+  document.querySelector("[data-review-next]").onclick = () => {
     reviewIndex += 1;
     renderReview();
     restartReviewTimer();
-  });
+  };
   renderReview();
   restartReviewTimer();
 };
 
 const restartReviewTimer = () => {
-  window.clearInterval(reviewTimer);
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  reviewTimer = window.setInterval(() => {
-    reviewIndex += 1;
-    renderReview();
-  }, 7500);
+  // Reviews advance only when the guest uses the controls.
 };
 
 const populateRoomSelect = (rooms = []) => {
@@ -386,6 +389,10 @@ const populateRoomSelect = (rooms = []) => {
   select.replaceChildren(...options, help);
   const match = [...select.options].find((option) => option.value === requested);
   select.value = match ? match.value : help.value;
+  if (match && new URLSearchParams(window.location.search).has("room")) {
+    const details = select.closest("details");
+    if (details) details.open = true;
+  }
 };
 
 const applyPageContent = (content) => {
@@ -431,24 +438,35 @@ const setupNavigation = () => {
   const nav = document.querySelector("[data-nav]");
   if (!toggle || !nav) return;
 
-  const close = () => {
-    toggle.setAttribute("aria-expanded", "false");
-    toggle.setAttribute("aria-label", "Открыть меню");
-    nav.classList.remove("is-open");
-    document.body.classList.remove("nav-open");
+  const mobile = window.matchMedia("(max-width: 820px)");
+  const pageRegions = [document.querySelector("main"), document.querySelector("footer")].filter(Boolean);
+  const setOpen = (open, restoreFocus = false) => {
+    toggle.setAttribute("aria-expanded", String(open));
+    toggle.setAttribute("aria-label", open ? "Закрыть меню" : "Открыть меню");
+    nav.classList.toggle("is-open", open);
+    document.body.classList.toggle("nav-open", open);
+    nav.inert = mobile.matches && !open;
+    pageRegions.forEach((region) => { region.inert = open; });
+    if (restoreFocus) toggle.focus();
   };
+  const close = (restoreFocus = false) => setOpen(false, restoreFocus);
 
   toggle.addEventListener("click", () => {
     const isOpen = toggle.getAttribute("aria-expanded") === "true";
-    toggle.setAttribute("aria-expanded", String(!isOpen));
-    toggle.setAttribute("aria-label", isOpen ? "Открыть меню" : "Закрыть меню");
-    nav.classList.toggle("is-open", !isOpen);
-    document.body.classList.toggle("nav-open", !isOpen);
+    setOpen(!isOpen);
   });
-  nav.querySelectorAll("a").forEach((link) => link.addEventListener("click", close));
-  window.matchMedia("(min-width: 821px)").addEventListener("change", (event) => {
-    if (event.matches) close();
+  nav.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => close()));
+  mobile.addEventListener("change", () => close());
+  document.addEventListener("keydown", (event) => {
+    if (toggle.getAttribute("aria-expanded") !== "true") return;
+    if (event.key === "Escape") { event.preventDefault(); close(true); }
+    if (event.key !== "Tab") return;
+    const focusable = [toggle, ...nav.querySelectorAll("a[href]")];
+    const first = focusable[0], last = focusable.at(-1);
+    if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+    if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
   });
+  close();
 };
 
 const setupDialogs = () => {
@@ -475,22 +493,7 @@ const setupDialogs = () => {
 };
 
 const setupReveals = () => {
-  const items = [...document.querySelectorAll(".reveal:not(.is-visible)")];
-  if (!("IntersectionObserver" in window)) {
-    items.forEach((item) => item.classList.add("is-visible"));
-    return;
-  }
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add("is-visible");
-        observer.unobserve(entry.target);
-      });
-    },
-    { threshold: 0.12, rootMargin: "0px 0px -5% 0px" }
-  );
-  items.forEach((item) => observer.observe(item));
+  document.querySelectorAll(".reveal").forEach((item) => item.classList.add("is-visible"));
 };
 
 const setupBookingForm = () => {
@@ -502,13 +505,20 @@ const setupBookingForm = () => {
   const dialogText = document.querySelector("#dialogText");
   const checkin = form.elements.checkin;
   const checkout = form.elements.checkout;
-  const today = new Date();
-  const minimumDate = today.toISOString().slice(0, 10);
+  const localDate = (date = new Date()) => new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Vladivostok", year: "numeric", month: "2-digit", day: "2-digit"
+  }).format(date);
+  const nextDay = (value) => {
+    const date = new Date(`${value}T00:00:00Z`);
+    date.setUTCDate(date.getUTCDate() + 1);
+    return date.toISOString().slice(0, 10);
+  };
+  const minimumDate = localDate();
   checkin.min = minimumDate;
-  checkout.min = minimumDate;
+  checkout.min = nextDay(minimumDate);
 
   checkin.addEventListener("change", () => {
-    checkout.min = checkin.value || minimumDate;
+    checkout.min = nextDay(checkin.value || minimumDate);
     if (checkout.value && checkout.value <= checkin.value) checkout.value = "";
   });
 
@@ -522,9 +532,10 @@ const setupBookingForm = () => {
     submit.disabled = true;
     const data = Object.fromEntries(new FormData(form).entries());
 
-    if (new Date(data.checkout) <= new Date(data.checkin)) {
-      status.textContent = "Дата выезда должна быть позже даты заезда.";
+    if (data.checkin < localDate() || data.checkout <= data.checkin) {
+      status.textContent = data.checkin < localDate() ? "Выберите дату заезда сегодня или позже." : "Дата выезда должна быть позже даты заезда.";
       submit.disabled = false;
+      (data.checkin < localDate() ? checkin : checkout).focus();
       return;
     }
 
@@ -533,24 +544,28 @@ const setupBookingForm = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
+        signal: AbortSignal.timeout(20000),
       });
       const result = await response.json().catch(() => ({}));
       if (!response.ok || !result.ok) throw new Error(result.error || "Не удалось отправить заявку");
 
-      status.textContent = result.delivered ? "Заявка отправлена Катерине." : "Форма проверена. Продублируйте заявку в WhatsApp.";
+      status.textContent = result.delivered ? "Заявка отправлена Катерине." : "Не удалось передать заявку. Напишите Катерине напрямую или позвоните. Данные сохранены в форме.";
       const checkinText = new Intl.DateTimeFormat("ru-RU", { day: "numeric", month: "long" }).format(new Date(`${data.checkin}T12:00:00`));
       const delivery = result.delivered
         ? "Заявка уже пришла в Telegram."
-        : "Уведомления Telegram пока не подключены. Продублируйте сообщение в WhatsApp, чтобы Катерина точно его увидела.";
+        : "Напишите Катерине в мессенджере или позвоните. Данные остаются в форме.";
       dialogTitle.textContent = result.delivered
         ? "Спасибо. Катерина получила ваш запрос."
-        : "Форма работает, но доставка пока не подключена.";
+        : "Свяжитесь с Катериной напрямую.";
       dialogText.textContent = `${checkinText}, ${data.guests.toLowerCase()}, ${data.room}. ${delivery}`;
       confirmation?.showModal();
-      form.reset();
-      populateRoomSelect(loadedContent?.rooms?.rooms || []);
+      if (result.delivered) {
+        form.reset();
+        checkout.min = nextDay(localDate());
+        populateRoomSelect(loadedContent?.rooms?.rooms || []);
+      }
     } catch (error) {
-      status.textContent = `${error.message}. Можно сразу написать в WhatsApp или позвонить.`;
+      status.textContent = "Не удалось передать заявку. Данные сохранены в форме. Напишите Катерине в мессенджере или позвоните.";
     } finally {
       submit.disabled = false;
     }
@@ -559,11 +574,13 @@ const setupBookingForm = () => {
 
 const loadContent = async () => {
   try {
-    const response = await fetch("/api/content", { cache: "no-store" });
+    const response = await fetch("/api/content", { cache: "no-store", signal: AbortSignal.timeout(8000) });
     const result = await response.json();
     if (!response.ok || !result.ok) throw new Error("Контент недоступен");
+    if (!result.content || typeof result.content !== "object") throw new Error("Invalid content");
+    const changed = JSON.stringify(loadedContent) !== JSON.stringify(result.content);
     loadedContent = result.content;
-    applyPageContent(loadedContent);
+    if (changed) applyPageContent(loadedContent);
   } catch (error) {
     console.warn("Editable content is unavailable", error);
   } finally {
@@ -574,4 +591,10 @@ const loadContent = async () => {
 setupNavigation();
 setupDialogs();
 setupBookingForm();
+if (window.MAORI_DEFAULT_CONTENT) {
+  loadedContent = window.MAORI_DEFAULT_CONTENT;
+  applyPageContent(loadedContent);
+}
+setupReveals();
 loadContent();
+
