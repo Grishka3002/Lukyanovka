@@ -1645,6 +1645,7 @@ main :where(p, h1, h2, h3, a), .booking-form-wrap, .field { min-width: 0; overfl
 
 .consent {
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-start;
   gap: 12px;
   color: var(--ink-soft);
@@ -1657,6 +1658,9 @@ main :where(p, h1, h2, h3, a), .booking-form-wrap, .field { min-width: 0; overfl
   margin: 2px 0 0;
   accent-color: var(--brick);
 }
+
+.consent > span:not(.field-error) { flex: 1; min-width: 0; }
+.consent .field-error { flex-basis: 100%; margin-left: 30px; }
 
 .consent button {
   padding: 0;

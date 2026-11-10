@@ -533,7 +533,20 @@ const setupBookingForm = () => {
     input.setAttribute("aria-describedby", id);
   };
   form.addEventListener("invalid", (event) => {
-    if (event.target.name) showFieldError(event.target, event.target.validationMessage);
+    const input = event.target;
+    if (!input.name) return;
+    const missing = {
+      phone: "Укажите номер телефона для ответа.",
+      checkin: "Выберите дату заезда.",
+      checkout: "Выберите дату выезда.",
+      guests: "Выберите количество гостей.",
+      consent: "Подтвердите согласие на обработку заявки.",
+    };
+    const message = input.validity.valueMissing ? (missing[input.name] || "Заполните это поле.")
+      : input.validity.rangeUnderflow ? "Выберите дату не раньше указанной минимальной."
+      : input.validity.tooShort ? "Проверьте номер телефона: он слишком короткий."
+      : "Проверьте значение в этом поле.";
+    showFieldError(input, message);
   }, true);
   form.addEventListener("input", (event) => {
     if (event.target.name) showFieldError(event.target, "");
