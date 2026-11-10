@@ -92,6 +92,7 @@ test("pages have distinct titles and self-referencing canonical links", async ()
   for (const url of ["/", "/rooms", "/host", "/location", "/booking"]) {
     const response = await request("GET", url);
     const title = response.body.match(/<title>(.*?)<\/title>/)[1];
+    assert.match(response.body, /property="og:image" content="https:\/\//);
     assert.ok(!titles.has(title));
     titles.add(title);
     assert.ok(response.body.includes(`rel="canonical" href="https://lukyanovka-production-f80a.up.railway.app${url}"`));
